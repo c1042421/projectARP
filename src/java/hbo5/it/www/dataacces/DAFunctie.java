@@ -12,13 +12,9 @@ import java.sql.Statement;
  *
  * @author c1042421
  */
-public class DAFunctie {
-    private final String url, login, password;
-
+public class DAFunctie extends DABase {
+   
     public DAFunctie(String url, String login, String password, String driver) throws ClassNotFoundException {
-        Class.forName(driver);
-        this.url = url;
-        this.login = login;
-        this.password = password;
+        super(url, login, password, driver);
     }  
 }

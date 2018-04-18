@@ -12,9 +12,13 @@ import java.sql.Statement;
  *
  * @author c1042421
  */
-public class DALand extends DABase {
-   
-    public DALand(String url, String login, String password, String driver) throws ClassNotFoundException {
-        super(url, login, password, driver);
+public class DABase {
+    private final String url, login, password;
+
+    public DABase(String url, String login, String password, String driver) throws ClassNotFoundException {
+        Class.forName(driver);
+        this.url = url;
+        this.login = login;
+        this.password = password;
     }  
 }
