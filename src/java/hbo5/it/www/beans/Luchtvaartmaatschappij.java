@@ -12,5 +12,21 @@ package hbo5.it.www.beans;
 public class Luchtvaartmaatschappij {
     private Integer id;
     private String luchtvaartnaam;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLuchtvaartnaam() {
+        return luchtvaartnaam;
+    }
+
+    public void setLuchtvaartnaam(String luchtvaartnaam) {
+        this.luchtvaartnaam = luchtvaartnaam;
+    }
     
 }

@@ -12,4 +12,20 @@ package hbo5.it.www.beans;
 public class Vliegtuigklasse {
     private Integer id;
     private String klassenaam;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getKlassenaam() {
+        return klassenaam;
+    }
+
+    public void setKlassenaam(String klassenaam) {
+        this.klassenaam = klassenaam;
+    }
 }

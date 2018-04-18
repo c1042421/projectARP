@@ -13,4 +13,28 @@ public class Functie {
     private Integer id;
     private String functienaam;
     private String omschrijving;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFunctienaam() {
+        return functienaam;
+    }
+
+    public void setFunctienaam(String functienaam) {
+        this.functienaam = functienaam;
+    }
+
+    public String getOmschrijving() {
+        return omschrijving;
+    }
+
+    public void setOmschrijving(String omschrijving) {
+        this.omschrijving = omschrijving;
+    }
 }

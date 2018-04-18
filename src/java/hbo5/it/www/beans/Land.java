@@ -12,4 +12,20 @@ package hbo5.it.www.beans;
 public class Land {
     private Integer id;
     private String landnaam;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLandnaam() {
+        return landnaam;
+    }
+
+    public void setLandnaam(String landnaam) {
+        this.landnaam = landnaam;
+    }
 }

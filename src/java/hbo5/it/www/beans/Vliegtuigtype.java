@@ -12,4 +12,20 @@ package hbo5.it.www.beans;
 public class Vliegtuigtype {
     private Integer id;
     private String typenaam;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTypenaam() {
+        return typenaam;
+    }
+
+    public void setTypenaam(String typenaam) {
+        this.typenaam = typenaam;
+    }
 }
