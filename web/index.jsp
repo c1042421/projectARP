@@ -13,6 +13,9 @@
         <link rel="stylesheet" type="text/css" href="style/style.css" />
     </head>
     <body>
+        <nav>
+            <button>Login</button>
+        </nav>
         <div class="container">
             <h1>HBOver the world</h1>
             <img id="logo" src="images/travel.svg" />

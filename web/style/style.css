@@ -14,10 +14,28 @@ body, html {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 50px);
 }
 
 #logo {
     width: 400px;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background: red;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+nav button {
+    height: 35px;
+    width: 70px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
