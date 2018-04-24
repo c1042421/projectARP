@@ -15,8 +15,8 @@
     </head>
     <body>
         <nav>
-            <button><i class="fas fa-user fa-lg"></i> Login</button>
-            <form> <div class="button"><input type="submit" value="Registreren"</i> </div> </form>
+            <form action="StartServlet"> <div class="button" ><input type="submit" name="login" value="Login"/> </div> </form>
+            <form action="StartServlet"> <div class="button" ><input type="submit" name="registreer" value="Registreer"/> </div> </form>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>

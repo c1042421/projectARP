@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.dataacces;
+import hbo5.it.www.beans.Persoon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,4 +18,8 @@ public class DAPersoon extends DABase {
     public DAPersoon(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
     }  
+    
+    public boolean voegGebruikerToe(Persoon p, String gebruikersnaam, String wachtwoord){
+        
+    }
 }
