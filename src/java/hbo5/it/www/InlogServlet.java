@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hbo5.it.www;
 
+import hbo5.it.www.dataacces.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +22,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author c1042421
  */
-@WebServlet(name = "StartServlet", urlPatterns = {"/StartServlet"})
-public class StartServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/InlogServlet"}, initParams = {
+    @WebInitParam(name = "url", value = "jdbc:oracle:thin:@ti-oracledb06.thomasmore.be:1521:XE")
+    , @WebInitParam(name = "driver", value = "oracle.jdbc.driver.OracleDriver")
+    , @WebInitParam(name = "login", value = "c1042421")
+, @WebInitParam(name = "password", value = "1234")})
+
+public class InlogServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,15 +39,27 @@ public class StartServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         boolean laadLogin = request.getParameter("login") != null;
-         
-         if (laadLogin) {
-             request.getRequestDispatcher("login.jsp").forward(request, response);
-         }
-         
+        try {
+            
+            String url = getInitParameter("url");
+            String login = getInitParameter("login");
+            String password = getInitParameter("password");
+            String driver = getInitParameter("driver");
+            
+            String gebruikersnaam = request.getParameter("gebruikersnaam");
+            String wachtwoord = request.getParameter("password");
+            
+            DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
+            
+            boolean userExists = daPersoon.checkUserExists(gebruikersnaam, wachtwoord);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InlogServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

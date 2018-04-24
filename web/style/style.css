@@ -30,8 +30,12 @@ nav {
     align-items: center;
 }
 
-input[type="submit"] {
+nav a {
     background: transparent;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     height: 35px;
     width: 100px;
@@ -44,7 +48,27 @@ input[type="submit"] {
     font-weight: bold;
 }
 
-nav button:hover {
+nav i {
+    margin-right: 5px;
+}
+
+nav a:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+input[type="text"], input[type="password"]{
+    width: 250px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+.login {
+    padding: 70px 35px;
+    border: 1px solid #c8cacc;
+    border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 

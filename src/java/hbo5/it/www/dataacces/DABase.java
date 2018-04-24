@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.dataacces;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 /**
  *
  * @author c1042421

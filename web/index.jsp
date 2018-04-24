@@ -9,13 +9,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>HBOver the world</title>
         <link rel="stylesheet" type="text/css" href="style/style.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
         <nav>
-            <form action="StartServlet"> <div class="button" ><input type="submit" name="login" value="Login"/> </div> </form>
+            <a href ="webpages/login.jsp"><i class="fas fa-user"> </i> Login</a>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>
