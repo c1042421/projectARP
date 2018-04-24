@@ -15,7 +15,7 @@
     </head>
     <body>
         <nav>
-            <button><i class="fas fa-user fa-lg"></i> Login</button>
+            <form action="StartServlet"> <div class="button" ><input type="submit" name="login" value="Login"/> </div> </form>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>
