@@ -55,8 +55,8 @@ public class InlogServlet extends HttpServlet {
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             
-            boolean userExists = daPersoon.checkUserExists(gebruikersnaam, wachtwoord);
-            
+            boolean userExists = daPersoon.tryLogin(gebruikersnaam, wachtwoord);
+            boolean test = false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(InlogServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

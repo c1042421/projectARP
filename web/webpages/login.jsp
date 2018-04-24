@@ -20,7 +20,7 @@
         <div class="container">
                 <form action="../InlogServlet">
                     <div class="login">
-                        <p><label>Gebruikersnaam: </label> <br><input type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
+                        <p><label>Gebruikersnaam: </label> <br> <input type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
                         <p><label>Wachtwoord: </label> <br> <input type="password" name="password" placholder="Wachtwoord"/></p>
                         <p><input type="submit" value="Inloggen"/></p>
                      </div>

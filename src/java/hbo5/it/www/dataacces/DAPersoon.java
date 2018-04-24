@@ -6,6 +6,7 @@
 package hbo5.it.www.dataacces;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 /**
@@ -18,12 +19,15 @@ public class DAPersoon extends DABase {
         super(url, login, password, driver);
     }
     
-    public boolean checkUserExists(String userLogin, String passwoord) {
+    public boolean tryLogin(String userLogin, String paswoord) {
          try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                Statement statement = connection.createStatement();
-                ResultSet resultset = statement.executeQuery("SELECT Login, Paswoord FROM C1042421.PERSOON where Login='yvesbrys'" );) {
-            
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PERSOON WHERE Login=? AND paswoord=?");) {
+                
+            statement.setString(1, userLogin);
+            statement.setString(2, paswoord);
+            ResultSet resultset = statement.executeQuery();
+                
             return resultset.next();
         } catch (Exception e) {
             e.printStackTrace();
