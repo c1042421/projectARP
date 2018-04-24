@@ -16,6 +16,7 @@
     <body>
         <nav>
             <button><i class="fas fa-user fa-lg"></i> Login</button>
+            <form> <div class="button"><input type="submit" value="Registreren"</i> </div> </form>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>

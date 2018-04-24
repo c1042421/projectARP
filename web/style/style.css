@@ -26,7 +26,7 @@ nav {
     height: 50px;
     background: #15BDB1;
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     align-items: center;
 }
 
