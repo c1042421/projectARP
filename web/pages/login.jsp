@@ -4,6 +4,7 @@
     Author     : c1042421
 --%>
 
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,14 +15,20 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
+        <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
          <nav>
-            
+             <% if (persoon != null) { %>
+                <p><%= persoon.getVoornaam() %></p>
+             <% } %>
         </nav>
         <div class="container">
                 <form action="../InlogServlet">
+                    <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
+                    
+                    <h2>Login bij <br> HBOver the world!</h2>
                     <div class="login">
                         <p><label>Gebruikersnaam: </label> <br> <input type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
-                        <p><label>Wachtwoord: </label> <br> <input type="password" name="password" placholder="Wachtwoord"/></p>
+                        <p><label>Wachtwoord: </label> <br> <input type="password" name="password"/></p>
                         <p><input type="submit" value="Inloggen"/></p>
                      </div>
                 </form>

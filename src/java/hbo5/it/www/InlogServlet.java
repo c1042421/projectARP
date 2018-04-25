@@ -63,6 +63,7 @@ public class InlogServlet extends HttpServlet {
             
             if (persoon != null) {
                 session.setAttribute("loggedInPersoon", persoon);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
                 //TODO User feedback not found
             }

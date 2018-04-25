@@ -31,7 +31,6 @@ public class DAPersoon extends DABase {
             statement.setString(2, paswoord);
             ResultSet resultset = statement.executeQuery();
             
-            
             return PersoonFactory.maakPersoonVanResultset(resultset);
             
         } catch (Exception e) {

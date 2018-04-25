@@ -117,12 +117,7 @@ public class Persoon {
         return soort;
     }
 
-    public void setSoort(char soort, Component frame) {
-        if (soort > 1) {
-            JOptionPane.showMessageDialog(frame,
-    "Eggs are not supposed to be green.");
-        }
-        else this.soort = soort;       
-        
+    public void setSoort(char soort){
+        this.soort = soort;       
     }    
 }
