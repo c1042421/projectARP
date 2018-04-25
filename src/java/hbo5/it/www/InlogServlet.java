@@ -6,6 +6,7 @@
 
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataacces.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +56,7 @@ public class InlogServlet extends HttpServlet {
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             
-            boolean userExists = daPersoon.tryLogin(gebruikersnaam, wachtwoord);
+            Persoon persoon = daPersoon.getPersoonVoorLogin(gebruikersnaam, wachtwoord);
             boolean test = false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(InlogServlet.class.getName()).log(Level.SEVERE, null, ex);
