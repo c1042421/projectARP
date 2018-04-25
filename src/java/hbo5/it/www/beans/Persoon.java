@@ -6,6 +6,7 @@
 package hbo5.it.www.beans;
 import java.awt.Component;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,16 +15,6 @@ import javax.swing.JOptionPane;
 public class Persoon {
     private Integer id;
     private String voornaam;
-    private String familienaam;
-    private String straat;
-    private String huisnr;
-    private String postcode;
-    private String woonplaats;
-    private String land;
-    private Date geboortedatum;
-    private String login;
-    private String paswoord;
-    private char soort;
 
     public Integer getId() {
         return id;
@@ -117,7 +108,23 @@ public class Persoon {
         return soort;
     }
 
-    public void setSoort(char soort){
-        this.soort = soort;       
-    }    
+    public void setSoort(char soort, Component frame) {
+        if (soort > 1) {
+            JOptionPane.showMessageDialog(frame,
+    "Eggs are not supposed to be green.");
+        }
+        else this.soort = soort;       
+        
+    }
+    private String familienaam;
+    private String straat;
+    private String huisnr;
+    private String postcode;
+    private String woonplaats;
+    private String land;
+    private Date geboortedatum;
+    private String login;
+    private String paswoord;
+    private char soort;
+    
 }
