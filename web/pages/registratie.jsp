@@ -16,7 +16,8 @@
     <body>
         <nav></nav>
         <div class="container">
-            <form action="Registratie">
+            <form action="RegistratieServlet">
+                
                 <div class="registratie">
                 <p>
                     <label>Voornaam:</label> <br>
@@ -45,11 +46,11 @@
                 </p>
                 <p>
                     <label>Postcode:</label> <br>
-                    <input type="text" name="Postcode" placeholder="vb. 9090"/>
+                    <input type="text" name="Postcode" placeholder="vb. 2540"/>
                 </p>
                 <p>
                     <label>Woonplaats:</label> <br>
-                    <input type="text" name="Woonplaats" placeholder="vb. 2540"/>
+                    <input type="text" name="Woonplaats" placeholder="vb. Hove"/>
                 </p>
                 <p>
                     <label>Land:</label> <br>
@@ -73,7 +74,12 @@
                     <input type="password" name="bevestigWachtwoord" placeholder="vb. Test123"/>
                 </p>
                 </div>
+                <p>
+                    <input class="registreerKnop" type="submit" value="Registreer"/>
+                </p>
+                
             </form>
-        </div>
+            </div>
+        
     </body>
 </html>

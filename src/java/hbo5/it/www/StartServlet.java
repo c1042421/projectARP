@@ -41,7 +41,7 @@ public class StartServlet extends HttpServlet {
          boolean laadRegistratie = request.getParameter("registreer") != null;
          
          if (laadRegistratie) {
-            request.getRequestDispatcher("registratie.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/registratie.jsp").forward(request, response);
         }
          
     }
