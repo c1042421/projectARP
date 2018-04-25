@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,13 +52,21 @@ public class InlogServlet extends HttpServlet {
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
             
+            HttpSession session = request.getSession();
+            
             String gebruikersnaam = request.getParameter("gebruikersnaam");
             String wachtwoord = request.getParameter("password");
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             
             Persoon persoon = daPersoon.getPersoonVoorLogin(gebruikersnaam, wachtwoord);
-            boolean test = false;
+            
+            if (persoon != null) {
+                session.setAttribute("loggedInPersoon", persoon);
+            } else {
+                //TODO User feedback not found
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(InlogServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

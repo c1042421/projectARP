@@ -15,7 +15,7 @@
     </head>
     <body>
         <nav>
-            <a href ="webpages/login.jsp"><i class="fas fa-user"> </i> Login</a>
+            <a href ="pages/login.jsp"><i class="fas fa-user"> </i> Login</a>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>
