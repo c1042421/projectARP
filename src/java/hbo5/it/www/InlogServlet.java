@@ -5,7 +5,9 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,7 +45,6 @@ public class InlogServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-
             String url = getInitParameter("url");
             String login = getInitParameter("login");
             String password = getInitParameter("password");
@@ -53,7 +54,7 @@ public class InlogServlet extends HttpServlet {
 
             String gebruikersnaam = request.getParameter("gebruikersnaam");
             String wachtwoord = request.getParameter("password");
-            boolean loguit = Boolean.parseBoolean(request.getParameter("loguit"));
+            boolean loguit = request.getParameter("loguit") != null;
 
             if (loguit) {
                 session.setAttribute("loggedInPersoon", null);
@@ -66,7 +67,12 @@ public class InlogServlet extends HttpServlet {
 
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    
+                    if (persoon.getSoort() == 'P') {
+                        DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
+                        Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
+                        request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
+                    }
                 } else {
                     //TODO User feedback not found
                 }

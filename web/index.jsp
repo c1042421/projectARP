@@ -19,7 +19,9 @@
         <nav>
              <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
-                 <a href ="pages/login.jsp?loguit=true"><i class="fas fa-user"> </i> Log uit</a>
+                <form action="InlogServlet">
+                    <input type="submit" value="Log Uit" name="loguit"/>
+                </form>
              <% } else {%>
                 <a href ="pages/login.jsp"><i class="fas fa-user"> </i> Log in</a>
             <% } %>
