@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="style/style.css" />
+        <link rel="stylesheet" type="text/css" href="../style/style.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
@@ -22,8 +22,8 @@
              <% } %>
         </nav>
         <div class="container">
-                <form action="InlogServlet">
-                    <div class="center"> <img class="loginImg" src="images/travel.svg"> </div>
+                <form action="../InlogServlet">
+                    <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
                     
                     <h2>Login bij <br> HBOver the world!</h2>
                     <div class="login">
