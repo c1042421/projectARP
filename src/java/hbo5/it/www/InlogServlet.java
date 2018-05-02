@@ -5,8 +5,10 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import java.io.IOException;
@@ -73,6 +75,11 @@ public class InlogServlet extends HttpServlet {
                         Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
+                    else if (persoon.getSoort() == 'B'){
+                        DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
+                        Bemanningslid bemanningslid = daBemanningslid.
+                    }
+                    
                 } else {
                     //TODO User feedback not found
                 }
