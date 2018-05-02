@@ -26,7 +26,7 @@ public class PassagierFactory {
             passagier.setIngeschreven(resultset.getInt("ingeschreven"));
             passagier.setKlasse_id(resultset.getInt("klasse_id"));
             passagier.setPersoon_id(resultset.getInt("klasse_id"));
-            passagier.setVlucht_id(resultset.getInt("vluch_id"));
+            passagier.setVlucht_id(resultset.getInt("vlucht_id"));
             passagier.setPlaats(resultset.getString("plaats"));
             
             return passagier;

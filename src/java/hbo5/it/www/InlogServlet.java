@@ -9,8 +9,8 @@ import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -70,7 +70,10 @@ public class InlogServlet extends HttpServlet {
                     
                     if (persoon.getSoort() == 'P') {
                         DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
+                        DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+                        
                         Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
+                        //TODO Vluchten opvragen
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
                 } else {
