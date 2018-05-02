@@ -19,9 +19,9 @@
         <nav>
              <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
-                 <a href ="login.jsp?loguit=true"><i class="fas fa-user"> </i> Log uit</a>
+                 <a href ="pages/login.jsp?loguit=true"><i class="fas fa-user"> </i> Log uit</a>
              <% } else {%>
-                <a href ="login.jsp"><i class="fas fa-user"> </i> Log in</a>
+                <a href ="pages/login.jsp"><i class="fas fa-user"> </i> Log in</a>
             <% } %>
         </nav>
         <div class="container">
