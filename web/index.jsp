@@ -23,6 +23,7 @@
              <% } else {%>
                 <a href ="pages/login.jsp"><i class="fas fa-user"> </i> Log in</a>
             <% } %>
+            <a href ="pages/registratie.jsp"><i class="fas fa-user"> </i> Registreer</a>
         </nav>
         <div class="container">
             <h1>HBOver the world</h1>
