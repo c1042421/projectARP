@@ -53,7 +53,7 @@ public class InlogServlet extends HttpServlet {
 
             String gebruikersnaam = request.getParameter("gebruikersnaam");
             String wachtwoord = request.getParameter("password");
-            boolean loguit = Boolean.parseBoolean(request.getParameter("loguit"));
+            boolean loguit = request.getParameter("loguit") != null;
 
             if (loguit) {
                 session.setAttribute("loggedInPersoon", null);
