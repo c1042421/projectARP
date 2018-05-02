@@ -7,6 +7,7 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.factory.PersoonFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -43,10 +44,7 @@ public class RegistratieServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String voornaam = request.getParameter("Voornaam");
-        String familienaam = request.getParameter("Familienaam");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String geboortedatum = request.getParameter("Geboortedatum");
+        
         
         java.util.Date parsedGeboortedatum = null;
         try {
@@ -56,44 +54,20 @@ public class RegistratieServlet extends HttpServlet {
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
 
-            parsedGeboortedatum = sdf.parse(geboortedatum);
-        
-
-            java.sql.Date sqlData = new java.sql.Date(parsedGeboortedatum.getTime());
-        
-            String straat = request.getParameter("Straat");
-            String huisnummer = request.getParameter("Huisnummer");
-            String postcode = request.getParameter("Postcode");
-            String woonplaats = request.getParameter("Woonplaats");
-            String land = request.getParameter("Land");
-        
-            String gebruikersnaam = request.getParameter("Gebruikersnaam");
-            String wachtwoord = request.getParameter("Wachtwoord");
-            String bevestigWachtwoord = request.getParameter("bevestigWachtwoord");
-        
-            Persoon p = new Persoon();
-            p.setVoornaam(voornaam);
-            p.setFamilienaam(familienaam);
-            p.setGeboortedatum(sqlData);
-            p.setStraat(straat);
-            p.setHuisnr(huisnummer);
-            p.setPostcode(postcode);
-            p.setWoonplaats(woonplaats);
-            p.setLand(land);
-        
-        
-            DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
+            Persoon p = PersoonFactory.maakPersoonVanRequest(request);
             
-            if (wachtwoord.equals(bevestigWachtwoord)) {
-                p.setLogin(gebruikersnaam);
-                p.setPaswoord(wachtwoord);
+            DAPersoon daPersoon = new DAPersoon(url, login, password, driver); 
+            
+            if(p != null) {
                 boolean registratieGelukt = daPersoon.voegGebruikerToe(p);
                 if (registratieGelukt) {
-                    
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
-                
-                
+                //TODO error
             }
+        
+            
+        
             //ELSE + error message nog toevoegen
             }
         

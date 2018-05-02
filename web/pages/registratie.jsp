@@ -13,11 +13,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registreren</title>
     </head>
-    <body>
-        <nav></nav>
+    <body>        
+        <nav>
+            <a href ="../index.jsp"><i class="fas fa-user"> </i> Home</a>
+        </nav>
         <div class="container">
-            <form action="RegistratieServlet">
+            <form action="../RegistratieServlet">
                 
+                <div class="container">
                 <div class="registratie">
                 <p>
                     <label>Voornaam:</label> <br>
