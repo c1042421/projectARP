@@ -5,7 +5,7 @@
  */
 package hbo5.it.www.beans;
 import java.awt.Component;
-import java.util.Date;
+import java.sql.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**

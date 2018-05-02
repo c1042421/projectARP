@@ -74,7 +74,7 @@ public class RegistratieServlet extends HttpServlet {
             Persoon p = new Persoon();
             p.setVoornaam(voornaam);
             p.setFamilienaam(familienaam);
-            p.setGeboortedatum(parsedGeboortedatum);
+            p.setGeboortedatum(sqlData);
             p.setStraat(straat);
             p.setHuisnr(huisnummer);
             p.setPostcode(postcode);
@@ -85,8 +85,16 @@ public class RegistratieServlet extends HttpServlet {
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             
             if (wachtwoord.equals(bevestigWachtwoord)) {
-                daPersoon.voegGebruikerToe(p, gebruikersnaam, wachtwoord);
+                p.setLogin(gebruikersnaam);
+                p.setPaswoord(wachtwoord);
+                boolean registratieGelukt = daPersoon.voegGebruikerToe(p);
+                if (registratieGelukt) {
+                    
+                }
+                
+                
             }
+            //ELSE + error message nog toevoegen
             }
         
         catch (Exception e) {
