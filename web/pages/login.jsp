@@ -3,7 +3,6 @@
     Created on : 24-apr-2018, 13:41:31
     Author     : c1042421
 --%>
-
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

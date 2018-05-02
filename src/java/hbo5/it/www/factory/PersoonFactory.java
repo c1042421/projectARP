@@ -6,9 +6,9 @@
 package hbo5.it.www.factory;
 
 import hbo5.it.www.beans.Persoon;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  *
@@ -20,8 +20,7 @@ public class PersoonFactory {
         if (resultset.next()) {
 
             Persoon persoon = new Persoon();
-            java.sql.Date sqlGeboortedatum = resultset.getDate("Geboortedatum");
-            Date geboorteDatum = DateFactory.toUtilDateFromSqlDate(sqlGeboortedatum);
+            Date geboorteDatum = resultset.getDate("Geboortedatum");
 
             persoon.setGeboortedatum(geboorteDatum);
             persoon.setFamilienaam(resultset.getString("FAMILIENAAM"));
