@@ -15,9 +15,15 @@
         <title>Registreren</title>
     </head>
     <body>
-        <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
+        <% 
+           Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon");      
+        %>
         <nav>
-            <div class="flex-container-center-center"><a class="left-margin" href="../index.jsp"><i class="fas fa-chevron-left"></i> Terug</a></div>
+            <div class="flex-container-center-center">
+                <a class="left-margin flex-container-center-center flex-row home" href="../index.jsp">
+                     <img class="nav-logo left-margin" src="../images/travel.svg" /> 
+                     <p>Home</p>
+                </a></div>
             <div class="flex-container-center-center"> <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
                 <form action="InlogServlet">
@@ -36,7 +42,7 @@
                     <h3>Persoonlijke gegevens <hr/></h3>
                 <p>
                     <label>Voornaam:</label> <br>
-                    <input required type="text" name="Voornaam" placeholder="vb. Gert"/> 
+                    <input autofocus required type="text" name="Voornaam" placeholder="vb. Gert"/> 
                 </p>
                 
                 <p>

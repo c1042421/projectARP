@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -57,8 +58,9 @@ public class RegistratieServlet extends HttpServlet {
             String driver = getInitParameter("driver");
 
             parsedGeboortedatum = sdf.parse(geboortedatum);
+            
+            HttpSession session = request.getSession();
         
-
             java.sql.Date sqlData = new java.sql.Date(parsedGeboortedatum.getTime());
         
             String straat = request.getParameter("Straat");
@@ -91,8 +93,6 @@ public class RegistratieServlet extends HttpServlet {
                 if (registratieGelukt) {
                     
                 }
-                
-                
             }
             //ELSE + error message nog toevoegen
             }
