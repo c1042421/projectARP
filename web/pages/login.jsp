@@ -16,19 +16,29 @@
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
          <nav>
-             <% if (persoon != null) { %>
+             <div class="flex-container-center-center">
+                <a class="left-margin flex-container-center-center flex-row home" href="../index.jsp">
+                     <img class="nav-logo left-margin" src="../images/travel.svg" /> 
+                     <p>Home</p>
+                </a>
+             </div>
+             
+             <div class="flex-container-center-center" >
+                 <% if (persoon != null) { %>
                 <p><%= persoon.getVoornaam() %></p>
-             <% } %>
+             <% } %></div>
+             
         </nav>
-        <div class="container">
+        <div class="flex-container-top-center">
                 <form action="../InlogServlet">
-                    <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
                     
-                    <h2>Login bij <br> HBOver the world!</h2>
-                    <div class="login">
-                        <p><label>Gebruikersnaam: </label> <br> <input type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
+                    <h2>Login</h2>
+                    
+                    <div class="card">
+                        <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
+                        <p><label>Gebruikersnaam: </label> <br> <input autofocus type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
                         <p><label>Wachtwoord: </label> <br> <input type="password" name="password"/></p>
-                        <p><input type="submit" value="Inloggen"/></p>
+                        <p class="text-center"><button type="submit" > <i class="fas fa-sign-in-alt"> </i> Inloggen </button></p>
                      </div>
                 </form>
         </div>
