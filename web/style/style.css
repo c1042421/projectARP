@@ -90,17 +90,21 @@ nav a.home {
     transition: background 0.2s ease-in-out;
 }
 
+a.button, button[type="submit"] {
+    border: none;
+    margin-right: 10px;
+    padding: 0 15px;
+    height: 35px;
+    border: none;
+    border-radius: 35px;
+    background: #FF757C;
+    color: #f5f5f5;
+}
+
 a.button {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: none;
-    padding: 0 15px;
-    height: 35px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 35px;
-    background: #FF757C;
     transition: box-shadow 0.2s ease-in-out;
     font-weight: bold;
     cursor: pointer;
@@ -124,14 +128,9 @@ input[type="text"], input[type="password"]{
 }
 
 button[type="submit"] {
-    border: none;
-    padding: 0 15px;
-    height: 35px;
-    border: none;
-    border-radius: 35px;
-    background: #FF757C;
     color: #f5f5f5;
     font-size: 0.9rem;
+    font-weight: bold;
     transition: box-shadow 0.2s ease-in-out;
     cursor: pointer;
 }

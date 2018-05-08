@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.beans;
-import java.util.Date;
+import java.sql.Date;
 /**
  *
  * @author c1042486

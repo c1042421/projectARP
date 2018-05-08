@@ -7,6 +7,7 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVlucht;
@@ -73,7 +74,7 @@ public class InlogServlet extends HttpServlet {
                         DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
                         
                         Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
-                        //TODO Vluchten opvragen
+                        Vlucht vlucht = daVlucht.getVluchtForVluchtID(passagier.getVlucht_id());
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
                 } else {

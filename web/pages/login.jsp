@@ -15,32 +15,32 @@
     </head>
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
-         <nav>
-             <div class="flex-container-center-center">
+        <nav>
+            <div class="flex-container-center-center">
                 <a class="left-margin flex-container-center-center flex-row home" href="../index.jsp">
-                     <img class="nav-logo left-margin" src="../images/travel.svg" /> 
-                     <p>Home</p>
+                    <img class="nav-logo left-margin" src="../images/travel.svg" /> 
+                    <p>Home</p>
                 </a>
-             </div>
-             
-             <div class="flex-container-center-center" >
-                 <% if (persoon != null) { %>
-                <p><%= persoon.getVoornaam() %></p>
-             <% } %></div>
-             
+            </div>
+
+            <div class="flex-container-center-center" >
+                <% if (persoon != null) {%>
+                <p><%= persoon.getVoornaam()%></p>
+                <% }%></div>
+
         </nav>
         <div class="flex-container-top-center">
-                <form action="../InlogServlet">
-                    
-                    <h2>Login</h2>
-                    
-                    <div class="card">
-                        <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
-                        <p><label>Gebruikersnaam: </label> <br> <input autofocus type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
-                        <p><label>Wachtwoord: </label> <br> <input type="password" name="password"/></p>
-                        <p class="text-center"><button type="submit" > <i class="fas fa-sign-in-alt"> </i> Inloggen </button></p>
-                     </div>
-                </form>
+            <form action="../InlogServlet">
+
+                <h2>Login</h2>
+
+                <div class="card">
+                    <div class="center"> <img class="loginImg" src="../images/travel.svg"> </div>
+                    <p><label>Gebruikersnaam: </label> <br> <input autofocus type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
+                    <p><label>Wachtwoord: </label> <br> <input type="password" name="password"/></p>
+                    <p class="text-center"><button type="submit" > <i class="fas fa-sign-in-alt"> </i> Inloggen </button></p>
+                </div>
+            </form>
         </div>
     </body>
 </html>
