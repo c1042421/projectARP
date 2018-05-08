@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.dataacces;
+import hbo5.it.www.beans.Bemanningslid;
+import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Vlucht;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  *
  * @author c1042421
