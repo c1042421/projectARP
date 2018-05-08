@@ -5,12 +5,14 @@
  */
 package hbo5.it.www.dataacces;
 
+import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.factory.VluchtFactory;
 import hbo5.it.www.beans.Vlucht;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 /**
  *
  * @author c1042421
@@ -35,5 +37,16 @@ public class DAVlucht extends DABase {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public ArrayList<Vlucht> getVluchtenVoorPassagiers(ArrayList<Passagier> passagiers){
+        ArrayList<Vlucht> vluchten = new ArrayList();
+        
+        for (Passagier passagier : passagiers){
+            Vlucht vlucht = getVluchtForVluchtID(passagier.getVlucht_id());
+            vluchten.add(vlucht);
+        }
+        
+        return vluchten;
     }
 }

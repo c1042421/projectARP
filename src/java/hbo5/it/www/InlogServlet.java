@@ -12,6 +12,7 @@ import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -73,8 +74,11 @@ public class InlogServlet extends HttpServlet {
                         DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
                         DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
                         
-                        Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
-                        Vlucht vlucht = daVlucht.getVluchtForVluchtID(passagier.getVlucht_id());
+                        ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
+                        ArrayList<Vlucht> vluchten = daVlucht.getVluchtenVoorPassagiers(passagiers);
+                        
+                        request.setAttribute("vluchten", vluchten);
+                                                
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
                 } else {

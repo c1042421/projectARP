@@ -9,16 +9,19 @@ import hbo5.it.www.beans.Passagier;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author c1042421
  */
 public class PassagierFactory {
-
-    public static Passagier maakPassagierVanResultset(ResultSet resultset) throws SQLException {
-        if (resultset.next()) {
-
+    
+     public static ArrayList<Passagier> maakLijstVanResultSet(ResultSet resultset) throws SQLException {
+        
+        ArrayList<Passagier> lijstPassagiers = new ArrayList<Passagier>();
+        
+        while (resultset.next()){
             Passagier passagier = new Passagier();
             
             passagier.setId(resultset.getInt("id"));
@@ -29,9 +32,8 @@ public class PassagierFactory {
             passagier.setVlucht_id(resultset.getInt("vlucht_id"));
             passagier.setPlaats(resultset.getString("plaats"));
             
-            return passagier;
+            lijstPassagiers.add(passagier);
         }
-        return null;
-    }
-    
+        return lijstPassagiers;
+}
 }
