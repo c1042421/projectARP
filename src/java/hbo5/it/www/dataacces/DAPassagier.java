@@ -11,27 +11,43 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
  * @author c1042421
  */
 public class DAPassagier extends DABase {
-   
+
     public DAPassagier(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
-    }  
-    
+    }
+
     public Passagier getPassagierForPersoonID(int id) {
-         try (
+        try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE persoon_id =?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
-            
+
             return PassagierFactory.maakPassagierVanResultset(resultset);
-            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Passagier> getPassagiersForVluchtID(int id) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE VLUCHT_ID = ?");) {
+
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            return PassagierFactory.maakLijstVanResultSet(resultSet);
         } catch (Exception e) {
             e.printStackTrace();
         }

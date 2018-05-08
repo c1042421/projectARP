@@ -66,6 +66,7 @@ public class InlogServlet extends HttpServlet {
                 DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
 
                 Persoon persoon = daPersoon.getPersoonVoorLogin(gebruikersnaam, wachtwoord);
+                
 
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
@@ -77,7 +78,8 @@ public class InlogServlet extends HttpServlet {
                     }
                     else if (persoon.getSoort() == 'B'){
                         DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
-                        Bemanningslid bemanningslid = daBemanningslid.
+                        Bemanningslid bemanningslid = daBemanningslid.getBemanningForPersoonID(persoon.getId());
+                        request.getRequestDispatcher("pages/bemanningsVluchten.jsp").forward(request, response);
                     }
                     
                 } else {

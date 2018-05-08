@@ -4,14 +4,28 @@
     Author     : c1042410
 --%>
 
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Bemanningsvluchten</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
+        
+        <h1>Bemanningsvluchten</h1>
+        
+        <h3>Geplande vluchten voor: <%= persoon.getVoornaam() + " " + persoon.getFamilienaam() %></h3>
+        
+        <p>
+            <%foreach (vlucht in vluchten){%>
+            
+}
+        </p>
+        
+        
+        
     </body>
 </html>

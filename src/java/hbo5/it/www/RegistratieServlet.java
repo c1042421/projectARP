@@ -44,8 +44,6 @@ public class RegistratieServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        
         java.util.Date parsedGeboortedatum = null;
         try {
             
@@ -55,6 +53,7 @@ public class RegistratieServlet extends HttpServlet {
             String driver = getInitParameter("driver");
 
             Persoon p = PersoonFactory.maakPersoonVanRequest(request);
+
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver); 
             
@@ -65,21 +64,14 @@ public class RegistratieServlet extends HttpServlet {
                 }
                 //TODO error
             }
-        
-            
-        
             //ELSE + error message nog toevoegen
             }
         
         catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
     }
     
-    
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

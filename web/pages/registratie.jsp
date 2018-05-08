@@ -4,6 +4,7 @@
     Author     : c1042410
 --%>
 
+<%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,76 +14,95 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registreren</title>
     </head>
-    <body>        
+    <body>
+        <% 
+           Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon");      
+        %>
         <nav>
-            <a href ="../index.jsp"><i class="fas fa-user"> </i> Home</a>
+            <div class="flex-container-center-center">
+                <a class="left-margin flex-container-center-center flex-row home" href="../index.jsp">
+                     <img class="nav-logo left-margin" src="../images/travel.svg" /> 
+                     <p>Home</p>
+                </a></div>
+            <div class="flex-container-center-center"> <% if (persoon != null) { %>
+                <p> Welkom <%= persoon.getVoornaam() %></p>
+                <form action="InlogServlet">
+                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> Log uit</button>
+                </form>
+             <% } else {%>
+                <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+            <% } %>
+            </div>
         </nav>
-        <div class="container">
-            <form action="../RegistratieServlet">
-                
-                <div class="container">
-                <div class="registratie">
+        <form action="RegistratieServlet">
+        <div class="flex-container-top-center">
+            <h2>Registreer</h2>
+            <div class="flex-container flex-row">
+                <div class="card">
+                    <h3>Persoonlijke gegevens <hr/></h3>
                 <p>
                     <label>Voornaam:</label> <br>
-                    <input type="text" name="Voornaam" placeholder="vb. Gert"/> 
+                    <input autofocus required type="text" name="Voornaam" placeholder="vb. Gert"/> 
                 </p>
                 
                 <p>
                     <label>Familienaam:</label> <br>
-                    <input type="text" name="Familienaam" placeholder="vb. Verhulst"/>
+                    <input required type="text" name="Familienaam" placeholder="vb. Verhulst"/>
                 </p>
                 
                 <p>
                     <label>Geboortedatum:</label> <br>
-                    <input type="date" name="Geboortedatum"/>
+                    <input required type="date" name="Geboortedatum"/>
                 </p>
                 </div>
                 
-                <div class="registratie">
+                <div class="card">
+                    <h3>Adres <hr/></h3>
                 <p>
                     <label>Straat:</label> <br>
-                    <input type="text" name="Straat" placeholder="vb. Dorpstraat"/>
+                    <input required type="text" name="Straat" placeholder="vb. Dorpstraat"/>
                 </p>
                 <p>
                     <label>Huisnummer:</label> <br>
-                    <input type="text" name="Huisnummer" placeholder="vb. 101"/>
+                    <input required type="text" name="Huisnummer" placeholder="vb. 101"/>
                 </p>
                 <p>
                     <label>Postcode:</label> <br>
-                    <input type="text" name="Postcode" placeholder="vb. 2540"/>
+                    <input required type="text" name="Postcode" placeholder="vb. 2540"/>
                 </p>
                 <p>
                     <label>Woonplaats:</label> <br>
-                    <input type="text" name="Woonplaats" placeholder="vb. Hove"/>
+                    <input required type="text" name="Woonplaats" placeholder="vb. Hove"/>
                 </p>
                 <p>
                     <label>Land:</label> <br>
-                    <input type="text" name="Land" placeholder="vb. België"/>
+                    <input required type="text" name="Land" placeholder="vb. België"/>
                 </p>
                 </div>
                 
                 
-                <div class="registratie">
+                <div class="card">
+                    <h3>Login gegevens<hr/></h3>
                 <p>
                     <label>Gebruikersnaam:</label> <br>
-                    <input type="text" name="Gebruikersnaam" placeholder="vb. gertStudio100"/>
+                    <input required type="text" name="Gebruikersnaam" placeholder="vb. gertStudio100"/>
                 </p>
             
                 <p>
                     <label>Wachtwoord:</label> <br>
-                    <input type="password" name="Wachtwoord" placeholder="vb. Test123"/>
+                    <input required type="password" name="Wachtwoord" placeholder="vb. Test123"/>
                 </p>
                 <p>
                     <label>Bevestig wachtwoord:</label> <br>
-                    <input type="password" name="bevestigWachtwoord" placeholder="vb. Test123"/>
+                    <input required type="password" name="bevestigWachtwoord" placeholder="vb. Test123"/>
                 </p>
                 </div>
-                <p>
-                    <input class="registreerKnop" type="submit" value="Registreer"/>
-                </p>
                 
-            </form>
-            </div>
-        
+               </div>
+                <p>
+                    <button type="submit"><i class="fas fa-user-plus"> </i> Registreren </button>
+                </p>
+           </div>
+        </form>
     </body>
 </html>
