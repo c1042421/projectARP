@@ -12,6 +12,7 @@ import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,9 +78,11 @@ public class InlogServlet extends HttpServlet {
                         DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
                         DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
                         DALand daLand = new DALand(url, login, password, driver);
+                        DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
                         
                         ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
                         passagiers = daVlucht.voegVluchtenVoorPassagiersToe(passagiers);
+                        passagiers = daVliegtuig.voegVliegtuigToeVoorVlucht(passagiers);
                         passagiers = daLuchthaven.voegLuchtavensToeAanPassagiersVlucht(passagiers);
                         passagiers = daLand.voegLandenToeAanVluchtLuchthavensVanPassagiers(passagiers);
                         

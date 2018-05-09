@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author c1042421
  */
-public class PassagierFactory {
+public class PassagierFactory extends BaseFactory {
     
      public static ArrayList<Passagier> maakLijstVanResultSet(ResultSet resultset) throws SQLException {
         

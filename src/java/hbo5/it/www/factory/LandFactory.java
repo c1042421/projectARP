@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author c1042421
  */
-public class LandFactory {
+public class LandFactory extends BaseFactory {
 
     public static Land maakLandVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {

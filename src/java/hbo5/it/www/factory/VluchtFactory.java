@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author c1042421
  */
-public class VluchtFactory {
+public class VluchtFactory extends BaseFactory {
 
     public static Vlucht maakVluchtVanResultset(ResultSet resultset) throws SQLException {
 

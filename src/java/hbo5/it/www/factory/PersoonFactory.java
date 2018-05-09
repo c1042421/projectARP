@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author c1042421
  */
-public class PersoonFactory {
+public class PersoonFactory extends BaseFactory {
     
     public static Persoon maakPersoonVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
