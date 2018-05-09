@@ -18,7 +18,7 @@ public class PersoonFactory {
     
     public static Persoon maakPersoonVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
-
+           
             Persoon persoon = new Persoon();
             Date geboorteDatum = resultset.getDate("Geboortedatum");
 

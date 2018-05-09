@@ -39,14 +39,15 @@ public class DAVlucht extends DABase {
         return null;
     }
     
-    public ArrayList<Vlucht> getVluchtenVoorPassagiers(ArrayList<Passagier> passagiers){
-        ArrayList<Vlucht> vluchten = new ArrayList();
+    public ArrayList<Passagier> voegVluchtenVoorPassagiersToe(ArrayList<Passagier> passagiers){
+        ArrayList<Passagier> passagiersMetVlucht = new ArrayList<>();
         
         for (Passagier passagier : passagiers){
             Vlucht vlucht = getVluchtForVluchtID(passagier.getVlucht_id());
-            vluchten.add(vlucht);
+            passagier.setVlucht(vlucht);
+            passagiersMetVlucht.add(passagier);
         }
         
-        return vluchten;
+        return passagiersMetVlucht;
     }
 }

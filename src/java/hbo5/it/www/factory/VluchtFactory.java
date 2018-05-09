@@ -18,6 +18,7 @@ public class VluchtFactory {
     public static Vlucht maakVluchtVanResultset(ResultSet resultset) throws SQLException {
 
         if (resultset.next()) {
+            
             Vlucht vlucht = new Vlucht();
 
             vlucht.setId(resultset.getInt("id"));
@@ -32,4 +33,6 @@ public class VluchtFactory {
         }
         return null;
     }
+    
+    
 }

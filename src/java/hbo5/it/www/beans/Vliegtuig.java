@@ -10,32 +10,41 @@ package hbo5.it.www.beans;
  * @author c1042486
  */
 public class Vliegtuig {
-    private Integer id;
-    private Integer vliegtuigtype_id;
+    private int id;
+    private int vliegtuigtype_id;
+    private Vliegtuigtype vliegtuigtype;
 
-    public Integer getId() {
+    public Vliegtuigtype getVliegtuigtype() {
+        return vliegtuigtype;
+    }
+
+    public void setVliegtuigtype(Vliegtuigtype vliegtuigtype) {
+        this.vliegtuigtype = vliegtuigtype;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getVliegtuigtype_id() {
+    public int getVliegtuigtype_id() {
         return vliegtuigtype_id;
     }
 
-    public void setVliegtuigtype_id(Integer vliegtuigtype_id) {
+    public void setVliegtuigtype_id(int vliegtuigtype_id) {
         this.vliegtuigtype_id = vliegtuigtype_id;
     }
 
-    public Integer getLuchtvaartmaatschappij_id() {
+    public int getLuchtvaartmaatschappij_id() {
         return luchtvaartmaatschappij_id;
     }
 
-    public void setLuchtvaartmaatschappij_id(Integer luchtvaartmaatschappij_id) {
+    public void setLuchtvaartmaatschappij_id(int luchtvaartmaatschappij_id) {
         this.luchtvaartmaatschappij_id = luchtvaartmaatschappij_id;
     }
-    private Integer luchtvaartmaatschappij_id;
+    private int luchtvaartmaatschappij_id;
     
 }

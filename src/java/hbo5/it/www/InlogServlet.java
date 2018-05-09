@@ -8,6 +8,8 @@ package hbo5.it.www;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.dataacces.DALand;
+import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVlucht;
@@ -73,11 +75,15 @@ public class InlogServlet extends HttpServlet {
                     if (persoon.getSoort() == 'P') {
                         DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
                         DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+                        DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
+                        DALand daLand = new DALand(url, login, password, driver);
                         
                         ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
-                        ArrayList<Vlucht> vluchten = daVlucht.getVluchtenVoorPassagiers(passagiers);
+                        passagiers = daVlucht.voegVluchtenVoorPassagiersToe(passagiers);
+                        passagiers = daLuchthaven.voegLuchtavensToeAanPassagiersVlucht(passagiers);
+                        passagiers = daLand.voegLandenToeAanVluchtLuchthavensVanPassagiers(passagiers);
                         
-                        request.setAttribute("vluchten", vluchten);
+                        //request.setAttribute("vluchten", vluchten);
                                                 
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }

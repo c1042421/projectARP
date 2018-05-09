@@ -10,19 +10,46 @@ import java.sql.Date;
  * @author c1042486
  */
 public class Vlucht {
-    private Integer id;
+    private int id;
     private String code;
     private Date vertrektijd;
     private Date aankomsttijd;
-    private Integer vliegtuig_id;
-    private Integer vertrekluchthaven_id;
-    private Integer aankomstluchthaven_id;
+    private int vliegtuig_id;
+    private int vertrekluchthaven_id;
+    private int aankomstluchthaven_id;
+    private Vliegtuig vliegtuig;
+    private Luchthaven vertrekLuchthaven;
+    private Luchthaven aankomstLuchthaven;
 
-    public Integer getId() {
+    public Vliegtuig getVliegtuig() {
+        return vliegtuig;
+    }
+
+    public void setVliegtuig(Vliegtuig vliegtuig) {
+        this.vliegtuig = vliegtuig;
+    }
+
+    public Luchthaven getVertrekLuchthaven() {
+        return vertrekLuchthaven;
+    }
+
+    public void setVertrekLuchthaven(Luchthaven vertrekLuchthaven) {
+        this.vertrekLuchthaven = vertrekLuchthaven;
+    }
+
+    public Luchthaven getAankomstLuchthaven() {
+        return aankomstLuchthaven;
+    }
+
+    public void setAankomstLuchthaven(Luchthaven aankomstLuchthaven) {
+        this.aankomstLuchthaven = aankomstLuchthaven;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,27 +77,27 @@ public class Vlucht {
         this.aankomsttijd = aankomsttijd;
     }
 
-    public Integer getVliegtuig_id() {
+    public int getVliegtuig_id() {
         return vliegtuig_id;
     }
 
-    public void setVliegtuig_id(Integer vliegtuig_id) {
+    public void setVliegtuig_id(int vliegtuig_id) {
         this.vliegtuig_id = vliegtuig_id;
     }
 
-    public Integer getVertrekluchthaven_id() {
+    public int getVertrekluchthaven_id() {
         return vertrekluchthaven_id;
     }
 
-    public void setVertrekluchthaven_id(Integer vertrekluchthaven_id) {
+    public void setVertrekluchthaven_id(int vertrekluchthaven_id) {
         this.vertrekluchthaven_id = vertrekluchthaven_id;
     }
 
-    public Integer getAankomstluchthaven_id() {
+    public int getAankomstluchthaven_id() {
         return aankomstluchthaven_id;
     }
 
-    public void setAankomstluchthaven_id(Integer aankomstluchthaven_id) {
+    public void setAankomstluchthaven_id(int aankomstluchthaven_id) {
         this.aankomstluchthaven_id = aankomstluchthaven_id;
     }
     
