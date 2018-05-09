@@ -20,14 +20,14 @@ public class DAVlucht extends DABase {
     public DAVlucht(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
     }
-    public Vlucht getVlucht(int id) {
+    public Vlucht getVlucht() {
         Vlucht vlucht = null;
         
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLUCHT WHERE vlucht_id =?");) {
 
-            statement.setInt(1, id);
+            
             ResultSet resultset = statement.executeQuery();
             
             return VluchtFactory.maakVluchtVanResultset(resultset);
