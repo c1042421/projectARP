@@ -7,10 +7,16 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.dataacces.DALand;
+import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.dataacces.DAVliegtuig;
+import hbo5.it.www.dataacces.DAVliegtuigklasse;
+import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -70,7 +76,21 @@ public class InlogServlet extends HttpServlet {
                     
                     if (persoon.getSoort() == 'P') {
                         DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
-                        Passagier passagier = daPassagier.getPassagierForPersoonID(persoon.getId());
+                        DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+                        DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
+                        DALand daLand = new DALand(url, login, password, driver);
+                        DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
+                        DAVliegtuigklasse daVliegtuigKlasse = new DAVliegtuigklasse(url, login, password, driver);
+                        
+                        ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
+                        passagiers = daVlucht.voegVluchtenVoorPassagiersToe(passagiers);
+                        passagiers = daVliegtuig.voegVliegtuigToeVoorVlucht(passagiers);
+                        passagiers = daVliegtuigKlasse.voegVliegtuigKlasseVoorPassagiersToe(passagiers);
+                        passagiers = daLuchthaven.voegLuchtavensToeAanPassagiersVlucht(passagiers);
+                        passagiers = daLand.voegLandenToeAanVluchtLuchthavensVanPassagiers(passagiers);
+                        
+                        request.setAttribute("passagiers", passagiers);
+                                                
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
                 } else {

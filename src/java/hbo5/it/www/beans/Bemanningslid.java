@@ -10,40 +10,40 @@ package hbo5.it.www.beans;
  * @author c1042486
  */
 public class Bemanningslid {
-    private Integer id;
-    private Integer luchtvaartmaatschappij_id;
-    private Integer persoon_id;
-    private Integer functie_id;
+    private int id;
+    private int luchtvaartmaatschappij_id;
+    private int persoon_id;
+    private int functie_id;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getLuchtvaartmaatschappij_id() {
+    public int getLuchtvaartmaatschappij_id() {
         return luchtvaartmaatschappij_id;
     }
 
-    public void setLuchtvaartmaatschappij_id(Integer luchtvaartmaatschappij_id) {
+    public void setLuchtvaartmaatschappij_id(int luchtvaartmaatschappij_id) {
         this.luchtvaartmaatschappij_id = luchtvaartmaatschappij_id;
     }
 
-    public Integer getPersoon_id() {
+    public int getPersoon_id() {
         return persoon_id;
     }
 
-    public void setPersoon_id(Integer persoon_id) {
+    public void setPersoon_id(int persoon_id) {
         this.persoon_id = persoon_id;
     }
 
-    public Integer getFunctie_id() {
+    public int getFunctie_id() {
         return functie_id;
     }
 
-    public void setFunctie_id(Integer functie_id) {
+    public void setFunctie_id(int functie_id) {
         this.functie_id = functie_id;
     }
     

@@ -24,17 +24,17 @@
                      <img class="nav-logo left-margin" src="../images/travel.svg" /> 
                      <p>Home</p>
                 </a></div>
-            <div class="flex-container-center-center"> <% if (persoon != null) { %>
+            <div class="flex-container-center-center flex-row"> <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
-                <form action="InlogServlet">
-                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> Log uit</button>
+                <form action="../InlogServlet">
+                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
                 </form>
              <% } else {%>
                 <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
             <% } %>
             </div>
         </nav>
-        <form action="RegistratieServlet">
+        <form action="../RegistratieServlet" method="post">
         <div class="flex-container-top-center">
             <h2>Registreer</h2>
             <div class="flex-container flex-row">

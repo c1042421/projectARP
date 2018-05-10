@@ -4,23 +4,21 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.beans;
-import java.awt.Component;
+
 import java.sql.Date;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 /**
  *
  * @author c1042486
  */
 public class Persoon {
-    private Integer id;
+    private int id;
     private String voornaam;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

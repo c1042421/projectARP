@@ -11,14 +11,18 @@ import java.util.Date;
  * @author c1042486
  */
 public class Stockage {
-    private Integer id;
+    private int id;
     private String reden;
+    private Date vandatum;
+    private Date totdatum;
+    private int vliegtuig_id;
+    private int hangar_id;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,26 +50,19 @@ public class Stockage {
         this.totdatum = totdatum;
     }
 
-    public Integer getVliegtuig_id() {
+    public int getVliegtuig_id() {
         return vliegtuig_id;
     }
 
-    public void setVliegtuig_id(Integer vliegtuig_id) {
+    public void setVliegtuig_id(int vliegtuig_id) {
         this.vliegtuig_id = vliegtuig_id;
     }
 
-    public Integer getHangar_id() {
+    public int getHangar_id() {
         return hangar_id;
     }
 
-    public void setHangar_id(Integer hangar_id) {
+    public void setHangar_id(int hangar_id) {
         this.hangar_id = hangar_id;
-    }
-    private Date vandatum;
-    private Date totdatum;
-    private Integer vliegtuig_id;
-    private Integer hangar_id;
-    
-    
-    
+    }    
 }

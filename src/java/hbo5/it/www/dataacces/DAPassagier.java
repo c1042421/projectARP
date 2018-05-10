@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +23,7 @@ public class DAPassagier extends DABase {
         super(url, login, password, driver);
     }  
     
-    public Passagier getPassagierForPersoonID(int id) {
+    public ArrayList<Passagier> getPassagiersForPersoonID(int id) {
          try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE persoon_id =?");) {
@@ -30,7 +31,7 @@ public class DAPassagier extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return PassagierFactory.maakPassagierVanResultset(resultset);
+            return PassagierFactory.maakLijstVanResultSet(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
