@@ -13,6 +13,16 @@ public class Vliegtuig {
     private int id;
     private int vliegtuigtype_id;
     private Vliegtuigtype vliegtuigtype;
+    private int luchtvaartmaatschappij_id;
+    private Luchtvaartmaatschappij luchtvaartmaatschappij;
+
+    public Luchtvaartmaatschappij getLuchtvaartmaatschappij() {
+        return luchtvaartmaatschappij;
+    }
+
+    public void setLuchtvaartmaatschappij(Luchtvaartmaatschappij luchtvaartmaatschappij) {
+        this.luchtvaartmaatschappij = luchtvaartmaatschappij;
+    }
 
     public Vliegtuigtype getVliegtuigtype() {
         return vliegtuigtype;
@@ -44,7 +54,5 @@ public class Vliegtuig {
 
     public void setLuchtvaartmaatschappij_id(int luchtvaartmaatschappij_id) {
         this.luchtvaartmaatschappij_id = luchtvaartmaatschappij_id;
-    }
-    private int luchtvaartmaatschappij_id;
-    
+    }    
 }

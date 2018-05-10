@@ -17,13 +17,19 @@ public class LandFactory extends BaseFactory {
 
     public static Land maakLandVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
-            Land land = new Land();
-
-            land.setId(resultset.getInt("id"));
-            land.setLandnaam(resultset.getString("landnaam"));
-
-            return land;
+            maakLandVanResultsetZonderNext(resultset);
         }
         return null;
+    }
+    
+    public static Land maakLandVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+        Land land = new Land();
+        
+        int id = checkIfIdExistsAndReturn("land_id", resultset);
+
+        land.setId(id);
+        land.setLandnaam(resultset.getString("landnaam"));
+
+        return land;
     }
 }

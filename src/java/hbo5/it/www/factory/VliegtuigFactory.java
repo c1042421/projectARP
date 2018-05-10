@@ -7,6 +7,7 @@ package hbo5.it.www.factory;
 
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vliegtuigtype;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -20,8 +21,20 @@ public class VliegtuigFactory extends BaseFactory {
         if (resultset.next()){
             Vliegtuig vliegtuig = new Vliegtuig();
             
-            Luchtvaartmaatschappij lm = LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultset(resultset);
+            Luchtvaartmaatschappij lm = LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultsetZonderNext(resultset);
+            Vliegtuigtype type = VliegtuigtypeFactory.maakVliegtuigtypeVanResultsetZonderNext(resultset);
+            
+            vliegtuig.setLuchtvaartmaatschappij(lm);
+            vliegtuig.setVliegtuigtype(type);
+            
+            vliegtuig.setId(resultset.getInt("id"));
+            vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
+            vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
+                        
+            return vliegtuig;
         }
+        
+        return null;
     }
     
 }

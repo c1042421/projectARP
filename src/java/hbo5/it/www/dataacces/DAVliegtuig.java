@@ -6,6 +6,7 @@
 package hbo5.it.www.dataacces;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.factory.VliegtuigFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,6 +44,18 @@ public class DAVliegtuig extends DABase {
     }
 
     public ArrayList<Passagier> voegVliegtuigToeVoorVlucht(ArrayList<Passagier> passagiers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Passagier> passagiersMetVliegtuigInVlucht = new ArrayList<>();
+        
+        for (Passagier passagier : passagiers){
+            Vlucht vlucht = passagier.getVlucht();
+            Vliegtuig vliegtuig = getVliegtuigForID(vlucht.getVliegtuig_id());
+            
+            vlucht.setVliegtuig(vliegtuig);
+            passagier.setVlucht(vlucht);
+            
+            passagiersMetVliegtuigInVlucht.add(passagier);
+        }
+        
+        return passagiersMetVliegtuigInVlucht;
     }
 }

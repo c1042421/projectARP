@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 class LuchtvaartmaatschappijFactory extends BaseFactory {
 
-    static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultsetWithoutNext(ResultSet resultset) throws SQLException {
+    static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultsetZonderNext(ResultSet resultset) throws SQLException {
         
         Luchtvaartmaatschappij lm = new Luchtvaartmaatschappij();
         

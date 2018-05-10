@@ -5,6 +5,7 @@
  */
 package hbo5.it.www.factory;
 
+import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,12 +20,14 @@ public class LuchthavenFactory extends BaseFactory {
         if (resultset.next()){
             
             Luchthaven luchthaven = new Luchthaven();
+            Land land = LandFactory.maakLandVanResultsetZonderNext(resultset);
             
+            luchthaven.setLand(land);
             luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
             luchthaven.setStad(resultset.getString("stad"));
             luchthaven.setId(resultset.getInt("id"));
             luchthaven.setLand_id(resultset.getInt("land_id"));
-            
+                  
             return luchthaven;
         }
         return null;

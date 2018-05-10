@@ -29,7 +29,7 @@ public class DALuchthaven extends DABase {
     private Luchthaven getLuchthavenForID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Luchthaven WHERE id=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM Luchthaven inner join Land on LAND_ID=LAND.ID where LUCHTHAVEN.ID = ?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
@@ -47,8 +47,8 @@ public class DALuchthaven extends DABase {
         ArrayList<Passagier> passagiersMetVluchtLuchthavens = new ArrayList<>();
 
         for (Passagier passagier : passagiers) {
-            Luchthaven aankomst = getLuchthavenForID(passagier.getVlucht_id());
-            Luchthaven vertrek = getLuchthavenForID(passagier.getVlucht_id());
+            Luchthaven aankomst = getLuchthavenForID(passagier.getVlucht().getAankomstluchthaven_id());
+            Luchthaven vertrek = getLuchthavenForID(passagier.getVlucht().getVertrekluchthaven_id());
             Vlucht vlucht = passagier.getVlucht();
             vlucht.setAankomstLuchthaven(aankomst);
             vlucht.setVertrekLuchthaven(vertrek);

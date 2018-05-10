@@ -17,8 +17,7 @@ public class VluchtFactory extends BaseFactory {
 
     public static Vlucht maakVluchtVanResultset(ResultSet resultset) throws SQLException {
 
-        if (resultset.next()) {
-            
+        if (resultset.next()) {  
             Vlucht vlucht = new Vlucht();
 
             vlucht.setId(resultset.getInt("id"));
