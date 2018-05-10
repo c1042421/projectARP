@@ -4,8 +4,9 @@
     Author     : c1042421
 --%>
 
-<%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
+<%@page import="hbo5.it.www.beans.Passagier"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,10 +39,11 @@
         </nav>
         <div class="flex-container-top-center">
             <div class="card" >
-                <% ArrayList<Vlucht> vluchten = (ArrayList<Vlucht>) request.getAttribute("vluchten"); %>
+                <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) request.getAttribute("passagiers"); %>
                 <h2>Mijn vluchten <hr/></h2>
-                <% for (Vlucht vlucht : vluchten) {%>
-                    <p> <%= vlucht.getCode()%></p>
+                <% for (Passagier passagier : passagiers) {
+                Vlucht vlucht = passagier.getVlucht(); %>
+                <p> From <%= vlucht.getVertrekLuchthaven().getLuchthavennaam() %> to <%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %> </p>
                 <%}%>
             </div>
 
