@@ -40,7 +40,7 @@
             <% } %>
             </div>
         </nav>
-        <form action="../RegistratieServlet" method="post">
+        <form action="RegistratieServlet" method="post">
         <div class="flex-container-top-center">
             <h2>Registreer</h2>
             <div class="flex-container flex-row">

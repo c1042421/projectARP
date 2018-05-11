@@ -36,7 +36,7 @@
 
         </nav>
         <div class="flex-container-top-center">
-            <form action="../InlogServlet" method="post">
+            <form action="InlogServlet" method="post">
 
                 <h2>Login</h2>
 
