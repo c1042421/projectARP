@@ -17,7 +17,16 @@
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
         <nav>
-            <div class="flex-container-center-center flex-row"> <img class="nav-logo left-margin" src="images/travel.svg" /> </div>
+            <div class="flex-container-center-center flex-row"> <img class="nav-logo left-margin" src="images/travel.svg" /> 
+                <a class="left-margin flex-container-center-center flex-row menu" href="index.jsp">
+                    <i class="fas fa-home"> </i>
+                    <p>Home</p>
+                </a>
+                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
+                    <i class="fas fa-plane"> </i>
+                    <p>Mijn vluchten</p>
+                </a>
+            </div> </div>
             <div class="flex-container-center-center flex-row">
              <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
@@ -25,9 +34,9 @@
                     <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
                 </form>
              <% } else {%>
-                <a href="pages/login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+                <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
             <% } %>
-                <a href="pages/registratie.jsp" class="button"><i class="fas fa-user-plus"> </i> Registreer</a>
+                <a href="registratie.jsp" class="button"><i class="fas fa-user-plus"> </i> Registreer</a>
             </div>
         </nav>
         <div class="flex-container-center-center ">

@@ -82,12 +82,17 @@ a p {
     margin-left: 5px;
 }
 
-nav a.home:hover {
+nav a.menu:hover {
     background: #0F6D7B;
 }
 
-nav a.home {
+nav a.menu {
+    padding: 0 10px;
     transition: background 0.2s ease-in-out;
+}
+
+.card a.button:last-child {
+    margin-right: 0;
 }
 
 a.button, button[type="submit"] {
@@ -108,13 +113,14 @@ a.button {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }
 
 a.button:hover, button[type="submit"]:hover{
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-nav i {
+nav i, .button i {
     margin-right: 5px;
 }
 
@@ -156,6 +162,22 @@ hr {
 
 .card h3 {
     margin-top: 0;
+}
+
+.card .middle {
+    padding: 0 30px;
+}
+
+.vlucht h3 {
+    margin: 0;
+}
+
+.section {
+    width: 200px;
+}
+
+.section p {
+    text-align: center;
 }
 
 .text-center{

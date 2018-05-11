@@ -64,6 +64,7 @@ public class InlogServlet extends HttpServlet {
 
             if (loguit) {
                 session.setAttribute("loggedInPersoon", null);
+                session.setAttribute("passagiers", null);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
                 
@@ -87,11 +88,10 @@ public class InlogServlet extends HttpServlet {
                         passagiers = daVliegtuig.voegVliegtuigToeVoorVlucht(passagiers);
                         passagiers = daVliegtuigKlasse.voegVliegtuigKlasseVoorPassagiersToe(passagiers);
                         passagiers = daLuchthaven.voegLuchtavensToeAanPassagiersVlucht(passagiers);
-                        passagiers = daLand.voegLandenToeAanVluchtLuchthavensVanPassagiers(passagiers);
                         
-                        request.setAttribute("passagiers", passagiers);
+                        session.setAttribute("passagiers", passagiers);
                                                 
-                        request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
+                        request.getRequestDispatcher("passagiersVluchten.jsp").forward(request, response);
                     }
                 } else {
                     //TODO User feedback not found
