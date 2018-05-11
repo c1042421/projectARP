@@ -38,14 +38,30 @@
 
         </nav>
         <div class="flex-container-top-center">
-            <div class="card" >
-                <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) request.getAttribute("passagiers"); %>
-                <h2>Mijn vluchten <hr/></h2>
-                <% for (Passagier passagier : passagiers) {
-                Vlucht vlucht = passagier.getVlucht(); %>
-                <p> From <%= vlucht.getVertrekLuchthaven().getLuchthavennaam() %> to <%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %> </p>
+            <h2>Mijn vluchten <hr/></h2>
+            
+                <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers"); 
+                if (passagiers != null) {
+                    for (Passagier passagier : passagiers) {
+                    Vlucht vlucht = passagier.getVlucht(); %>
+                    <div class="card flex-container flex-row" >
+                        <div>
+                            <h3>Van</h3>
+                            <p><%= vlucht.getVertrekLuchthaven().getLuchthavennaam() %> - <%= vlucht.getVertrekLuchthaven().getStad() %></p>
+                             <p> <%= vlucht.getVertrekLuchthaven().getLand().getLandnaam() %></p>
+                        </div>
+                        <div><img src="images/ic_plane.svg" /></div>
+                        <div>
+                            <h3>Naar</h3>
+                            <p><%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %> - <%= vlucht.getAankomstLuchthaven().getStad() %></p>
+                            <p> <%= vlucht.getAankomstLuchthaven().getLand().getLandnaam() %></p>
+                        </div>
+                    </div>
+                    <%}
+                } else {%>
+                    <p>Geen vluchten</p>
                 <%}%>
-            </div>
+            
 
         </div>
 

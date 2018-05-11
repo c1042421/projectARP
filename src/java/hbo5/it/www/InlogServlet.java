@@ -64,6 +64,7 @@ public class InlogServlet extends HttpServlet {
 
             if (loguit) {
                 session.setAttribute("loggedInPersoon", null);
+                session.setAttribute("passagiers", null);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
                 
@@ -89,7 +90,7 @@ public class InlogServlet extends HttpServlet {
                         passagiers = daLuchthaven.voegLuchtavensToeAanPassagiersVlucht(passagiers);
                         passagiers = daLand.voegLandenToeAanVluchtLuchthavensVanPassagiers(passagiers);
                         
-                        request.setAttribute("passagiers", passagiers);
+                        session.setAttribute("passagiers", passagiers);
                                                 
                         request.getRequestDispatcher("pages/passagiersVluchten.jsp").forward(request, response);
                     }
