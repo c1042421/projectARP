@@ -4,18 +4,16 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.factory;
-
-import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.VluchtBemanning;
-import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author c1042410
  */
 public class VluchtBemanningFactory {
-    public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset){
+    public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException{
         if (resultset.next()) {
 
             VluchtBemanning vluchtbemanning = new VluchtBemanning();

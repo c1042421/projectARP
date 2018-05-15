@@ -6,11 +6,9 @@
 package hbo5.it.www.factory;
 
 import hbo5.it.www.beans.Passagier;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
