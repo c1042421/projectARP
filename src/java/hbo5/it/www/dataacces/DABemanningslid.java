@@ -24,7 +24,7 @@ public class DABemanningslid extends DABase {
     public Bemanningslid getBemanningForPersoonID(int id) {
          try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PERSOON WHERE persoon_id =?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.BEMANNINGSLID WHERE persoon_id =?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();

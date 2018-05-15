@@ -10,6 +10,7 @@ import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPassagier;
@@ -17,6 +18,7 @@ import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.dataacces.DAVliegtuigklasse;
 import hbo5.it.www.dataacces.DAVlucht;
+import hbo5.it.www.dataacces.DAVluchtBemanning;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -67,6 +69,7 @@ public class InlogServlet extends HttpServlet {
             if (loguit) {
                 session.setAttribute("loggedInPersoon", null);
                 session.setAttribute("passagiers", null);
+                session.setAttribute("vluchtbemanning", null);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
                 
@@ -77,15 +80,13 @@ public class InlogServlet extends HttpServlet {
 
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
-                    
-                    if (persoon.getSoort() == 'P') {
-                        DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
+                    DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
                         DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
                         DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
-                        DALand daLand = new DALand(url, login, password, driver);
                         DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
                         DAVliegtuigklasse daVliegtuigKlasse = new DAVliegtuigklasse(url, login, password, driver);
                         
+                    if (persoon.getSoort() == 'P') {
                         ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
                         passagiers = daVlucht.voegVluchtenVoorPassagiersToe(passagiers);
                         passagiers = daVliegtuig.voegVliegtuigToeVoorVlucht(passagiers);
@@ -99,7 +100,16 @@ public class InlogServlet extends HttpServlet {
                     else if (persoon.getSoort() == 'B'){
                         DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
                         Bemanningslid bemanningslid = daBemanningslid.getBemanningForPersoonID(persoon.getId());
-                        request.getRequestDispatcher("pages/bemanningsVluchten.jsp").forward(request, response);
+                        
+                        DAVluchtBemanning daVluchtBemanning = new DAVluchtBemanning(url, login, password, driver);
+                        ArrayList<VluchtBemanning> vluchtbemanning = daVluchtBemanning.getVluchtbemmanningForBemanningsID(bemanningslid.getId());
+                        
+                        vluchtbemanning = daVlucht.voegVluchtenVoorBemanningToe(vluchtbemanning);
+                        vluchtbemanning = daVliegtuig.voegVliegtuigToeVoorBemanning(vluchtbemanning);
+                        vluchtbemanning = daLuchthaven.voegLuchthavensToeAanBemanning(vluchtbemanning);
+                        
+                        session.setAttribute("vluchtbemanning", vluchtbemanning);
+                        request.getRequestDispatcher("bemanningsVluchten.jsp").forward(request, response);
                     }
                     
                 } else {

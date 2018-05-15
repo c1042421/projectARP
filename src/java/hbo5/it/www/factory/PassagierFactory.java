@@ -35,26 +35,4 @@ public class PassagierFactory extends BaseFactory {
         }
         return null;
     }
-    
-    public static ArrayList<Passagier> maakLijstVanResultSet(ResultSet resultset) throws SQLException {
-        
-        ArrayList<Passagier> lijstPassagiers = new ArrayList<Passagier>();
-        
-        while (resultset.next()){
-            Passagier passagier = new Passagier();
-            
-            passagier.setId(resultset.getInt("id"));
-            passagier.setIngecheckt(resultset.getInt("ingecheckt"));
-            passagier.setIngeschreven(resultset.getInt("ingeschreven"));
-            passagier.setKlasse_id(resultset.getInt("klasse_id"));
-            passagier.setPersoon_id(resultset.getInt("klasse_id"));
-            passagier.setVlucht_id(resultset.getInt("vlucht_id"));
-            passagier.setPlaats(resultset.getString("plaats"));
-            
-            lijstPassagiers.add(passagier);
-        }
-        return lijstPassagiers;
-    }
-        return lijstPassagiers;
-}
 }

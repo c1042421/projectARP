@@ -1,29 +1,31 @@
 <%-- 
-    Document   : mijnVluchten
-    Created on : 2-mei-2018, 11:27:38
-    Author     : c1042421
+    Document   : bemanningsVluchten
+    Created on : 2-mei-2018, 11:32:22
+    Author     : c1042410
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="java.time.LocalDateTime"%>
-<%@page import="java.sql.Date"%>
-<%@page import="hbo5.it.www.beans.Vlucht"%>
-<%@page import="hbo5.it.www.beans.Passagier"%>
+<%@page import="hbo5.it.www.beans.Bemanningslid"%>
+<%@page import="hbo5.it.www.beans.VluchtBemanning"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page import="hbo5.it.www.beans.Persoon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mijn Vluchten</title>
+        <title>Bemanningsvluchten</title>
         <link rel="stylesheet" type="text/css" href="style/style.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
+    
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
-        <nav>
+        
+         <nav>
             <div class="flex-container-center-center flex-row">
                 <img class="nav-logo left-margin" src="images/travel.svg" /> 
                 <a class="left-margin flex-container-center-center flex-row menu" href="index.jsp">
@@ -49,15 +51,19 @@
                 <% }%>
             </div>
         </nav>
-        <div class="flex-container-top-center">
-            <h2>Mijn vluchten <hr/></h2>
             
-                <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers"); 
+            
+            
+            
+            <div class="flex-container-top-center">
+                <h2>Mijn Reisschema <hr/></h2>
+            
+                <% ArrayList<VluchtBemanning> bemanningsleden = (ArrayList<VluchtBemanning>) session.getAttribute("vluchtbemanning"); 
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                                         //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                if (passagiers != null) {
-                    for (Passagier passagier : passagiers) {
-                    Vlucht vlucht = passagier.getVlucht(); 
+                if (bemanningsleden != null && bemanningsleden.size() > 0) {
+                    for (VluchtBemanning vlubem : bemanningsleden) {
+                    Vlucht vlucht = vlubem.getVlucht(); 
                     LocalDate localdate = vlucht.getAankomsttijd().toLocalDate(); %>
                     <div class="vlucht card flex-container" >
                         <div>
@@ -86,21 +92,16 @@
                         </div>
                         <div class="flex-container flex-row">
                             <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
-                            <%  java.util.Date utilDate = new java.util.Date();
-                                Date date = new Date(utilDate.getTime());
-                                if ( vlucht.getVertrektijd().after(date) ) { %>
-                                <a href="#" class="button"><i class="fas fa-times"> </i> Annuleren </a>
-                            <%}%>
                         </div>
                     </div>
                     <%}
                 } else {%>
-                    <p>U heeft nog geen vluchten geboekt.</p>
+                    <p>Geen reisschema beschikbaar.</p>
                 <%}%>
+            </div>
+
             
-
-        </div>
-
-
+            
+            
     </body>
 </html>
