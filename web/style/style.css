@@ -95,6 +95,10 @@ nav a.menu {
     margin-right: 0;
 }
 
+.card button[type=submit]:last-child {
+    margin-right: 0;
+}
+
 a.button, button[type="submit"] {
     border: none;
     margin-right: 10px;

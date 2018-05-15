@@ -38,4 +38,34 @@ public class DAPassagier extends DABase {
         }
         return null;
     }
+    
+    public int annuleerVluchtForPassagierWithVluchtID(int id){
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_ID = ?");) {
+
+            statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int boekVluchtForVluchtID(int id) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_ID = ?");) {
+
+            statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

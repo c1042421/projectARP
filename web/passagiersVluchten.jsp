@@ -52,7 +52,8 @@
                 <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers"); 
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                                         //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                if (passagiers != null) {
+                if (passagiers != null && passagiers.size() > 0) {
+                                       
                     for (Passagier passagier : passagiers) {
                     Vlucht vlucht = passagier.getVlucht(); 
                     LocalDate localdate = vlucht.getAankomsttijd().toLocalDate(); %>
@@ -77,25 +78,27 @@
                                 <%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %><br/>
                                 op: <%= vlucht.getAankomsttijd().toLocalDate().format(dateFormatter) %><br/>
                                 </p>
-                               
-
                             </div>
                         </div>
                         <div class="flex-container flex-row">
                             <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
                             <%  java.util.Date utilDate = new java.util.Date();
                                 Date date = new Date(utilDate.getTime());
-                                if ( vlucht.getVertrektijd().after(date) ) { %>
-                                <a href="#" class="button"><i class="fas fa-times"> </i> Annuleren </a>
+                                //if ( vlucht.getVertrektijd().after(date) ) { %>
+                                <form action="ManageServlet">
+                                    <input type="hidden" name="vluchtID" value=<%= vlucht.getId() %>>
+                                    <button type="submit" name="annuleerVlucht"><i class="fas fa-times"> </i> Annuleren</button>
+                                </form>
+                            <%//}%>
                             <%}%>
                         </div>
                     </div>
-                    <%}
-                } else {%>
-                    <p>U heeft nog geen vluchten geboekt.</p>
+                <%} else if (persoon == null) {%>
+                    <p class="text-center"> U bent niet ingelogd. <br> Log in om uw vluchten te kunnen bekijken.</p>
+                    <a class="button" href="login.jsp"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+                <%} else {%>
+                    <p>U heeft geen vluchten geboekt.</p>
                 <%}%>
-            
-
         </div>
 
 
