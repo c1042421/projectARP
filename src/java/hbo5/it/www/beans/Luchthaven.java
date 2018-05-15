@@ -10,14 +10,25 @@ package hbo5.it.www.beans;
  * @author c1042486
  */
 public class Luchthaven {
-    private Integer id;
+    private int id;
     private String luchthavennaam;
+    private String stad;
+    private int land_id;
+    private Land land;
 
-    public Integer getId() {
+    public Land getLand() {
+        return land;
+    }
+
+    public void setLand(Land land) {
+        this.land = land;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,13 +48,11 @@ public class Luchthaven {
         this.stad = stad;
     }
 
-    public Integer getLand_id() {
+    public int getLand_id() {
         return land_id;
     }
 
-    public void setLand_id(Integer land_id) {
+    public void setLand_id(int land_id) {
         this.land_id = land_id;
     }
-    private String stad;
-    private Integer land_id;
 }

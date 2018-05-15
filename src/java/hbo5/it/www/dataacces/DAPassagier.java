@@ -21,33 +21,18 @@ public class DAPassagier extends DABase {
 
     public DAPassagier(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
-    }
-
-    public Passagier getPassagierForPersoonID(int id) {
-        try (
+    }  
+    
+    public ArrayList<Passagier> getPassagiersForPersoonID(int id) {
+         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE persoon_id =?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
-
-            return PassagierFactory.maakPassagierVanResultset(resultset);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public ArrayList<Passagier> getPassagiersForVluchtID(int id) {
-        try (
-                Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE VLUCHT_ID = ?");) {
-
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-
-            return PassagierFactory.maakLijstVanResultSet(resultSet);
+            
+            return PassagierFactory.maakLijstVanResultSet(resultset);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

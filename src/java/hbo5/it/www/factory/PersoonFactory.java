@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author c1042421
  */
-public class PersoonFactory {
+public class PersoonFactory extends BaseFactory {
     
     public static Persoon maakPersoonVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
-
+           
             Persoon persoon = new Persoon();
             Date geboorteDatum = resultset.getDate("Geboortedatum");
 

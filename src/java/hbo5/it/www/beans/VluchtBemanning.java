@@ -10,15 +10,16 @@ package hbo5.it.www.beans;
  * @author c1042486
  */
 public class VluchtBemanning {
-    private Integer id;
+    private int id;
     private String taak;
-    private Integer bemanningslid_id;
+    private int bemanningslid_id;
+    private int vlucht_id;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,20 +31,19 @@ public class VluchtBemanning {
         this.taak = taak;
     }
 
-    public Integer getBemanningslid_id() {
+    public int getBemanningslid_id() {
         return bemanningslid_id;
     }
 
-    public void setBemanningslid_id(Integer bemanningslid_id) {
+    public void setBemanningslid_id(int bemanningslid_id) {
         this.bemanningslid_id = bemanningslid_id;
     }
 
-    public Integer getVlucht_id() {
+    public int getVlucht_id() {
         return vlucht_id;
     }
 
-    public void setVlucht_id(Integer vlucht_id) {
+    public void setVlucht_id(int vlucht_id) {
         this.vlucht_id = vlucht_id;
     }
-    private Integer vlucht_id;
 }
