@@ -32,7 +32,7 @@
             </div>
             <div class="flex-container-center-center flex-row"> <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
-                <form action="../InlogServlet">
+                <form action="InlogServlet">
                     <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
                 </form>
              <% } else {%>
