@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author c1042421
  */
 public class DAPassagier extends DABase {
-   
+
     public DAPassagier(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
     }  
