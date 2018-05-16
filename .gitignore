@@ -22,7 +22,6 @@
 hs_err_pid*
 nbproject/private/
 nbproject/ant-deploy.xml
-nbproject/build-impl.xml
 nbproject/genfiles.properties
 build/
 nbbuild/
