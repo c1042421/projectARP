@@ -8,7 +8,6 @@ package hbo5.it.www.dataacces;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Vlucht;
-import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.factory.LuchthavenFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,22 +58,5 @@ public class DALuchthaven extends DABase {
         }
 
         return passagiersMetVluchtLuchthavens;
-    }
-
-    public ArrayList<VluchtBemanning> voegLuchthavensToeAanBemanning(ArrayList<VluchtBemanning> vluchtbemanning) {
-        
-        ArrayList<VluchtBemanning> vluchtbemanningMetVluchtLuchthavens = new ArrayList<>();
-        
-        for (VluchtBemanning vlubem : vluchtbemanning) {
-            Luchthaven aankomst = getLuchthavenForID(vlubem.getVlucht().getAankomstluchthaven_id());
-            Luchthaven vertrek = getLuchthavenForID(vlubem.getVlucht().getVertrekluchthaven_id());
-            Vlucht vlucht = vlubem.getVlucht();
-            vlucht.setAankomstLuchthaven(aankomst);
-            vlucht.setVertrekLuchthaven(vertrek);
-            vlubem.setVlucht(vlucht);
-            
-            vluchtbemanningMetVluchtLuchthavens.add(vlubem);
-        }
-        return vluchtbemanningMetVluchtLuchthavens;
     }
 }
