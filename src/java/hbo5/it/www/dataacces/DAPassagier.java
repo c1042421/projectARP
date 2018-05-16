@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author c1042421
  */
 public class DAPassagier extends DABase {
-   
+
     public DAPassagier(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
     }  
@@ -27,6 +27,22 @@ public class DAPassagier extends DABase {
          try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE persoon_id =?");) {
+
+            statement.setInt(1, id);
+            ResultSet resultset = statement.executeQuery();
+            
+            return PassagierFactory.maakLijstVanResultSet(resultset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ArrayList<Passagier> getPassagiersForVluchtID(int id){
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE vlucht_id =?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
