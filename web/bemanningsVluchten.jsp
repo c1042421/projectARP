@@ -92,6 +92,9 @@
                         </div>
                         <div class="flex-container flex-row">
                             <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
+                            <form action="ManageServlet">
+                                <button name="toonPassagiers" type="submit"><i class="fas fa-users"> </i> Passagiers</button>
+                            </form>
                         </div>
                     </div>
                     <%}
