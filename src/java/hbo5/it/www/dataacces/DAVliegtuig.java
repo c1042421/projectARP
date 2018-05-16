@@ -7,6 +7,7 @@ package hbo5.it.www.dataacces;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.factory.VliegtuigFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -57,5 +58,20 @@ public class DAVliegtuig extends DABase {
         }
         
         return passagiersMetVliegtuigInVlucht;
+    }
+
+    public ArrayList<VluchtBemanning> voegVliegtuigToeVoorBemanning(ArrayList<VluchtBemanning> vluchtbemanning) {
+        ArrayList<VluchtBemanning> vluchtbemanningMetVliegtuigInVlucht = new ArrayList<>();
+        
+        for (VluchtBemanning vlubem : vluchtbemanning) {
+            Vlucht vlucht = vlubem.getVlucht();
+            Vliegtuig vliegtuig = getVliegtuigForID(vlucht.getVliegtuig_id());
+            
+            vlucht.setVliegtuig(vliegtuig);
+            vlubem.setVlucht(vlucht);
+            
+            vluchtbemanningMetVliegtuigInVlucht.add(vlubem);
+        }
+        return vluchtbemanningMetVliegtuigInVlucht;
     }
 }
