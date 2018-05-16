@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author c1042421
  */
 public class DAPassagier extends DABase {
-   
+
     public DAPassagier(String url, String login, String password, String driver) throws ClassNotFoundException {
         super(url, login, password, driver);
     }  
@@ -42,7 +42,7 @@ public class DAPassagier extends DABase {
     public int annuleerVluchtForPassagierWithVluchtID(int id){
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_ID = ?");) {
+                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_id = ?");) {
 
             statement.setInt(1, id);
             

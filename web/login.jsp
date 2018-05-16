@@ -24,16 +24,22 @@
                 </a>
                 <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
                     <i class="fas fa-plane"> </i>
-                    <p>Mijn vluchten</p>
+                    <p>Mijn Vluchten</p>
+                </a>
+                <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
+                    <i class="fas fa-plane"> </i>
+                    <p>Mijn Reisschema</p>
                 </a>
             </div>
-            </div>
 
-            <div class="flex-container-center-center" >
+            <div class="flex-container-center-center flex-row" >
                 <% if (persoon != null) {%>
                 <p><%= persoon.getVoornaam()%></p>
-                <% }%></div>
-
+                <form action="InlogServlet">
+                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
+                </form>
+                <% }%>
+            </div>
         </nav>
         <div class="flex-container-top-center">
             <form action="InlogServlet" method="post">

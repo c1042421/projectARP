@@ -14,6 +14,15 @@ public class VluchtBemanning {
     private String taak;
     private int bemanningslid_id;
     private int vlucht_id;
+    private Vlucht vlucht;
+
+    public Vlucht getVlucht() {
+        return vlucht;
+    }
+
+    public void setVlucht(Vlucht vlucht) {
+        this.vlucht = vlucht;
+    }
 
     public int getId() {
         return id;
