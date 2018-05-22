@@ -68,4 +68,19 @@ public class DAPassagier extends DABase {
         }
         return 0;
     }
+    public ArrayList<Passagier> getPassagiersForVluchtID(int id){
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE vlucht_id =?");) {
+
+            statement.setInt(1, id);
+            ResultSet resultset = statement.executeQuery();
+            
+            return PassagierFactory.maakLijstVanResultSet(resultset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
