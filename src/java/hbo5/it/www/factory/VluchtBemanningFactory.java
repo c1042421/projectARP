@@ -4,18 +4,15 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.factory;
-
 import hbo5.it.www.beans.VluchtBemanning;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
- * @author c1042421
+ * @author c1042410
  */
 public class VluchtBemanningFactory {
-  
     public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException{
         if (resultset.next()) {
 
@@ -29,15 +26,5 @@ public class VluchtBemanningFactory {
             return vluchtbemanning;
         }
         return null;
-    }
-
-    public static ArrayList<VluchtBemanning> maakVluchtbemanningsLijstVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<VluchtBemanning> vluchtBemanning = new ArrayList<>();
-        
-        while(resultset.next()) {
-            vluchtBemanning.add(maakVluchtbemanningVanResultset(resultset));
-        }
-        
-        return vluchtBemanning;
     }
 }
