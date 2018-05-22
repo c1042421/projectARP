@@ -24,7 +24,7 @@
                 </a>
                 <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
                     <i class="fas fa-plane"> </i>
-                    <p>Mijn vluchten</p>
+                    <p>Mijn Vluchten</p>
                 </a>
                 <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
                     <i class="fas fa-plane"> </i>
