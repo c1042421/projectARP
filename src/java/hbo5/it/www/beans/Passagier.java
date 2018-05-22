@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package hbo5.it.www.beans;
-
-import com.sun.xml.internal.bind.v2.schemagen.episode.Klass;
-
 /**
  *
  * @author c1042486

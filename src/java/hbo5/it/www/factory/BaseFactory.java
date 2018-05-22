@@ -21,5 +21,5 @@ public class BaseFactory {
             id = resultset.getInt("id");
         }
         return id;
-}
+    }
 }

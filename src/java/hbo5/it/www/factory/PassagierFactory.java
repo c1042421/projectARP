@@ -33,6 +33,7 @@ public class PassagierFactory extends BaseFactory {
             
             lijstPassagiers.add(passagier);
         }
-        return null;
+        
+        return lijstPassagiers;
     }
 }

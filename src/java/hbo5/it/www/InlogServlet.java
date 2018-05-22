@@ -81,10 +81,10 @@ public class InlogServlet extends HttpServlet {
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
                     DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
-                        DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
-                        DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
-                        DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
-                        DAVliegtuigklasse daVliegtuigKlasse = new DAVliegtuigklasse(url, login, password, driver);
+                    DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+                    DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
+                    DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
+                    DAVliegtuigklasse daVliegtuigKlasse = new DAVliegtuigklasse(url, login, password, driver);
                         
                     if (persoon.getSoort() == 'P') {
                         ArrayList<Passagier> passagiers = daPassagier.getPassagiersForPersoonID(persoon.getId());
