@@ -7,7 +7,6 @@ package hbo5.it.www.factory;
 import hbo5.it.www.beans.VluchtBemanning;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -15,6 +14,7 @@ import java.util.ArrayList;
  */
 public class VluchtBemanningFactory {
     public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException{
+        if (resultset.next()) {
 
             VluchtBemanning vluchtbemanning = new VluchtBemanning();
 
@@ -24,15 +24,7 @@ public class VluchtBemanningFactory {
             vluchtbemanning.setVlucht_id(resultset.getInt("VLUCHT_ID"));
 
             return vluchtbemanning;
-    }
-
-    public static ArrayList<VluchtBemanning> maakVluchtbemanningsLijstVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<VluchtBemanning> vluchtbemanningLijst = new ArrayList<>();
-        
-        while (resultset.next()){
-           vluchtbemanningLijst.add(maakVluchtbemanningVanResultset(resultset));
         }
-        
-        return vluchtbemanningLijst;
+        return null;
     }
 }
