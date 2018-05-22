@@ -87,12 +87,12 @@
                             <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
                             <%  java.util.Date utilDate = new java.util.Date();
                                 Date date = new Date(utilDate.getTime());
-                                //if ( vlucht.getVertrektijd().after(date) ) { %>
+                                if ( vlucht.getVertrektijd().after(date) ) { %>
                                 <form action="ManageServlet">
                                     <input type="hidden" name="vluchtID" value=<%= vlucht.getId() %>>
                                     <button type="submit" name="annuleerVlucht"><i class="fas fa-times"> </i> Annuleren</button>
                                 </form>
-                            <%//}%>
+                            <%}%>
                             <%}%>
                         </div>
                     </div>
