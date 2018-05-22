@@ -50,17 +50,24 @@ public class ManageServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             boolean annuleerVlucht = request.getParameter("annuleerVlucht") != null;
-            int vluchtID = Integer.parseInt(request.getParameter("vluchtID"));
+            boolean toonPassagiers = request.getParameter("toonPassagiers") != null;
+             int vluchtID = Integer.parseInt(request.getParameter("vluchtID"));
 
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
 
             if (annuleerVlucht) {
-                int rows = daPassagier.annuleerVluchtForPassagierWithVluchtID(vluchtID);  
+               
+                int rows = daPassagier.annuleerVluchtForPassagierWithVluchtID(vluchtID);
                 ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers");
                 passagiers.removeIf((passagier) -> passagier.getVlucht_id() == vluchtID);
                 session.setAttribute("passagiers", passagiers);
                 request.getRequestDispatcher("passagiersVluchten.jsp").forward(request, response);
+            }
+            else if (toonPassagiers) {
+                ArrayList<Passagier> lijstPassagiers = daPassagier.getPassagiersForVluchtID(vluchtID);
+                session.setAttribute("lijstPassagiers", lijstPassagiers);
+                request.getRequestDispatcher("passagierLijst.jsp").forward(request, response);
             }
 
         } catch (Exception e) {

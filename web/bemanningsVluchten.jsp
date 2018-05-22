@@ -90,6 +90,7 @@
                         <div class="flex-container flex-row">
                             <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
                             <form action="ManageServlet">
+                                <input type="text" name="vluchtID" value="<%=vlucht.getId()%>" hidden />
                                 <button name="toonPassagiers" type="submit"><i class="fas fa-users"> </i> Passagiers</button>
                             </form>
                         </div>
