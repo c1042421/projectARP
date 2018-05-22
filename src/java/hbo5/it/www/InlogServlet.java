@@ -77,7 +77,6 @@ public class InlogServlet extends HttpServlet {
 
                 Persoon persoon = daPersoon.getPersoonVoorLogin(gebruikersnaam, wachtwoord);
                 
-
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
                     DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
