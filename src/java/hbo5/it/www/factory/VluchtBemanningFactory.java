@@ -15,24 +15,30 @@ import java.util.ArrayList;
  */
 public class VluchtBemanningFactory {
     public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException{
+        if (resultset.next()) {
+            return maakObject(resultset);
+        }
+        return null;
+    }
+    
+    public static VluchtBemanning maakObject(ResultSet resultset) throws SQLException {
+        VluchtBemanning vluchtbemanning = new VluchtBemanning();
 
-            VluchtBemanning vluchtbemanning = new VluchtBemanning();
+        vluchtbemanning.setId(resultset.getInt("ID"));
+        vluchtbemanning.setTaak(resultset.getString("TAAK"));
+        vluchtbemanning.setBemanningslid_id(resultset.getInt("BEMANNINGSLID_ID"));
+        vluchtbemanning.setVlucht_id(resultset.getInt("VLUCHT_ID"));
 
-            vluchtbemanning.setId(resultset.getInt("ID"));
-            vluchtbemanning.setTaak(resultset.getString("TAAK"));
-            vluchtbemanning.setBemanningslid_id(resultset.getInt("BEMANNINGSLID_ID"));
-            vluchtbemanning.setVlucht_id(resultset.getInt("VLUCHT_ID"));
-
-            return vluchtbemanning;
+        return vluchtbemanning;
     }
 
     public static ArrayList<VluchtBemanning> maakVluchtbemanningsLijstVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<VluchtBemanning> vluchtbemanningLijst = new ArrayList<>();
+        ArrayList<VluchtBemanning> lijst = new ArrayList<>();
         
-        while (resultset.next()){
-           vluchtbemanningLijst.add(maakVluchtbemanningVanResultset(resultset));
+        while(resultset.next()) {
+            lijst.add(maakObject(resultset));
         }
         
-        return vluchtbemanningLijst;
+        return lijst;
     }
 }
