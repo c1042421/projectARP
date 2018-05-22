@@ -6,6 +6,7 @@
 package hbo5.it.www.dataacces;
 
 import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.factory.PassagierFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,12 +40,13 @@ public class DAPassagier extends DABase {
         return null;
     }
     
-    public int annuleerVluchtForPassagierWithVluchtID(int id){
+    public int annuleerVluchtForPassagierWithVluchtID(int vluchtID, Persoon persoon){
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_id = ?");) {
+                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_id = ? and persoon_id = ?");) {
 
-            statement.setInt(1, id);
+            statement.setInt(1, vluchtID);
+            statement.setInt(2, persoon.getId());
             
             return statement.executeUpdate();
 
@@ -57,7 +59,7 @@ public class DAPassagier extends DABase {
     public int boekVluchtForVluchtID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("Delete From Passagier where vlucht_ID = ?");) {
+                PreparedStatement statement = connection.prepareStatement("Select From Passagier where vlucht_ID = ?");) {
 
             statement.setInt(1, id);
             
