@@ -6,7 +6,6 @@
 package hbo5.it.www.factory;
 
 import hbo5.it.www.beans.Passagier;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +33,6 @@ public class PassagierFactory extends BaseFactory {
             
             lijstPassagiers.add(passagier);
         }
-        return lijstPassagiers;
-}
+        return null;
+    }
 }

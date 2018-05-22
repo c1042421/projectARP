@@ -26,6 +26,10 @@
                     <i class="fas fa-plane"> </i>
                     <p>Mijn vluchten</p>
                 </a>
+                <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
+                    <i class="fas fa-plane"> </i>
+                    <p>Mijn Reisschema</p>
+                </a>
             </div> </div>
             <div class="flex-container-center-center flex-row">
              <% if (persoon != null) { %>
