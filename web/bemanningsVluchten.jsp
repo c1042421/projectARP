@@ -52,9 +52,6 @@
             </div>
         </nav>
             
-            
-            
-            
             <div class="flex-container-top-center">
                 <h2>Mijn Reisschema <hr/></h2>
             
