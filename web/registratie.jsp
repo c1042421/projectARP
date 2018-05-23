@@ -83,7 +83,7 @@
                 
                </div>
                 <p>
-                    <button type="submit"><i class="fas fa-user-plus"> </i> Registreren </button>
+                    <button type="submit" class="button"><i class="fas fa-user-plus"> </i> Registreren </button>
                 </p>
            </div>
         </form>

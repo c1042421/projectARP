@@ -25,7 +25,7 @@
              <% if (persoon != null) { %>
                 <p> Welkom <%= persoon.getVoornaam() %></p>
                 <form action="InlogServlet">
-                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
+                    <button type="submit" name="loguit" class="button"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
                 </form>
              <% } else {%>
                 <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>

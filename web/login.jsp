@@ -24,7 +24,7 @@
                     <div class="center"> <img class="loginImg" src="images/travel.svg"> </div>
                     <p><label>Gebruikersnaam: </label> <br> <input autofocus type="text" name="gebruikersnaam" placeholder="vb. jelmar"/></p>
                     <p><label>Wachtwoord: </label> <br> <input type="password" name="password"/></p>
-                    <p class="text-center"><button type="submit" > <i class="fas fa-sign-in-alt"> </i> Inloggen </button></p>
+                    <p class="text-center"><button type="submit" class="button" > <i class="fas fa-sign-in-alt"> </i> Inloggen </button></p>
                 </div>
             </form>
         </div>
