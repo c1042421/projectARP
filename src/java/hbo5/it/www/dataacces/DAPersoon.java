@@ -5,6 +5,7 @@
  */
 package hbo5.it.www.dataacces;
 
+import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.factory.PersoonFactory;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 /**
  *
@@ -66,4 +68,31 @@ public class DAPersoon extends DABase {
         }
         return null;
     }
+     
+     public Persoon getPersoonForID(int id){
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PERSOON WHERE ID=?");) {
+
+            statement.setInt(1, id);
+            ResultSet resultset = statement.executeQuery();
+            
+            return PersoonFactory.maakPersoonVanResultset(resultset);
+            
+         } catch (Exception e){
+                 e.printStackTrace();
+                 }
+         
+         return null;
+     }
+     
+     public ArrayList<Passagier> voegPersoonAanPassagiersToe(ArrayList<Passagier> lijstPassagiers){
+         ArrayList<Passagier> passagierMetPersoon = new ArrayList();
+         for (Passagier pasg : lijstPassagiers){
+             Persoon persoon = getPersoonForID(pasg.getPersoon_id());
+             pasg.setPersoon(persoon);
+             passagierMetPersoon.add(pasg);
+         }
+         return passagierMetPersoon;
+     }
 }

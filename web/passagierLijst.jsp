@@ -45,10 +45,21 @@
                 <% }%>
             </div>
         </nav>
-                
+            
+            
+            
+        <div class="flex-container flex-row">
+            <div class="flex-container section">
+                <div class="customCard">
                 <% ArrayList<Passagier> lijstPassagier = (ArrayList<Passagier>)session.getAttribute("lijstPassagiers");
                     for (Passagier pasg : lijstPassagier) {%>
-                    <p> <%= pasg.getId() %></p>
+                    <p><%= pasg.getId() + ". " + pasg.getPersoon().getFamilienaam() + " " +  pasg.getPersoon().getVoornaam() + ", " + pasg.getPersoon().getLand() %></p>
                     <%}%>
+                </div>
+            </div>
+        </div>
+           
+            
+            
     </body>
 </html>

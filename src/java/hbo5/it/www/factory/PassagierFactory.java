@@ -27,7 +27,7 @@ public class PassagierFactory extends BaseFactory {
             passagier.setIngecheckt(resultset.getBoolean("ingecheckt"));
             passagier.setIngeschreven(resultset.getBoolean("ingeschreven"));
             passagier.setKlasse_id(resultset.getInt("klasse_id"));
-            passagier.setPersoon_id(resultset.getInt("klasse_id"));
+            passagier.setPersoon_id(resultset.getInt("persoon_id"));
             passagier.setVlucht_id(resultset.getInt("vlucht_id"));
             passagier.setPlaats(resultset.getString("plaats"));
             

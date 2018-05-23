@@ -7,6 +7,7 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.dataacces.DAPassagier;
+import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +56,7 @@ public class ManageServlet extends HttpServlet {
 
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
+            DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
 
             if (annuleerVlucht) {
                
@@ -66,6 +68,7 @@ public class ManageServlet extends HttpServlet {
             }
             else if (toonPassagiers) {
                 ArrayList<Passagier> lijstPassagiers = daPassagier.getPassagiersForVluchtID(vluchtID);
+                lijstPassagiers = daPersoon.voegPersoonAanPassagiersToe(lijstPassagiers);
                 session.setAttribute("lijstPassagiers", lijstPassagiers);
                 request.getRequestDispatcher("passagierLijst.jsp").forward(request, response);
             }
@@ -73,6 +76,8 @@ public class ManageServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
 
     }
 
