@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello Admin!</h1>
+        <jsp:include page="navigatieBalk.jsp" />
+                
+                
     </body>
 </html>

@@ -23,32 +23,7 @@
     </head>
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
-        <nav>
-            <div class="flex-container-center-center flex-row">
-                <img class="nav-logo left-margin" src="images/travel.svg" /> 
-                <a class="left-margin flex-container-center-center flex-row menu" href="index.jsp">
-                    <i class="fas fa-home"> </i>
-                    <p>Home</p>
-                </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
-                    <p>Mijn Vluchten</p>
-                </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
-                    <p>Mijn Reisschema</p>
-                </a>
-            </div>
-
-            <div class="flex-container-center-center flex-row" >
-                <% if (persoon != null) {%>
-                <p><%= persoon.getVoornaam()%></p>
-                <form action="InlogServlet">
-                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
-                </form>
-                <% }%>
-            </div>
-        </nav>
+         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
             <h2>Mijn vluchten <hr/></h2>
 
@@ -103,7 +78,5 @@
             <p>U heeft geen vluchten geboekt.</p>
             <%}%>
         </div>
-
-
     </body>
 </html>
