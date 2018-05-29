@@ -16,6 +16,11 @@ body, html {
     align-items: center;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .flex-container-top-center, 
 .flex-container-center-center{
     width: 100%;

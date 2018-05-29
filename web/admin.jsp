@@ -17,15 +17,18 @@
         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
             <h1>Beheer <hr/> </h1>
-            <div class="w960 flex-container flex-row" >
+            <div class="w960">
                 <form>
-                    <button type="submit" class="adminCard luchthaven" name="luchthavens"> Luchthavens </button>
-                    <button type="submit" class="adminCard airline" name="airline"> Luchtvaartmaatschappij </button>
-                    <button type="submit" class="adminCard airplane" name="vliegtuig"> Vliegtuigen </button>
-                    <button type="submit" class="adminCard hangar" name="hangar"> Hangar </button>
-                    <button type="submit" class="adminCard crew" name="bemanning"> Bemanning </button>
-                    <button type="submit" class="adminCard air-crew" name="vluchbemanning"> VluchtBemanning </button>
-                    <button type="submit" class="adminCard vliegtuig-in-hanger" name="vliegtuigInHangar"> Vliegtuigen in hangar </button>
+                    <div class="grid-container">
+                        <button type="submit" class="adminCard luchthaven" name="luchthavens"> Luchthavens </button>
+                        <button type="submit" class="adminCard airline" name="airline"> Luchtvaartmaatschappij </button>
+                        <button type="submit" class="adminCard airplane" name="vliegtuig"> Vliegtuigen </button>
+                        <button type="submit" class="adminCard hangar" name="hangar"> Hangar </button>
+                        <button type="submit" class="adminCard crew" name="bemanning"> Bemanning </button>
+                        <button type="submit" class="adminCard air-crew" name="vluchbemanning"> VluchtBemanning </button>
+                        <div></div>
+                        <button type="submit" class="adminCard vliegtuig-in-hanger" name="vliegtuigInHangar"> Vliegtuigen in hangar </button>
+                    </div>
                 </form>
             </div>
         </div>
