@@ -102,4 +102,11 @@ public class Passagier {
     public void setPersoon_id(int persoon_id) {
         this.persoon_id = persoon_id;
     }
+
+    @Override
+    public String toString() {
+        return ingecheckt?"INGECHECKT":"NIET INGECHECKT";
+    }
+    
+    
 }

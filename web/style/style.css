@@ -151,7 +151,7 @@ input[type="text"], input[type="password"]{
     border: 1px solid #c8cacc;
     border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    width: 600px;
+    width: 400px;
 }
 
 .customCard p {
@@ -199,4 +199,12 @@ hr {
 
 .text-center{
     text-align: center;
+}
+
+.groen{
+    color: lightgreen;
+}
+
+.rood{
+    color: red;
 }
