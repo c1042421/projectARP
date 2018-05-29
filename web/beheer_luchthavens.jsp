@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Beheer bemanning</title>
+        <title>Beheer luchthavens</title>
         <link rel="stylesheet" type="text/css" href="style/style.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
@@ -26,11 +26,12 @@
                 <div class="card">
                     <h2><%= luchthaven.getLuchthavennaam()%></h2>
                     <p class="text-center"><%= luchthaven.getLand().getLandnaam()%> - <%= luchthaven.getStad()%></p> 
-                    <form action="AdminServlet">
+                    <form action="BeheerServlet">
                         <div class="flex-container-center-center flex-row"> 
-                            <input type="text" hidden name="id" value="<%=luchthaven.getId()%>">
-                            <input type="text" hidden name="beheerpagina" value="edit_luchthaven">
-                            <button name="pasaan" class="button" type="submit"><i class="far fa-edit"></i> Pas aan</button>
+                            <input type="text" hidden name="id" value="<%=luchthaven.getId()%>"/>
+                            <input type="text" hidden name="beheerpagina" value="edit_luchthaven"/>
+                            <input type="text" hidden name="objectType" value="luchthaven"/>
+                            <button name="pasaan" class="button edit" type="submit"><i class="far fa-edit"></i> Pas aan</button>
                             <button name="verwijder" class="button" type="submit"><i class="fas fa-trash-alt"></i> Verwijder</button>
                         </div>
                     </form> 

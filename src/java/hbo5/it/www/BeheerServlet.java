@@ -5,14 +5,20 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Land;
+import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.dataacces.DALand;
+import hbo5.it.www.dataacces.DALuchthaven;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,20 +43,49 @@ public class BeheerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
+        try {
+            HttpSession session = request.getSession();
+
             String url = getInitParameter("url");
             String login = getInitParameter("login");
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
-            
+
+            DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
+            DALand daLand = new DALand(url, login, password, driver);
+
             String beheerpagina = request.getParameter("beheerpagina");
+            String objectType = request.getParameter("objectType");
+            
             int id = Integer.parseInt(request.getParameter("id"));
-            
-            if (beheerpagina.equals("edit_luchthaven")){
-                //TODO MAAK LUCHTHAVEN en toon in edit page
+            boolean pasaan = request.getParameter("pasaan") != null;
+            boolean verwijder = request.getParameter("verwijder") != null;
+
+            if (objectType.equals("luchthaven")) {
+
+                if (pasaan) {
+                    Luchthaven l = daLuchthaven.getLuchthavenForID(id);
+                    ArrayList<Land> landen = daLand.getAlleLanden();
+
+                    session.setAttribute("editLuchthaven", l);
+                    session.setAttribute("landen", landen);
+                    
+                } else if (verwijder) {
+                    
+                    daLuchthaven.verwijderLuchthavenForID(id);
+                    
+                    ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
+                    session.setAttribute("luchthavens", luchthavens);
+                    
+                    request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
+                }
             }
-            
-        } catch(Exception e) {
+
+            if (pasaan) {
+                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
+            } 
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

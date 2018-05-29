@@ -10,6 +10,7 @@ import hbo5.it.www.beans.Luchthaven;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -18,34 +19,47 @@ import java.util.ArrayList;
 public class LuchthavenFactory extends BaseFactory {
 
     public static Luchthaven maakLuchthavenVanResultset(ResultSet resultset) throws SQLException {
-        if (resultset.next()){
+        if (resultset.next()) {
             return maakObjectVanResultset(resultset);
         }
         return null;
     }
-    
+
     private static Luchthaven maakObjectVanResultset(ResultSet resultset) throws SQLException {
-            Luchthaven luchthaven = new Luchthaven();
-            Land land = LandFactory.maakLandVanResultsetZonderNext(resultset);
-            
-            luchthaven.setLand(land);
-            luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
-            luchthaven.setStad(resultset.getString("stad"));
-            luchthaven.setId(resultset.getInt("id"));
-            luchthaven.setLand_id(resultset.getInt("land_id"));
-                  
-            return luchthaven;
+        Luchthaven luchthaven = new Luchthaven();
+        Land land = LandFactory.maakLandVanResultsetZonderNext(resultset);
+
+        luchthaven.setLand(land);
+        luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
+        luchthaven.setStad(resultset.getString("stad"));
+        luchthaven.setId(resultset.getInt("id"));
+        luchthaven.setLand_id(resultset.getInt("land_id"));
+
+        return luchthaven;
     }
 
     public static ArrayList<Luchthaven> maakLijstMetLuchthavensVanResultset(ResultSet resultset) throws SQLException {
         ArrayList<Luchthaven> luchthavens = new ArrayList<>();
-        
-        while(resultset.next()) {
+
+        while (resultset.next()) {
             Luchthaven l = maakObjectVanResultset(resultset);
             luchthavens.add(l);
         }
-        
+
         return luchthavens;
     }
-    
+
+    public static Luchthaven maakLuchthavenVanRequest(HttpServletRequest request) {
+        String naam = request.getParameter("luchthavennaam");
+        int id = Integer.parseInt(request.getParameter("id"));
+        int landId = Integer.parseInt(request.getParameter("land_id"));
+        String stad = request.getParameter("stad");
+        Luchthaven l = new Luchthaven();
+        l.setId(id);
+        l.setLand_id(landId);
+        l.setStad(stad);
+        l.setLuchthavennaam(naam);
+        return l;
+    }
+
 }

@@ -27,7 +27,7 @@ public class DALuchthaven extends DABase {
         super(url, login, password, driver);
     }
 
-    private Luchthaven getLuchthavenForID(int id) {
+    public Luchthaven getLuchthavenForID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM Luchthaven inner join Land on LAND_ID=LAND.ID where LUCHTHAVEN.ID = ?");) {
@@ -92,5 +92,36 @@ public class DALuchthaven extends DABase {
         }
         
         return vluchtbemanningMetVluchtLuchthavens;
+    }
+
+    public int updateLuchthaven(Luchthaven l) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Update LUCHTHAVEN SET Luchthavennaam=?, Land_id=?, STAD=? where id=?");) {
+
+            statement.setString(1, l.getLuchthavennaam());
+            statement.setInt(2, l.getLand_id());
+            statement.setString(3, l.getStad());
+            statement.setInt(4, l.getId());
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int verwijderLuchthavenForID(int id) {
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete from LUCHTHAVEN where id=?");) {
+
+            statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

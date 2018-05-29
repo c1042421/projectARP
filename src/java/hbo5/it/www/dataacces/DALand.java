@@ -56,4 +56,19 @@ public class DALand extends DABase {
 
         return passagiersMetVluchtLuchthavens;
     }
+
+    public ArrayList<Land> getAlleLanden() {
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Land");) {
+             
+            ResultSet resultset = statement.executeQuery();
+            
+            return LandFactory.maakLijstLandenVanResultset(resultset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
