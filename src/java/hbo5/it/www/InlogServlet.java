@@ -109,6 +109,11 @@ public class InlogServlet extends HttpServlet {
                         
                         session.setAttribute("vluchtbemanning", vluchtbemanning);
                         request.getRequestDispatcher("bemanningsVluchten.jsp").forward(request, response);
+                   
+                    }else if (persoon.getSoort() == 'A') {
+                        
+                        
+                        request.getRequestDispatcher("admin.jsp").forward(request, response);
                     }
                     
                 } else {
