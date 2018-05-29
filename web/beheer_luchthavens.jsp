@@ -18,14 +18,32 @@
     <body>
         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
-            <h1>Beheer luchthavens <hr></h1>
+            <h1>Beheer luchthavens<hr></h1>
             <div class="grid-container grid-2-colums">
                 <% ArrayList<Luchthaven> luchthavens = (ArrayList<Luchthaven>) session.getAttribute("luchthavens");%>
                 <% if (!luchthavens.isEmpty()) {
-                    for (Luchthaven luchthaven : luchthavens) {%>
-                    <div class="card"><h2><%= luchthaven.getLuchthavennaam()%></h2> <p class="text-center"><%= luchthaven.getLand().getLandnaam()%> - <%=luchthaven.getStad()%></p>  </div>
+                        for (Luchthaven luchthaven : luchthavens) {%>
+                <div class="card">
+                    <h2><%= luchthaven.getLuchthavennaam()%></h2>
+                    <p class="text-center"><%= luchthaven.getLand().getLandnaam()%> - <%= luchthaven.getStad()%></p> 
+                    <form action="AdminServlet">
+                        <div class="flex-container-center-center flex-row"> 
+                            <input type="text" hidden name="id" value="<%=luchthaven.getId()%>">
+                            <input type="text" hidden name="beheerpagina" value="edit_luchthaven">
+                            <button name="pasaan" class="button" type="submit"><i class="far fa-edit"></i> Pas aan</button>
+                            <button name="verwijder" class="button" type="submit"><i class="fas fa-trash-alt"></i> Verwijder</button>
+                        </div>
+                    </form> 
+                </div>
+
                 <%}
-                }%>
+                    }%>
+
+                <a href="#" class="card card-hover reset-link" > 
+                    <div class="flex-container-center-center flex-row">
+                        <i class="fas fa-plus"> </i> Nieuwe luchthaven
+                    </div>
+                </a>
             </div>
 
 
