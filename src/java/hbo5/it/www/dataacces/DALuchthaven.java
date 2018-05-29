@@ -46,7 +46,7 @@ public class DALuchthaven extends DABase {
     public ArrayList<Luchthaven> getAllLuchthavens() {
        try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM Luchthaven");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM Luchthaven inner join Land on LAND_ID=LAND.ID");) {
 
             ResultSet resultset = statement.executeQuery();
 
@@ -72,7 +72,7 @@ public class DALuchthaven extends DABase {
 
             passagiersMetVluchtLuchthavens.add(passagier);
         }
-
+        
         return passagiersMetVluchtLuchthavens;
     }
 
@@ -90,6 +90,7 @@ public class DALuchthaven extends DABase {
             
             vluchtbemanningMetVluchtLuchthavens.add(vlubem);
         }
+        
         return vluchtbemanningMetVluchtLuchthavens;
     }
 }
