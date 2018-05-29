@@ -18,7 +18,7 @@
         <div class="flex-container-top-center">
             <h1>Beheer <hr/> </h1>
             <div class="w960">
-                <form>
+                <form methd="get" action="AdminServlet">
                     <div class="grid-container">
                         <button type="submit" class="adminCard luchthaven" name="luchthavens"> Luchthavens </button>
                         <button type="submit" class="adminCard airline" name="airline"> Luchtvaartmaatschappij </button>

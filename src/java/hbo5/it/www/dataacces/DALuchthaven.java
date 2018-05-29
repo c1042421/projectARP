@@ -42,6 +42,21 @@ public class DALuchthaven extends DABase {
         }
         return null;
     }
+    
+    public ArrayList<Luchthaven> getAllLuchthavens() {
+       try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM Luchthaven");) {
+
+            ResultSet resultset = statement.executeQuery();
+
+            return LuchthavenFactory.maakLijstMetLuchthavensVanResultset(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public ArrayList<Passagier> voegLuchtavensToeAanPassagiersVlucht(ArrayList<Passagier> passagiers) {
 
