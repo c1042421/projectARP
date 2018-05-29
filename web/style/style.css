@@ -18,7 +18,15 @@ body, html {
 
 .grid-container {
     display: grid;
+    grid-gap: 15px;
+}
+
+.grid-3-colums {
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-2-colums {
+     grid-template-columns: 1fr 1fr;
 }
 
 .flex-container-top-center, 

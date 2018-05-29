@@ -19,7 +19,7 @@
             <h1>Beheer <hr/> </h1>
             <div class="w960">
                 <form action="AdminServlet">
-                    <div class="grid-container">
+                    <div class="grid-container grid-3-colums">
                         <button type="submit" class="adminCard luchthaven" name="luchthavens"> Luchthavens </button>
                         <button type="submit" class="adminCard airline" name="airline"> Luchtvaartmaatschappij </button>
                         <button type="submit" class="adminCard airplane" name="vliegtuig"> Vliegtuigen </button>

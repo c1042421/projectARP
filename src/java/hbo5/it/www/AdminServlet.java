@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DALuchthaven;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,14 +51,18 @@ public class AdminServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
+            DABemanningslid daBemanning = new DABemanningslid(url, login, password, driver);
 
             boolean toonLuchthavens = request.getParameter("luchthavens") != null;
             boolean toonBemanning = request.getParameter("bemanning") != null;
 
             if (toonBemanning) {
+                               
+                
+            } else if (toonLuchthavens) {
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);
-                request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);
+                request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
