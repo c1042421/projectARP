@@ -8,6 +8,7 @@ package hbo5.it.www.factory;
 import hbo5.it.www.beans.Land;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +32,15 @@ public class LandFactory extends BaseFactory {
         land.setLandnaam(resultset.getString("landnaam"));
 
         return land;
+    }
+
+    public static ArrayList<Land> maakLijstLandenVanResultset(ResultSet resultset) throws SQLException {
+        ArrayList<Land> landen = new ArrayList<>();
+        
+        while(resultset.next()) {
+            Land l = maakLandVanResultsetZonderNext(resultset);
+            landen.add(l);
+        }
+        return landen;
     }
 }
