@@ -55,13 +55,14 @@ public class SaveServlet extends HttpServlet {
             int editedRows = 0;
             
             boolean saveLuchthaven = request.getParameter("save_luchthaven") != null;
+            boolean saveNieuweLuchthaven = request.getParameter("save_nieuwe_luchthaven") != null;
             
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             
-            if (saveLuchthaven){
+            if (saveLuchthaven || saveNieuweLuchthaven){
                 Luchthaven l = LuchthavenFactory.maakLuchthavenVanRequest(request);   
                                
-                editedRows = daLuchthaven.updateLuchthaven(l);
+                editedRows = saveLuchthaven ? daLuchthaven.updateLuchthaven(l) : daLuchthaven.voegNieuweLuchthavenToe(l);
                 
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);

@@ -20,6 +20,11 @@
         <div class="flex-container-top-center">
             <h1>Beheer luchthavens<hr></h1>
             <div class="grid-container grid-2-colums">
+                <form action="BeheerServlet">
+                    <input type="text" hidden name="beheerpagina" value="nieuwe_luchthaven"/>
+                    <input type="text" hidden name="objectType" value="luchthaven"/>
+                    <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuwe luchthaven</button>
+                </form>
                 <% ArrayList<Luchthaven> luchthavens = (ArrayList<Luchthaven>) session.getAttribute("luchthavens");%>
                 <% if (!luchthavens.isEmpty()) {
                         for (Luchthaven luchthaven : luchthavens) {%>
@@ -39,12 +44,6 @@
 
                 <%}
                     }%>
-
-                <a href="#" class="card card-hover reset-link" > 
-                    <div class="flex-container-center-center flex-row">
-                        <i class="fas fa-plus"> </i> Nieuwe luchthaven
-                    </div>
-                </a>
             </div>
 
 
