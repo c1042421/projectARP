@@ -74,4 +74,22 @@ public class DAVliegtuig extends DABase {
         }
         return vluchtbemanningMetVliegtuigInVlucht;
     }
+    
+    public ArrayList<Vliegtuig> getAllVliegtuigen(){        
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLIEGTUIG join vliegtuigtype on vliegtuig.VLIEGTUIGTYPE_ID = vliegtuigtype.ID \n" +
+"                                 join luchtvaartmaatschappij on vliegtuig.LUCHTVAARTMAATSCHAPPIJ_ID = luchtvaartmaatschappij.ID");) {
+
+
+            ResultSet resultset = statement.executeQuery();
+
+            return VliegtuigFactory.maakLijstVanVliegtuigen(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+        
+    }
 }

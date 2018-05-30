@@ -17,15 +17,14 @@
     </head>
     <body>
         <jsp:include page="navigatieBalk.jsp" />
+        
         <div class="flex-container-top-center">
             <% ArrayList<Luchthaven> luchthavens = (ArrayList<Luchthaven>) session.getAttribute("luchthavens");%>
             <% if (!luchthavens.isEmpty()) {
                     for (Luchthaven luchthaven : luchthavens) {%>
-            <p><%= luchthaven.getLuchthavennaam()%> </p>
+                        <p><%= luchthaven.getLuchthavennaam()%> </p>
             <%}
                 }%>
-
-
         </div>
     </body>
 </html>

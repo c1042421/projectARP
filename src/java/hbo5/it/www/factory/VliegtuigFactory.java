@@ -10,6 +10,7 @@ import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.Vliegtuigtype;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,13 @@ public class VliegtuigFactory extends BaseFactory {
 
     public static Vliegtuig maakVliegtuigVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()){
+            return maakObject(resultset);
+        }
+        
+        return null;
+    }
+    
+    private static Vliegtuig maakObject(ResultSet resultset) throws SQLException{
             Vliegtuig vliegtuig = new Vliegtuig();
             
             Luchtvaartmaatschappij lm = LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultsetZonderNext(resultset);
@@ -33,8 +41,14 @@ public class VliegtuigFactory extends BaseFactory {
                         
             return vliegtuig;
         }
+
+    public static ArrayList<Vliegtuig> maakLijstVanVliegtuigen(ResultSet resultset) throws SQLException {
+        ArrayList<Vliegtuig> lijstVliegtuigen = new ArrayList<>();
         
-        return null;
+        while (resultset.next()){
+            lijstVliegtuigen.add(maakObject(resultset));
+        }
+        return lijstVliegtuigen;
     }
     
 }
