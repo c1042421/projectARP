@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Passagier;
+import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.dataacces.DAPassagier;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAVlucht;
@@ -51,16 +52,16 @@ public class ManageServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             boolean annuleerVlucht = request.getParameter("annuleerVlucht") != null;
+            int vluchtID = Integer.parseInt(request.getParameter("vluchtID"));
             boolean toonPassagiers = request.getParameter("toonPassagiers") != null;
-             int vluchtID = Integer.parseInt(request.getParameter("vluchtID"));
+            Persoon loggedInPersoon = (Persoon) session.getAttribute("loggedInPersoon");
 
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
 
             if (annuleerVlucht) {
-               
-                int rows = daPassagier.annuleerVluchtForPassagierWithVluchtID(vluchtID);
+                int rows = daPassagier.annuleerVluchtForPassagierWithVluchtID(vluchtID, loggedInPersoon);  
                 ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers");
                 passagiers.removeIf((passagier) -> passagier.getVlucht_id() == vluchtID);
                 session.setAttribute("passagiers", passagiers);

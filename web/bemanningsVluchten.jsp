@@ -22,36 +22,11 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     
-    <body>
-        <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
-        
-         <nav>
-            <div class="flex-container-center-center flex-row">
-                <img class="nav-logo left-margin" src="images/travel.svg" /> 
-                <a class="left-margin flex-container-center-center flex-row menu" href="index.jsp">
-                    <i class="fas fa-home"> </i>
-                    <p>Home</p>
-                </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
-                    <p>Mijn Vluchten</p>
-                </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
-                    <p>Mijn Reisschema</p>
-                </a>
-            </div>
-
-            <div class="flex-container-center-center flex-row" >
-                <% if (persoon != null) {%>
-                <p><%= persoon.getVoornaam()%></p>
-                <form action="InlogServlet">
-                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
-                </form>
-                <% }%>
-            </div>
-        </nav>
-            
+    <body>       
+          <jsp:include page="navigatieBalk.jsp" />
+          
+          <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
+          
             <div class="flex-container-top-center">
                 <h2>Mijn Reisschema <hr/></h2>
             
@@ -83,26 +58,25 @@
                                 <%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %><br/>
                                 op: <%= vlucht.getAankomsttijd().toLocalDate().format(dateFormatter) %><br/>
                                 </p>
-                               
-
                             </div>
+                                
                         </div>
                         <div class="flex-container flex-row">
-                            <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
+                            <a href="#" class="button"><i class="fas fa-plane"></i>Details</a>
                             <form action="ManageServlet">
-                                <input type="text" name="vluchtID" value="<%=vlucht.getId()%>" hidden />
-                                <button name="toonPassagiers" type="submit"><i class="fas fa-users"> </i> Passagiers</button>
+                                <input type="text" name="vluchtID" hidden value="<%=vlucht.getId()%>"/>
+                                <button class="button" name="toonPassagiers" type="submit"><i class="fas fa-users"></i>Passagiers</button>
                             </form>
                         </div>
                     </div>
-                    <%}
-                } else {%>
-                    <p>Geen reisschema beschikbaar.</p>
-                <%}%>
-            </div>
-
-            
-            
-            
+                    <%}%>
+                    
+                    <%}else if (persoon == null) {%>
+                        <p class="text-center"> U bent niet ingelogd. <br> Log in om uw reisschema te kunnen bekijken.</p>
+                        <a class="button" href="login.jsp"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+                    <%} else {%>
+                        <p>U heeft geen toekomstig reisschema.</p>
+                    <%}%>
+            </div>   
     </body>
 </html>

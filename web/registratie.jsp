@@ -15,31 +15,8 @@
         <title>Registreren</title>
     </head>
     <body>
-        <% 
-           Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon");      
-        %>
-        <nav>
-            <div class="flex-container-center-center flex-row">
-                <img class="nav-logo left-margin" src="images/travel.svg" /> 
-                <a class="left-margin flex-container-center-center flex-row menu" href="index.jsp">
-                    <i class="fas fa-home"> </i>
-                    <p>Home</p>
-                </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
-                    <p>Mijn vluchten</p>
-                </a>
-            </div>
-            <div class="flex-container-center-center flex-row"> <% if (persoon != null) { %>
-                <p> Welkom <%= persoon.getVoornaam() %></p>
-                <form action="InlogServlet">
-                    <button type="submit" name="loguit"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
-                </form>
-             <% } else {%>
-                <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
-            <% } %>
-            </div>
-        </nav>
+         <jsp:include page="navigatieBalk.jsp" />
+         
         <form action="RegistratieServlet" method="post">
         <div class="flex-container-top-center">
             <h2>Registreer</h2>
@@ -106,7 +83,7 @@
                 
                </div>
                 <p>
-                    <button type="submit"><i class="fas fa-user-plus"> </i> Registreren </button>
+                    <button type="submit" class="button"><i class="fas fa-user-plus"> </i> Registreren </button>
                 </p>
            </div>
         </form>

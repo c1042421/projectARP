@@ -77,7 +77,6 @@ public class InlogServlet extends HttpServlet {
 
                 Persoon persoon = daPersoon.getPersoonVoorLogin(gebruikersnaam, wachtwoord);
                 
-
                 if (persoon != null) {
                     session.setAttribute("loggedInPersoon", persoon);
                     DAPassagier daPassagier = new DAPassagier(url, login, password, driver);
@@ -110,6 +109,11 @@ public class InlogServlet extends HttpServlet {
                         
                         session.setAttribute("vluchtbemanning", vluchtbemanning);
                         request.getRequestDispatcher("bemanningsVluchten.jsp").forward(request, response);
+                   
+                    }else if (persoon.getSoort() == 'A') {
+                        
+                        
+                        request.getRequestDispatcher("admin.jsp").forward(request, response);
                     }
                     
                 } else {
