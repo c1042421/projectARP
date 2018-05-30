@@ -92,4 +92,18 @@ public class DAVliegtuig extends DABase {
         return null;
         
     }
+    
+    public int verwijderVliegtuigForID(int id) {
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete from VLIEGTUIG where id=?");) {
+
+            statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

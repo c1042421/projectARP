@@ -9,6 +9,7 @@ import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAVliegtuig;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +56,7 @@ public class AdminServlet extends HttpServlet {
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DABemanningslid daBemanning = new DABemanningslid(url, login, password, driver);
             DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
+            //DALuchtvaartmaatschappij daLuchtvaarmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
 
             boolean toonLuchthavens = request.getParameter("luchthavens") != null;
             boolean toonBemanning = request.getParameter("bemanning") != null;

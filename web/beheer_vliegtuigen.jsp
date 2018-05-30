@@ -21,11 +21,28 @@
         <div class="flex-container-top-center">
             <h1>Beheer Vliegtuigen<hr></h1>
         <div class="grid-container grid-2-colums">
+            
+            <form action="BeheerServlet">
+                    <input type="text" hidden name="beheerpagina" value="nieuw_vliegtuig"/>
+                    <input type="text" hidden name="objectType" value="vliegtuig"/>
+                    <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuw vliegtuig</button>
+                </form>
+            
             <% ArrayList<Vliegtuig> vliegtuigen = (ArrayList<Vliegtuig>) session.getAttribute("vliegtuigen");%>
             <% if (!vliegtuigen.isEmpty()) {
                     for (Vliegtuig vliegtuig : vliegtuigen) {%>
                     <div class="card">
-                        <p><%= vliegtuig.getVliegtuigtype().getTypenaam() + " - " + vliegtuig.getLuchtvaartmaatschappij().getLuchtvaartnaam() %> </p>
+                        <h2><%= vliegtuig.getVliegtuigtype().getTypenaam()%></h2>
+                        <p class="text-center"><%=vliegtuig.getLuchtvaartmaatschappij().getLuchtvaartnaam()%></p>
+                        <form action="BeheerServlet">
+                        <div class="flex-container-center-center flex-row"> 
+                            <input type="text" hidden name="id" value="<%=vliegtuig.getId()%>"/>
+                            <input type="text" hidden name="beheerpagina" value="edit_vliegtuig"/>
+                            <input type="text" hidden name="objectType" value="vliegtuig"/>
+                            <button name="pasaan" class="button edit" type="submit"><i class="far fa-edit"></i> Pas aan</button>
+                            <button name="verwijder" class="button" type="submit"><i class="fas fa-trash-alt"></i> Verwijder</button>
+                        </div>
+                    </form> 
                     </div>
             <%}
                 }%>

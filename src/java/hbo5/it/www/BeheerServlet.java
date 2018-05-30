@@ -7,8 +7,12 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAVliegtuig;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -53,6 +57,8 @@ public class BeheerServlet extends HttpServlet {
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DALand daLand = new DALand(url, login, password, driver);
+            DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
+            DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -78,6 +84,23 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("luchthavens", luchthavens);
                     
                     request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
+                }
+            } else if (objectType.equals("vliegtuig")) {
+                if (pasaan) {
+                    Vliegtuig vl = daVliegtuig.getVliegtuigForID(id);
+                    ArrayList<Luchtvaartmaatschappij> lvm = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+
+                    session.setAttribute("editVliegtuig", vl);
+                    session.setAttribute("luchtvaartmaatschappijen", lvm);
+                    
+                } else if (verwijder) {
+                    
+                    daVliegtuig.verwijderVliegtuigForID(id);
+                    
+                    ArrayList<Vliegtuig> vliegtuigen = daVliegtuig.getAllVliegtuigen();
+                    session.setAttribute("vliegtuigen", vliegtuigen);
+                    
+                    request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
                 }
             }
 
