@@ -4,8 +4,8 @@
     Author     : c1042421
 --%>
 
+<%@page import="hbo5.it.www.beans.Bemanningslid"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="hbo5.it.www.beans.Luchthaven"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,14 +18,16 @@
     <body>
         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
-            <% ArrayList<Luchthaven> luchthavens = (ArrayList<Luchthaven>) session.getAttribute("luchthavens");%>
-            <% if (!luchthavens.isEmpty()) {
-                    for (Luchthaven luchthaven : luchthavens) {%>
-            <p><%= luchthaven.getLuchthavennaam()%> </p>
-            <%}
-                }%>
-
-
+            <div class="grid-container grid-2-colums">
+                <% ArrayList<Bemanningslid> bemanningsleden = (ArrayList<Bemanningslid>) session.getAttribute("bemanning");%>
+                <% if (!bemanningsleden.isEmpty()) {
+                        for (Bemanningslid lid : bemanningsleden) {%>
+                <div class="card">
+                    <p><%=  %> </p>
+                </div>
+                <%}
+                    }%>
+            </div>
         </div>
     </body>
 </html>

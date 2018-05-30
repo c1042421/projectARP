@@ -13,17 +13,24 @@ import java.sql.SQLException;
  *
  * @author c1042421
  */
-class LuchtvaartmaatschappijFactory extends BaseFactory {
+public class LuchtvaartmaatschappijFactory extends BaseFactory {
 
-    static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultsetZonderNext(ResultSet resultset) throws SQLException {
-        
+    public static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+        return maakObject(resultset);
+    }
+
+    private static Luchtvaartmaatschappij maakObject(ResultSet resultset) throws SQLException {
         Luchtvaartmaatschappij lm = new Luchtvaartmaatschappij();
-        
+
         int id = checkIfIdExistsAndReturn("LUCHTVAARTMAATSCHAPPIJ_ID", resultset);
-        
+
         lm.setId(id);
         lm.setLuchtvaartnaam(resultset.getString("luchtvaartnaam"));
-        
+
         return lm;
+    }
+
+    public static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultset(ResultSet resultset) throws SQLException {
+        return resultset.next() ? maakObject(resultset) : null;
     }
 }

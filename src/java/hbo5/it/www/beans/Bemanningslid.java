@@ -14,6 +14,33 @@ public class Bemanningslid {
     private int luchtvaartmaatschappij_id;
     private int persoon_id;
     private int functie_id;
+    private Luchtvaartmaatschappij luchtvaartmaatschappij;
+    private Persoon persoon;
+    private Functie functie;
+
+    public Luchtvaartmaatschappij getLuchtvaartmaatschappij() {
+        return luchtvaartmaatschappij;
+    }
+
+    public void setLuchtvaartmaatschappij(Luchtvaartmaatschappij luchtvaartmaatschappij) {
+        this.luchtvaartmaatschappij = luchtvaartmaatschappij;
+    }
+
+    public Persoon getPersoon() {
+        return persoon;
+    }
+
+    public void setPersoon(Persoon persoon) {
+        this.persoon = persoon;
+    }
+
+    public Functie getFunctie() {
+        return functie;
+    }
+
+    public void setFunctie(Functie functie) {
+        this.functie = functie;
+    }
 
     public int getId() {
         return id;

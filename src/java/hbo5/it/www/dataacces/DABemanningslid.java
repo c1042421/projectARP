@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  *
  * @author c1042421
@@ -35,5 +36,20 @@ public class DABemanningslid extends DABase {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Bemanningslid> getAlleBemanningsLeden() {
+            try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.BEMANNINGSLID");) {
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return BemanningFactory.maakLijstBemannningsLedenVanResultset(resultset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; 
     }
 }
