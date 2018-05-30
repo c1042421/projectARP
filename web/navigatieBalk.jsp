@@ -12,14 +12,22 @@
                     <i class="fas fa-home"> </i>
                     <p>Home</p>
                 </a>
-                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
+               <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
                     <i class="fas fa-plane"> </i>
                     <p>Mijn Vluchten</p>
                 </a>
+                <%if (persoon != null && persoon.getSoort() == 'B') { %>
                 <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
                     <i class="fas fa-suitcase"></i>
                     <p>Mijn Reisschema</p>
                 </a>
+                <%}%>
+                <% if (persoon != null && persoon.getSoort() == 'A') { %>
+                <a class="left-margin flex-container-center-center flex-row menu" href="admin.jsp">
+                    <i class="fas fa-book"></i>
+                    <p>Beheer</p>
+                </a>
+                <%}%>
             </div> </div>
             <div class="flex-container-center-center flex-row">
              <% if (persoon != null) { %>
@@ -29,7 +37,7 @@
                 </form>
              <% } else {%>
                 <a href="login.jsp" class="button"><i class="fas fa-sign-in-alt"> </i> Log in</a>
-            <% } %>
                 <a href="registratie.jsp" class="button"><i class="fas fa-user-plus"> </i> Registreer</a>
+            <% } %>
             </div>
 </nav>
