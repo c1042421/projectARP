@@ -124,4 +124,20 @@ public class DALuchthaven extends DABase {
         }
         return 0;
     }
+
+    public int voegNieuweLuchthavenToe(Luchthaven l) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("insert into luchthaven (id, luchthavennaam , stad, land_id) values (luchthaven_seq.nextval, ?, ?, ?)");) {
+
+            statement.setString(1, l.getLuchthavennaam());
+            statement.setString(2, l.getStad());
+            statement.setInt(3, l.getLand_id());
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

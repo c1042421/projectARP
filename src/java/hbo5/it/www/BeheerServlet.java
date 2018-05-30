@@ -57,19 +57,23 @@ public class BeheerServlet extends HttpServlet {
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
             
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = request.getParameter("id") != null ?
+                    Integer.parseInt(request.getParameter("id")) :
+                    0;
             boolean pasaan = request.getParameter("pasaan") != null;
             boolean verwijder = request.getParameter("verwijder") != null;
+            boolean nieuw = request.getParameter("nieuw") != null;
 
             if (objectType.equals("luchthaven")) {
 
-                if (pasaan) {
-                    Luchthaven l = daLuchthaven.getLuchthavenForID(id);
+                if (pasaan || nieuw) {
                     ArrayList<Land> landen = daLand.getAlleLanden();
-
-                    session.setAttribute("editLuchthaven", l);
                     session.setAttribute("landen", landen);
                     
+                    if (pasaan) {
+                        Luchthaven l = daLuchthaven.getLuchthavenForID(id);
+                        session.setAttribute("editLuchthaven", l);
+                    }
                 } else if (verwijder) {
                     
                     daLuchthaven.verwijderLuchthavenForID(id);
@@ -81,9 +85,9 @@ public class BeheerServlet extends HttpServlet {
                 }
             }
 
-            if (pasaan) {
-                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
-            } 
+            
+            request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
+            
 
         } catch (Exception e) {
             e.printStackTrace();

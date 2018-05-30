@@ -50,12 +50,17 @@ public class LuchthavenFactory extends BaseFactory {
     }
 
     public static Luchthaven maakLuchthavenVanRequest(HttpServletRequest request) {
+        Luchthaven l = new Luchthaven();
+        
         String naam = request.getParameter("luchthavennaam");
-        int id = Integer.parseInt(request.getParameter("id"));
+        if (request.getParameter("id") != null) {
+           int id = Integer.parseInt(request.getParameter("id"));
+           l.setId(id);
+        }
+        
         int landId = Integer.parseInt(request.getParameter("land_id"));
         String stad = request.getParameter("stad");
-        Luchthaven l = new Luchthaven();
-        l.setId(id);
+   
         l.setLand_id(landId);
         l.setStad(stad);
         l.setLuchthavennaam(naam);
