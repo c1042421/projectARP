@@ -77,11 +77,11 @@
                     
                     <p>
                         <label>Wachtwoord: </label>
-                        <input type="text" name="Wachtwoord" />
+                        <input type="password" name="Wachtwoord" />
                     </p>
                     <p>
                         <label>Bevestig wachtwoord </label>
-                        <input type="text" name="bevestigWachtwoord" />
+                        <input type="password" name="bevestigWachtwoord" />
                     </p>
                     
                     
