@@ -52,7 +52,7 @@ public class RegistratieServlet extends HttpServlet {
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
 
-            Persoon p = PersoonFactory.maakPersoonVanRequest(request);
+            Persoon p = new PersoonFactory().maakPersoonVanRequest(request);
 
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver); 

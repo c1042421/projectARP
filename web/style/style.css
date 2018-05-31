@@ -148,11 +148,15 @@ a.button {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
+.button:active {
+    box-shadow: none;
+}
+
 i {
     margin-right: 5px;
 }
 
-input[type="text"], input[type="password"]{
+input[type="text"], input[type="password"], input[type="number"],input[type="date"], select{
     width: 250px;
     height: 25px;
     outline: none;
@@ -242,6 +246,10 @@ h1 {
 
 .adminCard:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.adminCard:active {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .luchthaven {

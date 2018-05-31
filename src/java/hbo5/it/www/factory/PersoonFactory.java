@@ -22,6 +22,8 @@ public class PersoonFactory extends BaseFactory {
 
     @Override
     public Persoon maakObject(ResultSet resultset) throws SQLException {
+        int id = checkIfIdExistsAndReturn("persoon_id", resultset);
+        
         Persoon persoon = new Persoon();
         Date geboorteDatum = resultset.getDate("Geboortedatum");
 
@@ -34,7 +36,7 @@ public class PersoonFactory extends BaseFactory {
         persoon.setLand(resultset.getString("Land"));
         persoon.setPaswoord(resultset.getString("Paswoord"));
         persoon.setLogin(resultset.getString("Login"));
-        persoon.setId(resultset.getInt("id"));
+        persoon.setId(id);
         persoon.setPostcode(resultset.getString("postcode"));
         persoon.setSoort(resultset.getString("soort").charAt(0));
 
@@ -48,10 +50,19 @@ public class PersoonFactory extends BaseFactory {
         return null;
     }
 
-    public static Persoon maakPersoonVanRequest(HttpServletRequest request) throws ParseException {
+    public Persoon maakPersoonVanRequest(HttpServletRequest request) throws ParseException {
+        Persoon p = new Persoon();
+        String stringID = request.getParameter("persoon_id");
+        
+        if (stringID != null) {
+            int id = Integer.parseInt(stringID);
+            p.setId(id);
+        }
+        
+        
         String voornaam = request.getParameter("Voornaam");
         String familienaam = request.getParameter("Familienaam");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String geboortedatum = request.getParameter("Geboortedatum");
 
         java.util.Date parsedGeboortedatum = sdf.parse(geboortedatum);
@@ -67,7 +78,7 @@ public class PersoonFactory extends BaseFactory {
         String wachtwoord = request.getParameter("Wachtwoord");
         String bevestigWachtwoord = request.getParameter("bevestigWachtwoord");
 
-        Persoon p = new Persoon();
+        
         p.setVoornaam(voornaam);
         p.setFamilienaam(familienaam);
         p.setGeboortedatum(sqlData);
@@ -77,13 +88,13 @@ public class PersoonFactory extends BaseFactory {
         p.setWoonplaats(woonplaats);
         p.setLand(land);
 
-        if (wachtwoord.equals(bevestigWachtwoord)) {
+        if (wachtwoord != null && wachtwoord.equals(bevestigWachtwoord)) {
             p.setLogin(gebruikersnaam);
             p.setPaswoord(wachtwoord);
             return p;
-        } else {
-            return null;
         }
+        
+        return p;
     }
 
 }

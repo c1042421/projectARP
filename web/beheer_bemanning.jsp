@@ -20,6 +20,11 @@
         <div class="flex-container-top-center">
             <h1>Beheer Bemanning<hr></h1>
             <div class="grid-container grid-2-colums">
+                <form action="BeheerServlet">
+                    <input type="text" hidden name="beheerpagina" value="nieuw_bemanningslid"/>
+                    <input type="text" hidden name="objectType" value="bemanningslid"/>
+                    <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuw Bemanningslid</button>
+                </form>
                 <% ArrayList<Bemanningslid> bemanningsleden = (ArrayList<Bemanningslid>) session.getAttribute("bemanning");%>
                 <% if (!bemanningsleden.isEmpty()) {
                         for (Bemanningslid lid : bemanningsleden) {%>
@@ -29,7 +34,7 @@
                     <form action="BeheerServlet">
                         <div class="flex-container-center-center flex-row"> 
                             <input type="text" hidden name="id" value="<%=lid.getId()%>"/>
-                            <input type="text" hidden name="beheerpagina" value="edit_bemanning"/>
+                            <input type="text" hidden name="beheerpagina" value="edit_bemanningslid"/>
                             <input type="text" hidden name="objectType" value="bemanningslid"/>
                             <button name="pasaan" class="button edit" type="submit"><i class="far fa-edit"></i> Pas aan</button>
                             <button name="verwijder" class="button" type="submit"><i class="fas fa-trash-alt"></i> Verwijder</button>

@@ -95,4 +95,27 @@ public class DAPersoon extends DABase {
        } 
        return leden;
     }
+
+    public int update(Persoon persoon) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Update Persoon SET Voornaam=?, familienaam=?, straat=?, huisnr=?,"
+                        + " postcode=?, woonplaats=?, land=? where id=?");) {
+
+            statement.setString(1, persoon.getVoornaam());
+            statement.setString(2, persoon.getFamilienaam());
+            statement.setString(3, persoon.getStraat());
+            statement.setString(4, persoon.getHuisnr());
+            statement.setString(5, persoon.getPostcode());
+            statement.setString(6, persoon.getWoonplaats());
+            statement.setString(7, persoon.getLand());
+            statement.setInt(8, persoon.getId());
+            
+            return statement.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

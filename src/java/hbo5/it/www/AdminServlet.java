@@ -66,11 +66,6 @@ public class AdminServlet extends HttpServlet {
             if (toonBemanning) {
                 
                 ArrayList<Bemanningslid> bemanning = daBemanning.getAlleBemanningsLeden();
-                //Opvullen van objecten in bemanning
-                bemanning = daLuchtvaartmaatschappij.voegMaatschappijToeAanBemanningsLeden(bemanning);
-                bemanning = daPersoon.voegPersoonToeAanBemanning(bemanning);
-                bemanning = daFunctie.voegFunctieToeAanBemanning(bemanning);
-
                 session.setAttribute("bemanning", bemanning);
 
                 request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);

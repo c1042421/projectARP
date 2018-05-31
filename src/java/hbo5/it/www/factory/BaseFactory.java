@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * @author c1042421
  */
 public abstract class BaseFactory implements IFactory {
-    protected static int checkIfIdExistsAndReturn(String columnname, ResultSet resultset) throws SQLException {
+
+    protected int checkIfIdExistsAndReturn(String columnname, ResultSet resultset) throws SQLException {
         int id;
         try {
             id = resultset.getInt(columnname);
@@ -24,17 +25,7 @@ public abstract class BaseFactory implements IFactory {
         }
         return id;
     }
-    
-     protected int checkIfIdExistsAndReturnNotStatic(String columnname, ResultSet resultset) throws SQLException {
-        int id;
-        try {
-            id = resultset.getInt(columnname);
-        } catch (Exception e) {
-            id = resultset.getInt("id");
-        }
-        return id;
-    }
-  
+
     @Override
     public abstract <T> T maakObject(ResultSet resultset) throws SQLException;
 
@@ -42,12 +33,12 @@ public abstract class BaseFactory implements IFactory {
     @Override
     public <T> ArrayList<T> maakLijst(ResultSet resultset) throws SQLException {
         ArrayList<T> lijst = new ArrayList<>();
-        
+
         while (resultset.next()) {
-            T object = maakObject(resultset);
-            lijst.add(object);
+            T obj = maakObject(resultset);
+            lijst.add(obj);
         }
-        
+
         return lijst;
     }
 

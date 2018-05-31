@@ -8,7 +8,6 @@ package hbo5.it.www.factory;
 import hbo5.it.www.beans.Functie;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -23,10 +22,11 @@ public class FunctieFactory extends BaseFactory {
         return null;
     }
     
+    @Override
     public Functie maakObject(ResultSet resultset) throws SQLException {
         Functie functie = new Functie();
-        
-        functie.setId(resultset.getInt("id"));
+        int id = checkIfIdExistsAndReturn("functie_id", resultset);
+        functie.setId(id);
         functie.setFunctienaam(resultset.getString("functienaam"));
         functie.setOmschrijving(resultset.getString("omschrijving"));
         

@@ -5,16 +5,17 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Functie;
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAFunctie;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -59,13 +60,14 @@ public class BeheerServlet extends HttpServlet {
             DALand daLand = new DALand(url, login, password, driver);
             DAFunctie daFunctie = new DAFunctie(url, login, password, driver);
             DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
-            
-            int id = request.getParameter("id") != null ?
-                    Integer.parseInt(request.getParameter("id")) :
-                    0;
+
+            int id = request.getParameter("id") != null
+                    ? Integer.parseInt(request.getParameter("id"))
+                    : 0;
             boolean pasaan = request.getParameter("pasaan") != null;
             boolean verwijder = request.getParameter("verwijder") != null;
             boolean nieuw = request.getParameter("nieuw") != null;
@@ -75,47 +77,47 @@ public class BeheerServlet extends HttpServlet {
                 if (pasaan || nieuw) {
                     ArrayList<Land> landen = daLand.getAlleLanden();
                     session.setAttribute("landen", landen);
-                    
+
                     if (pasaan) {
                         Luchthaven l = daLuchthaven.getLuchthavenForID(id);
                         session.setAttribute("editLuchthaven", l);
                     }
                 } else if (verwijder) {
-                    
+
                     daLuchthaven.verwijderLuchthavenForID(id);
-                    
+
                     ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                     session.setAttribute("luchthavens", luchthavens);
-                    
+
                     request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
                 }
-            } else if (objectType.equals("bemanningslid")){
-                
+            } else if (objectType.equals("bemanningslid")) {
+
                 if (pasaan || nieuw) {
-                    ArrayList<Functie> functies = daFunctie.getAlleFuncties();
-                    session.setAttribute("functies", functies);
-                    
-                    ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
-                    session.setAttribute("functies", functies);
-                    
+
                     if (pasaan) {
-                        Luchthaven l = daLuchthaven.getLuchthavenForID(id);
-                        session.setAttribute("editLuchthaven", l);
+                        ArrayList<Functie> functies = daFunctie.getAlleFuncties();
+                        session.setAttribute("functies", functies);
+
+                        ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+                        session.setAttribute("luchtvaartmaatschappijen", luchtvaartmaatschappijen);
+
+                        Bemanningslid lid = daBemanningslid.getBemmanningslidForID(id);
+                        session.setAttribute("editbemanningslid", lid);
                     }
+
                 } else if (verwijder) {
-                    
-                    daLuchthaven.verwijderLuchthavenForID(id);
-                    
-                    ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
-                    session.setAttribute("luchthavens", luchthavens);
-                    
-                    request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
+
+                    daBemanningslid.verwijderBemanningsLidForID(id);
+
+                    ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
+                    session.setAttribute("bemanning", bemanning);
+
+                    request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);
                 }
             }
 
-            
             request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
-            
 
         } catch (Exception e) {
             e.printStackTrace();
