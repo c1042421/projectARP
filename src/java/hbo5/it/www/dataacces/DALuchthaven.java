@@ -35,7 +35,7 @@ public class DALuchthaven extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return LuchthavenFactory.maakLuchthavenVanResultset(resultset);
+            return new LuchthavenFactory().maakLuchthavenVanResultset(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class DALuchthaven extends DABase {
 
             ResultSet resultset = statement.executeQuery();
 
-            return LuchthavenFactory.maakLijstMetLuchthavensVanResultset(resultset);
+            return new LuchthavenFactory().maakLijst(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();

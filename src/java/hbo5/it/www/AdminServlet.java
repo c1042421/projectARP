@@ -64,14 +64,18 @@ public class AdminServlet extends HttpServlet {
             boolean toonBemanning = request.getParameter("bemanning") != null;
 
             if (toonBemanning) {
+                
                 ArrayList<Bemanningslid> bemanning = daBemanning.getAlleBemanningsLeden();
+                //Opvullen van objecten in bemanning
                 bemanning = daLuchtvaartmaatschappij.voegMaatschappijToeAanBemanningsLeden(bemanning);
                 bemanning = daPersoon.voegPersoonToeAanBemanning(bemanning);
-                //TODO
                 bemanning = daFunctie.voegFunctieToeAanBemanning(bemanning);
+
                 session.setAttribute("bemanning", bemanning);
-                                
+
+                request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);
             } else if (toonLuchthavens) {
+                
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);
                 request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);

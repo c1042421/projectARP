@@ -61,7 +61,7 @@ public class DAPersoon extends DABase {
             statement.setString(2, paswoord);
             ResultSet resultset = statement.executeQuery();
             
-            return PersoonFactory.maakPersoonVanResultset(resultset);
+            return new PersoonFactory().maakPersoonVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class DAPersoon extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return PersoonFactory.maakPersoonVanResultset(resultset);
+            return new PersoonFactory().maakPersoonVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();

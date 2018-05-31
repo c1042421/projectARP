@@ -32,7 +32,7 @@ public class DAPassagier extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return PassagierFactory.maakLijstVanResultSet(resultset);
+            return new PassagierFactory().maakLijst(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class DAPassagier extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return PassagierFactory.maakLijstVanResultSet(resultset);
+            return new PassagierFactory().maakLijst(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -15,25 +15,19 @@ import java.util.ArrayList;
  * @author c1042421
  */
 public class PassagierFactory extends BaseFactory {
-    
-     public static ArrayList<Passagier> maakLijstVanResultSet(ResultSet resultset) throws SQLException {
-        
-        ArrayList<Passagier> lijstPassagiers = new ArrayList<>();
-        
-        while (resultset.next()){
-            Passagier passagier = new Passagier();
-            
-            passagier.setId(resultset.getInt("id"));
-            passagier.setIngecheckt(resultset.getBoolean("ingecheckt"));
-            passagier.setIngeschreven(resultset.getBoolean("ingeschreven"));
-            passagier.setKlasse_id(resultset.getInt("klasse_id"));
-            passagier.setPersoon_id(resultset.getInt("klasse_id"));
-            passagier.setVlucht_id(resultset.getInt("vlucht_id"));
-            passagier.setPlaats(resultset.getString("plaats"));
-            
-            lijstPassagiers.add(passagier);
-        }
-        
-        return lijstPassagiers;
+
+    @Override
+    public Passagier maakObject(ResultSet resultset) throws SQLException {
+        Passagier passagier = new Passagier();
+
+        passagier.setId(resultset.getInt("id"));
+        passagier.setIngecheckt(resultset.getBoolean("ingecheckt"));
+        passagier.setIngeschreven(resultset.getBoolean("ingeschreven"));
+        passagier.setKlasse_id(resultset.getInt("klasse_id"));
+        passagier.setPersoon_id(resultset.getInt("klasse_id"));
+        passagier.setVlucht_id(resultset.getInt("vlucht_id"));
+        passagier.setPlaats(resultset.getString("plaats"));
+
+        return passagier;
     }
 }

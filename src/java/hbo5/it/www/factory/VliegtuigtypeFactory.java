@@ -15,7 +15,8 @@ import java.sql.SQLException;
  */
 class VliegtuigtypeFactory extends BaseFactory {
 
-    static Vliegtuigtype maakVliegtuigtypeVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+    @Override
+    public Vliegtuigtype maakObject(ResultSet resultset) throws SQLException {
         Vliegtuigtype type = new Vliegtuigtype();
         
         int id = checkIfIdExistsAndReturn("VLIEGTUIGTYPE_ID", resultset);
@@ -25,5 +26,4 @@ class VliegtuigtypeFactory extends BaseFactory {
         
         return type;
     }
-    
 }

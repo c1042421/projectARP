@@ -34,7 +34,7 @@ public class DAVlucht extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return VluchtFactory.maakVluchtVanResultset(resultset);
+            return new VluchtFactory().maakVluchtVanResultset(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();

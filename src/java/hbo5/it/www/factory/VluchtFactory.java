@@ -15,23 +15,27 @@ import java.sql.SQLException;
  */
 public class VluchtFactory extends BaseFactory {
 
-    public static Vlucht maakVluchtVanResultset(ResultSet resultset) throws SQLException {
+    public Vlucht maakVluchtVanResultset(ResultSet resultset) throws SQLException {
 
-        if (resultset.next()) {  
-            Vlucht vlucht = new Vlucht();
-
-            vlucht.setId(resultset.getInt("id"));
-            vlucht.setCode(resultset.getString("code"));
-            vlucht.setVertrektijd(resultset.getDate("vertrektijd"));
-            vlucht.setAankomsttijd(resultset.getDate("aankomsttijd"));
-            vlucht.setVliegtuig_id(resultset.getInt("vliegtuig_id"));
-            vlucht.setVertrekluchthaven_id(resultset.getInt("vertrekluchthaven_id"));
-            vlucht.setAankomstluchthaven_id(resultset.getInt("aankomstluchthaven_id"));
-
-            return vlucht;
+        if (resultset.next()) {
+            return maakObject(resultset);
         }
         return null;
     }
-    
-    
+
+    @Override
+    public Vlucht maakObject(ResultSet resultset) throws SQLException {
+        
+        Vlucht vlucht = new Vlucht();
+
+        vlucht.setId(resultset.getInt("id"));
+        vlucht.setCode(resultset.getString("code"));
+        vlucht.setVertrektijd(resultset.getDate("vertrektijd"));
+        vlucht.setAankomsttijd(resultset.getDate("aankomsttijd"));
+        vlucht.setVliegtuig_id(resultset.getInt("vliegtuig_id"));
+        vlucht.setVertrekluchthaven_id(resultset.getInt("vertrekluchthaven_id"));
+        vlucht.setAankomstluchthaven_id(resultset.getInt("aankomstluchthaven_id"));
+
+        return vlucht;
+    }
 }

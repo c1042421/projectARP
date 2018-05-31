@@ -6,7 +6,7 @@
 package hbo5.it.www.dataacces;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.VluchtBemanning;
-import hbo5.it.www.factory.VluchtbemanningFactory;
+import hbo5.it.www.factory.VluchtBemanningFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class DAVluchtBemanning extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return VluchtbemanningFactory.maakVluchtbemanningsLijstVanResultset(resultset);
+            return VluchtBemanningFactory.maakVluchtbemanningsLijstVanResultset(resultset);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -52,7 +52,7 @@ public class DAVluchtBemanning extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return VluchtbemanningFactory.maakVluchtbemanningVanResultset(resultset);
+            return VluchtBemanningFactory.maakVluchtbemanningVanResultset(resultset);
 
                 } catch (Exception e) {
                     e.printStackTrace();

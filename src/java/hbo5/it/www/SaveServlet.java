@@ -60,7 +60,7 @@ public class SaveServlet extends HttpServlet {
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             
             if (saveLuchthaven || saveNieuweLuchthaven){
-                Luchthaven l = LuchthavenFactory.maakLuchthavenVanRequest(request);   
+                Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);   
                                
                 editedRows = saveLuchthaven ? daLuchthaven.updateLuchthaven(l) : daLuchthaven.voegNieuweLuchthavenToe(l);
                 

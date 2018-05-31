@@ -5,10 +5,14 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Functie;
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAFunctie;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -53,6 +57,8 @@ public class BeheerServlet extends HttpServlet {
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DALand daLand = new DALand(url, login, password, driver);
+            DAFunctie daFunctie = new DAFunctie(url, login, password, driver);
+            DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -69,6 +75,28 @@ public class BeheerServlet extends HttpServlet {
                 if (pasaan || nieuw) {
                     ArrayList<Land> landen = daLand.getAlleLanden();
                     session.setAttribute("landen", landen);
+                    
+                    if (pasaan) {
+                        Luchthaven l = daLuchthaven.getLuchthavenForID(id);
+                        session.setAttribute("editLuchthaven", l);
+                    }
+                } else if (verwijder) {
+                    
+                    daLuchthaven.verwijderLuchthavenForID(id);
+                    
+                    ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
+                    session.setAttribute("luchthavens", luchthavens);
+                    
+                    request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
+                }
+            } else if (objectType.equals("bemanningslid")){
+                
+                if (pasaan || nieuw) {
+                    ArrayList<Functie> functies = daFunctie.getAlleFuncties();
+                    session.setAttribute("functies", functies);
+                    
+                    ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+                    session.setAttribute("functies", functies);
                     
                     if (pasaan) {
                         Luchthaven l = daLuchthaven.getLuchthavenForID(id);

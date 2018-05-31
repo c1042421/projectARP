@@ -31,7 +31,7 @@ public class DALuchtvaartmaatschappij extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultset(resultset);
+            return new LuchtvaartmaatschappijFactory().maakLuchtvaartmaatschappijVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,5 +49,20 @@ public class DALuchtvaartmaatschappij extends DABase {
          }
          
          return leden;
+    }
+
+    public ArrayList<Luchtvaartmaatschappij> getAlleLuchtvaartmaatschappijen() {
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.luchtvaartmaatschappij");) {
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return new LuchtvaartmaatschappijFactory().maakLijst(resultset);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
