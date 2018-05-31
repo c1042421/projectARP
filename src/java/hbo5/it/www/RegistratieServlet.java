@@ -58,6 +58,7 @@ public class RegistratieServlet extends HttpServlet {
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver); 
             
             if(p != null) {
+                p.setSoort('P');
                 boolean registratieGelukt = daPersoon.voegGebruikerToe(p);
                 if (registratieGelukt) {
                     request.getRequestDispatcher("index.jsp").forward(request, response);

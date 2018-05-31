@@ -108,4 +108,21 @@ public class DABemanningslid extends DABase {
         }
         return 0;
     }
+
+    public int voegNieuwBemanningslidToe(Bemanningslid bemanningslid) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("insert into bemanningslid values (bemanningslid_seq.nextval, ?, ?, ?)");) {
+
+            statement.setInt(1, bemanningslid.getLuchtvaartmaatschappij_id());
+            statement.setInt(2, bemanningslid.getPersoon_id());
+            statement.setInt(3, bemanningslid.getFunctie_id());
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+        
+    }
 }

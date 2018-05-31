@@ -18,6 +18,11 @@
     <body>
         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
+            <% Bemanningslid teVerwijderenLid = (Bemanningslid) session.getAttribute("bemanningslid");
+                if (teVerwijderenLid != null){
+            %>
+            <div class="error"><p class="text-center"><%= teVerwijderenLid.getPersoon().getVolledigeNaam() %> heeft nog vluchten.</p></div>
+            <%}%>
             <h1>Beheer Bemanning<hr></h1>
             <div class="grid-container grid-2-colums">
                 <form action="BeheerServlet">
@@ -25,12 +30,14 @@
                     <input type="text" hidden name="objectType" value="bemanningslid"/>
                     <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuw Bemanningslid</button>
                 </form>
-                <% ArrayList<Bemanningslid> bemanningsleden = (ArrayList<Bemanningslid>) session.getAttribute("bemanning");%>
-                <% if (!bemanningsleden.isEmpty()) {
+                <%
+                    ArrayList<Bemanningslid> bemanningsleden = (ArrayList<Bemanningslid>) session.getAttribute("bemanning");
+                    
+                    if (!bemanningsleden.isEmpty()) {
                         for (Bemanningslid lid : bemanningsleden) {%>
                 <div class="card">
                     <h2><%= lid.getPersoon().getVolledigeNaam()%> </h2>
-                    <p class="text-center"><%= lid.getFunctie().getFunctienaam() %></p>
+                    <p class="text-center"><%= lid.getFunctie().getFunctienaam()%></p>
                     <form action="BeheerServlet">
                         <div class="flex-container-center-center flex-row"> 
                             <input type="text" hidden name="id" value="<%=lid.getId()%>"/>

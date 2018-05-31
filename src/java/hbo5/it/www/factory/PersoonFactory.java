@@ -23,7 +23,7 @@ public class PersoonFactory extends BaseFactory {
     @Override
     public Persoon maakObject(ResultSet resultset) throws SQLException {
         int id = checkIfIdExistsAndReturn("persoon_id", resultset);
-        
+
         Persoon persoon = new Persoon();
         Date geboorteDatum = resultset.getDate("Geboortedatum");
 
@@ -53,13 +53,12 @@ public class PersoonFactory extends BaseFactory {
     public Persoon maakPersoonVanRequest(HttpServletRequest request) throws ParseException {
         Persoon p = new Persoon();
         String stringID = request.getParameter("persoon_id");
-        
+
         if (stringID != null) {
             int id = Integer.parseInt(stringID);
             p.setId(id);
         }
-        
-        
+
         String voornaam = request.getParameter("Voornaam");
         String familienaam = request.getParameter("Familienaam");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -78,7 +77,6 @@ public class PersoonFactory extends BaseFactory {
         String wachtwoord = request.getParameter("Wachtwoord");
         String bevestigWachtwoord = request.getParameter("bevestigWachtwoord");
 
-        
         p.setVoornaam(voornaam);
         p.setFamilienaam(familienaam);
         p.setGeboortedatum(sqlData);
@@ -88,12 +86,15 @@ public class PersoonFactory extends BaseFactory {
         p.setWoonplaats(woonplaats);
         p.setLand(land);
 
-        if (wachtwoord != null && wachtwoord.equals(bevestigWachtwoord)) {
-            p.setLogin(gebruikersnaam);
-            p.setPaswoord(wachtwoord);
-            return p;
+        if (wachtwoord != null) {
+            if (wachtwoord.equals(bevestigWachtwoord)) {
+                p.setLogin(gebruikersnaam);
+                p.setPaswoord(wachtwoord);
+                return p;
+            }
+            return null;
         }
-        
+
         return p;
     }
 

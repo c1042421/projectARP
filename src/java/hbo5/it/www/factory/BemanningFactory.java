@@ -50,7 +50,12 @@ public class BemanningFactory extends BaseFactory {
     public Bemanningslid maakBemanningslidVanRequest(HttpServletRequest request) {
         Bemanningslid lid = new Bemanningslid();
         
-        lid.setId(Integer.parseInt(request.getParameter("id")));
+        String stringID = request.getParameter("id");
+        
+        if (stringID != null){
+            lid.setId(Integer.parseInt(stringID));
+        }
+        
         lid.setLuchtvaartmaatschappij_id(Integer.parseInt(request.getParameter("lvm_id")));
         lid.setFunctie_id(Integer.parseInt(request.getParameter("functie_id")));
         

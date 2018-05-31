@@ -12,9 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
 /**
  *
  * @author c1042421
@@ -30,7 +28,7 @@ public class DAPersoon extends DABase {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO C1042421.PERSOON (id, voornaam, familienaam, straat, huisnr, postcode, woonplaats, land, geboortedatum, login, paswoord, soort)\n" +
-"VALUES (persoon_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'P')");)
+"VALUES (persoon_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");)
         {
 
             statement.setString(1, p.getVoornaam());
@@ -43,6 +41,7 @@ public class DAPersoon extends DABase {
             statement.setDate(8, p.getGeboortedatum());
             statement.setString(9, p.getLogin());
             statement.setString(10, p.getPaswoord());
+            statement.setString(11, String.valueOf(p.getSoort()));
             
             statement.executeUpdate();
             
@@ -112,6 +111,25 @@ public class DAPersoon extends DABase {
             statement.setInt(8, persoon.getId());
             
             return statement.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getIDFrom(Persoon persoon) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PERSOON WHERE Voornaam=? AND familienaam=?");) {
+
+            statement.setString(1, persoon.getVoornaam());
+            statement.setString(2, persoon.getFamilienaam());
+            ResultSet resultset = statement.executeQuery();
+            
+            if (resultset.next()) {
+                return resultset.getInt("id");
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

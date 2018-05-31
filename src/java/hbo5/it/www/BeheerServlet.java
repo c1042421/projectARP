@@ -15,6 +15,7 @@ import hbo5.it.www.dataacces.DAFunctie;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAVlucht;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -61,6 +62,7 @@ public class BeheerServlet extends HttpServlet {
             DAFunctie daFunctie = new DAFunctie(url, login, password, driver);
             DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
+            DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -93,22 +95,26 @@ public class BeheerServlet extends HttpServlet {
                 }
             } else if (objectType.equals("bemanningslid")) {
 
+                Bemanningslid lid = daBemanningslid.getBemmanningslidForID(id);
+                session.setAttribute("bemanningslid", null);
                 if (pasaan || nieuw) {
+                    ArrayList<Functie> functies = daFunctie.getAlleFuncties();
+                    session.setAttribute("functies", functies);
 
+                    ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+                    session.setAttribute("luchtvaartmaatschappijen", luchtvaartmaatschappijen);
+                    
                     if (pasaan) {
-                        ArrayList<Functie> functies = daFunctie.getAlleFuncties();
-                        session.setAttribute("functies", functies);
-
-                        ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
-                        session.setAttribute("luchtvaartmaatschappijen", luchtvaartmaatschappijen);
-
-                        Bemanningslid lid = daBemanningslid.getBemmanningslidForID(id);
                         session.setAttribute("editbemanningslid", lid);
                     }
 
                 } else if (verwijder) {
 
-                    daBemanningslid.verwijderBemanningsLidForID(id);
+                    if (!daVlucht.checkOfVluchtBemanningsLidBevat(id)) {
+                        daBemanningslid.verwijderBemanningsLidForID(id);
+                    } else {
+                        session.setAttribute("bemanningslid", lid);
+                    }
 
                     ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
                     session.setAttribute("bemanning", bemanning);

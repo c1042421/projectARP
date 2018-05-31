@@ -79,4 +79,21 @@ public class DAVlucht extends DABase {
         }
         return 0;
     }
+
+    public boolean checkOfVluchtBemanningsLidBevat(int bemanningsID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * From vluchtbemanning where bemanningslid_id = ?");) {
+
+            statement.setInt(1, bemanningsID);
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return resultset.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

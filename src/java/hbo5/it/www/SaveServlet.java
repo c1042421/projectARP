@@ -48,50 +48,60 @@ public class SaveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
+        try {
             HttpSession session = request.getSession();
-            
+
             String url = getInitParameter("url");
             String login = getInitParameter("login");
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
-            
+
             String beheerpagina = request.getParameter("beheerpagina");
-            
+
             int editedRows = 0;
-            
+
             boolean saveLuchthaven = request.getParameter("save_luchthaven") != null;
             boolean saveNieuweLuchthaven = request.getParameter("save_nieuwe_luchthaven") != null;
             boolean saveBemanningslid = request.getParameter("save_bemanningslid") != null;
-            
+            boolean saveNieuwBemanninslid = request.getParameter("save_nieuw_bemanningslid") != null;
+
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
-            
-            if (saveLuchthaven || saveNieuweLuchthaven){
-                Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);   
-                               
+
+            if (saveLuchthaven || saveNieuweLuchthaven) {
+                Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);
+
                 editedRows = saveLuchthaven ? daLuchthaven.updateLuchthaven(l) : daLuchthaven.voegNieuweLuchthavenToe(l);
-                
+
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);
-            } else if (saveBemanningslid){
+            } else if (saveBemanningslid || saveNieuwBemanninslid) {
                 Bemanningslid bemanningslid = new BemanningFactory().maakBemanningslidVanRequest(request);
                 Persoon persoon = new PersoonFactory().maakPersoonVanRequest(request);
-                
-                editedRows = daPersoon.update(persoon);
-                editedRows = daBemanningslid.update(bemanningslid);
-                
+
+                if (saveNieuwBemanninslid) {
+                    persoon.setSoort('B');
+                    daPersoon.voegGebruikerToe(persoon);
+                    
+                    int id = daPersoon.getIDFrom(persoon);
+                    bemanningslid.setPersoon_id(id);
+                    
+                    editedRows = daBemanningslid.voegNieuwBemanningslidToe(bemanningslid);
+                } else {
+                    daPersoon.update(persoon);
+                    editedRows = daBemanningslid.update(bemanningslid);
+                }
+
                 ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
                 session.setAttribute("bemanning", bemanning);
             }
-            
+
             if (editedRows > 0) {
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
             }
-            
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
