@@ -5,9 +5,13 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.dataacces.DABemanningslid;
+import hbo5.it.www.dataacces.DAFunctie;
 import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAPersoon;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -52,14 +56,21 @@ public class AdminServlet extends HttpServlet {
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DABemanningslid daBemanning = new DABemanningslid(url, login, password, driver);
+            DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
+            DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
+            DAFunctie daFunctie = new DAFunctie(url, login, password, driver);
 
             boolean toonLuchthavens = request.getParameter("luchthavens") != null;
             boolean toonBemanning = request.getParameter("bemanning") != null;
 
             if (toonBemanning) {
-                               
                 
+                ArrayList<Bemanningslid> bemanning = daBemanning.getAlleBemanningsLeden();
+                session.setAttribute("bemanning", bemanning);
+
+                request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);
             } else if (toonLuchthavens) {
+                
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);
                 request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);

@@ -34,7 +34,7 @@ public class DAVlucht extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return VluchtFactory.maakVluchtVanResultset(resultset);
+            return new VluchtFactory().maakVluchtVanResultset(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,5 +78,22 @@ public class DAVlucht extends DABase {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean checkOfVluchtBemanningsLidBevat(int bemanningsID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * From vluchtbemanning where bemanningslid_id = ?");) {
+
+            statement.setInt(1, bemanningsID);
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return resultset.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -8,22 +8,28 @@ package hbo5.it.www.factory;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author c1042421
  */
-class LuchtvaartmaatschappijFactory extends BaseFactory {
-
-    static Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+public class LuchtvaartmaatschappijFactory extends BaseFactory {
+   
+    @Override
+    public Luchtvaartmaatschappij maakObject(ResultSet resultset) throws SQLException {
         
         Luchtvaartmaatschappij lm = new Luchtvaartmaatschappij();
-        
+
         int id = checkIfIdExistsAndReturn("LUCHTVAARTMAATSCHAPPIJ_ID", resultset);
-        
+
         lm.setId(id);
         lm.setLuchtvaartnaam(resultset.getString("luchtvaartnaam"));
-        
+
         return lm;
+    }
+
+    public Luchtvaartmaatschappij maakLuchtvaartmaatschappijVanResultset(ResultSet resultset) throws SQLException {
+        return resultset.next() ? maakObject(resultset) : null;
     }
 }

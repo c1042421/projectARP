@@ -37,6 +37,10 @@ public class Persoon {
     public void setFamilienaam(String familienaam) {
         this.familienaam = familienaam;
     }
+    
+    public String getVolledigeNaam() {
+        return this.voornaam + " " + this.familienaam;
+    }
 
     public String getStraat() {
         return straat;

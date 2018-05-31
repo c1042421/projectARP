@@ -5,9 +5,15 @@
  */
 package hbo5.it.www;
 
+import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Luchthaven;
+import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.factory.BemanningFactory;
 import hbo5.it.www.factory.LuchthavenFactory;
+import hbo5.it.www.factory.PersoonFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,38 +48,60 @@ public class SaveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
+        try {
             HttpSession session = request.getSession();
-            
+
             String url = getInitParameter("url");
             String login = getInitParameter("login");
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
-            
+
             String beheerpagina = request.getParameter("beheerpagina");
-            
+
             int editedRows = 0;
-            
+
             boolean saveLuchthaven = request.getParameter("save_luchthaven") != null;
             boolean saveNieuweLuchthaven = request.getParameter("save_nieuwe_luchthaven") != null;
-            
+            boolean saveBemanningslid = request.getParameter("save_bemanningslid") != null;
+            boolean saveNieuwBemanninslid = request.getParameter("save_nieuw_bemanningslid") != null;
+
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
-            
-            if (saveLuchthaven || saveNieuweLuchthaven){
-                Luchthaven l = LuchthavenFactory.maakLuchthavenVanRequest(request);   
-                               
+            DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
+            DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
+
+            if (saveLuchthaven || saveNieuweLuchthaven) {
+                Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);
+
                 editedRows = saveLuchthaven ? daLuchthaven.updateLuchthaven(l) : daLuchthaven.voegNieuweLuchthavenToe(l);
-                
+
                 ArrayList<Luchthaven> luchthavens = daLuchthaven.getAllLuchthavens();
                 session.setAttribute("luchthavens", luchthavens);
+            } else if (saveBemanningslid || saveNieuwBemanninslid) {
+                Bemanningslid bemanningslid = new BemanningFactory().maakBemanningslidVanRequest(request);
+                Persoon persoon = new PersoonFactory().maakPersoonVanRequest(request);
+
+                if (saveNieuwBemanninslid) {
+                    persoon.setSoort('B');
+                    daPersoon.voegGebruikerToe(persoon);
+                    
+                    int id = daPersoon.getIDFrom(persoon);
+                    bemanningslid.setPersoon_id(id);
+                    
+                    editedRows = daBemanningslid.voegNieuwBemanningslidToe(bemanningslid);
+                } else {
+                    daPersoon.update(persoon);
+                    editedRows = daBemanningslid.update(bemanningslid);
+                }
+
+                ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
+                session.setAttribute("bemanning", bemanning);
             }
-            
+
             if (editedRows > 0) {
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
             }
-            
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
