@@ -32,7 +32,7 @@ public class DAFunctie extends DABase {
             
             ResultSet resultset = statement.executeQuery();
             
-            return FunctieFactory.maakFunctieVanResultset(resultset);
+            return new FunctieFactory().maakFunctieVanResultset(resultset);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,7 +59,8 @@ public class DAFunctie extends DABase {
             
             ResultSet resultset = statement.executeQuery();
             
-            return FunctieFactory.maakLijstFunctieVanResultset(resultset);
+            return new FunctieFactory().maakLijst(resultset);
+        
         } catch (Exception e) {
             e.printStackTrace();
         }

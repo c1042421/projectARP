@@ -14,16 +14,17 @@ import java.util.ArrayList;
  *
  * @author c1042410
  */
-public class BemanningFactory {
+public class BemanningFactory extends BaseFactory {
 
-    public static Bemanningslid maakBemanningslidVanResultset(ResultSet resultset) throws SQLException {
+    public Bemanningslid maakBemanningslidVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
             return maakObject(resultset);
         }
         return null;
     }
 
-    private static Bemanningslid maakObject(ResultSet resultset) throws SQLException {
+    @Override
+    public Bemanningslid maakObject(ResultSet resultset) throws SQLException {
         Bemanningslid bemanningslid = new Bemanningslid();
 
         bemanningslid.setId(resultset.getInt("id"));
@@ -32,15 +33,5 @@ public class BemanningFactory {
         bemanningslid.setFunctie_id(resultset.getInt("functie_id"));
 
         return bemanningslid;
-    }
-
-    public static ArrayList<Bemanningslid> maakLijstBemannningsLedenVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<Bemanningslid> leden = new ArrayList<>();
-        
-        while (resultset.next()){
-            leden.add(maakObject(resultset));
-        }
-        
-        return leden;
     }
 }

@@ -30,7 +30,7 @@ public class DABemanningslid extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return BemanningFactory.maakBemanningslidVanResultset(resultset);
+            return new BemanningFactory().maakBemanningslidVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public class DABemanningslid extends DABase {
 
             ResultSet resultset = statement.executeQuery();
             
-            return BemanningFactory.maakLijstBemannningsLedenVanResultset(resultset);
+            return new BemanningFactory().maakLijst(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();

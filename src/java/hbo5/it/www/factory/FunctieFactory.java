@@ -14,16 +14,16 @@ import java.util.ArrayList;
  *
  * @author jelmarvanaert
  */
-public class FunctieFactory {
+public class FunctieFactory extends BaseFactory {
 
-    public static Functie maakFunctieVanResultset(ResultSet resultset) throws SQLException {
+    public Functie maakFunctieVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
             return maakObject(resultset);
         }
         return null;
     }
     
-    private static Functie maakObject(ResultSet resultset) throws SQLException {
+    public Functie maakObject(ResultSet resultset) throws SQLException {
         Functie functie = new Functie();
         
         functie.setId(resultset.getInt("id"));
@@ -31,15 +31,5 @@ public class FunctieFactory {
         functie.setOmschrijving(resultset.getString("omschrijving"));
         
         return functie;
-    }
-
-    public static ArrayList<Functie> maakLijstFunctieVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<Functie> functies = new ArrayList<>();
-        
-        while(resultset.next()) {
-            functies.add(maakObject(resultset));
-        }
-        return functies;
-    }
-    
+    }   
 }
