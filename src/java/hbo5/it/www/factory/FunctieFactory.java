@@ -25,7 +25,7 @@ public class FunctieFactory extends BaseFactory {
     @Override
     public Functie maakObject(ResultSet resultset) throws SQLException {
         Functie functie = new Functie();
-        int id = checkIfIdExistsAndReturn("functie_id", resultset);
+        int id = getIdForColumnName("functie_id", resultset);
         functie.setId(id);
         functie.setFunctienaam(resultset.getString("functienaam"));
         functie.setOmschrijving(resultset.getString("omschrijving"));

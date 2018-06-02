@@ -22,7 +22,7 @@ public class PersoonFactory extends BaseFactory {
 
     @Override
     public Persoon maakObject(ResultSet resultset) throws SQLException {
-        int id = checkIfIdExistsAndReturn("persoon_id", resultset);
+        int id = getIdForColumnName("persoon_id", resultset);
 
         Persoon persoon = new Persoon();
         Date geboorteDatum = resultset.getDate("Geboortedatum");

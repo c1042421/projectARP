@@ -96,4 +96,19 @@ public class DAVlucht extends DABase {
         }
         return false;
     }
+
+    public ArrayList<Vlucht> getAlleVluchten() {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * From vlucht");) {
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return new VluchtFactory().maakLijst(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

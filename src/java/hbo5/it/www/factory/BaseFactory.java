@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public abstract class BaseFactory implements IFactory {
 
-    protected int checkIfIdExistsAndReturn(String columnname, ResultSet resultset) throws SQLException {
+    protected int getIdForColumnName(String columnname, ResultSet resultset) throws SQLException {
         int id;
         try {
             id = resultset.getInt(columnname);
