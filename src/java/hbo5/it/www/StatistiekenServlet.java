@@ -55,6 +55,34 @@ public class StatistiekenServlet extends HttpServlet {
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             
+            String gekozenTab = request.getParameter("gekozenTab");
+            gekozenTab = gekozenTab != null ? gekozenTab : "vlucht";
+            
+            session.setAttribute("gekozenTab", gekozenTab);
+            
+            String dagIDString = request.getParameter("dag_id");
+            
+            Integer gekozenDag = (Integer)session.getAttribute("dag_id");
+            int dagID = 1;
+            if (dagIDString != null && gekozenDag != null) {
+                dagID = Integer.parseInt(dagIDString);
+                boolean dagChanged = dagID != gekozenDag;
+                dagID = dagChanged ? dagID : gekozenDag;
+            }
+            
+            session.setAttribute("dag_id", dagID);
+            
+            String maandIDString = request.getParameter("maand_id");
+            Integer gekozenMaand = (Integer)session.getAttribute("maand_id");
+            int maandID = 1;
+            if (maandIDString != null && gekozenMaand != null) {
+                maandID = Integer.parseInt(maandIDString);
+                boolean dagChanged = maandID != gekozenMaand;
+                maandID = dagChanged ? dagID : gekozenMaand;
+            }
+            
+            session.setAttribute("maand_id", maandID);
+            
             String luchthavenIDString = request.getParameter("luchthaven_id");
             Integer luchtHavenIDFromSession = (Integer)session.getAttribute("luchthavenID");
             

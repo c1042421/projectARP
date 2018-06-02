@@ -106,7 +106,7 @@ public class DAPassagier extends DABase {
             int aantalpassagiers = 0;
 
             while (resultset.next()) {
-                LocalDate datum = resultset.getTimestamp("geboortedatum").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate datum = resultset.getDate("geboortedatum").toLocalDate();
                 LocalDate vandaag = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 int leeftijd = Period.between(datum, vandaag).getYears();
                 leeftijdenSom += leeftijd;
