@@ -4,6 +4,10 @@
     Author     : jelmarvanaert
 --%>
 
+<%@page import="java.time.DayOfWeek"%>
+<%@page import="java.time.format.TextStyle"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.time.Month"%>
 <%@page import="java.util.Dictionary"%>
 <%@page import="hbo5.it.www.beans.Vlucht"%>
 <%@page import="hbo5.it.www.beans.Luchthaven"%>
@@ -93,13 +97,9 @@
                             <input type="text" name="gekozenTab" value="dag" hidden />
                             <label>Kies de dag: </label>
                             <select name="dag_id" onchange="this.form.submit()">
-                                <option value="1" <% if (dagID == 1) {%> selected <%}%> >Maandag</option>
-                                <option value="2" <% if (dagID == 2) {%> selected <%}%> >Dinsdag</option>
-                                <option value="3" <% if (dagID == 3) {%> selected <%}%> >Woensdag</option>
-                                <option value="4" <% if (dagID == 4) {%> selected <%}%> >Donderdag</option>
-                                <option value="5" <% if (dagID == 5) {%> selected <%}%> >Vrijdag</option>
-                                <option value="6" <% if (dagID == 6) {%> selected <%}%> >Zaterdag</option>
-                                <option value="7" <% if (dagID == 7) {%> selected <%}%> >Zondag</option>
+                                <% for (DayOfWeek d: DayOfWeek.values()) {%>
+                                <option value="1" <% if (dagID == d.getValue()) {%> selected <%}%> > <%= d.getDisplayName(TextStyle.FULL, Locale.getDefault()) %> </option>
+                                <%}%>
                             </select>
                             <p class="text-center"> 
                                 <% if (aantalPassagiersPerDag == 0) { %>
@@ -118,18 +118,10 @@
                             <input type="text" name="gekozenTab" value="maand" hidden />
                             <label>Kies de maand:</label>
                             <select name="maand_id" onchange="this.form.submit()">
-                                <option value="1" <% if (maandID == 1) {%> selected <%}%> >Januari</option>
-                                <option value="2" <% if (maandID == 2) {%> selected <%}%>>Februari</option>
-                                <option value="3" <% if (maandID == 3) {%> selected <%}%>>Maart</option>
-                                <option value="4" <% if (maandID == 4) {%> selected <%}%>>April</option>
-                                <option value="5" <% if (maandID == 5) {%> selected <%}%>>Mei</option>
-                                <option value="6" <% if (maandID == 6) {%> selected <%}%>>Juni</option>
-                                <option value="7" <% if (maandID == 7) {%> selected <%}%>>Juli</option>
-                                <option value="8" <% if (maandID == 8) {%> selected <%}%>>Augustus</option>
-                                <option value="9" <% if (maandID == 9) {%> selected <%}%>>September</option>
-                                <option value="10" <% if (maandID == 10) {%> selected <%}%>>Oktober</option>
-                                <option value="11" <% if (maandID == 11) {%> selected <%}%>>November</option>
-                                <option value="12" <% if (maandID == 12) {%> selected <%}%>>December</option>
+                                <% for (Month m : Month.values()) {%>
+                                    <option value="1" <% if (maandID == m.getValue()) {%> selected <%}%> ><%= m.getDisplayName(TextStyle.FULL , Locale.getDefault()) %></option>
+                                <%}%>
+                                
                             </select>
                             <p class="text-center">
                                 <% if (aantalPassagiersPerMaand == 0) { %>
