@@ -111,4 +111,43 @@ public class DAVluchtBemanning extends DABase {
         }
         return 0;
     }
+
+    public VluchtBemanning getVluchtBemanningFor(int id, int vluchtID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM C1042421.VLUCHTBEMANNING"
+                                + " inner join BEMANNINGSLID on BEMANNINGSLID_ID = BEMANNINGSLID.ID"
+                                + " inner join PERSOON on persoon_id = PERSOON.ID"
+                                + " inner join vlucht on VLUCHT.ID = VLUCHT_ID"
+                                + " where VLUCHT_ID=? and VLUCHTBEMANNING.id=?");) {
+
+            statement.setInt(1, vluchtID);
+            statement.setInt(2, id);
+            ResultSet resultset = statement.executeQuery();
+
+            return new VluchtBemanningFactory().maakVluchtbemanningVanResultset(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int update(VluchtBemanning vluchtBemanning) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Update VLUCHTBEMANNING SET TAAK=?, VLUCHT_ID=?, BEMANNINGSLID_ID=? where id=?");) {
+            
+            statement.setString(1, vluchtBemanning.getTaak());
+            statement.setInt(2, vluchtBemanning.getVlucht_id());
+            statement.setInt(3, vluchtBemanning.getBemanningslid_id());
+            statement.setInt(4, vluchtBemanning.getId());
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

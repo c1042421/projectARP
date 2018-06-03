@@ -67,6 +67,7 @@ public class SaveServlet extends HttpServlet {
             boolean saveBemanningslid = request.getParameter("save_bemanningslid") != null;
             boolean saveNieuwBemanninslid = request.getParameter("save_nieuw_bemanningslid") != null;
             boolean saveNieuwVluchtbemanning = request.getParameter("save_nieuw_vluchtbemanning") != null;
+            boolean saveVluchtbemanning = request.getParameter("save_vluchtbemanning") != null;
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
@@ -99,11 +100,13 @@ public class SaveServlet extends HttpServlet {
 
                 ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
                 session.setAttribute("bemanning", bemanning);
-            } else if (saveNieuwVluchtbemanning) {
+            } else if (saveNieuwVluchtbemanning || saveVluchtbemanning) {
                 VluchtBemanning vluchtBemanning = new VluchtBemanningFactory().maakVluchtBemanningVanRequest(request);
                 
                 if (saveNieuwVluchtbemanning) {
                     editedRows = daVluchtbemanning.voegNieuwBemanningsLidToe(vluchtBemanning);
+                } else {
+                    editedRows = daVluchtbemanning.update(vluchtBemanning);
                 }
                 
                 ArrayList<VluchtBemanning> vluchtbemanningsLeden = daVluchtbemanning.getVluchtbemanningForVluchtID(vluchtBemanning.getVlucht_id());

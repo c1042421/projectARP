@@ -45,6 +45,10 @@ public class VluchtBemanningFactory extends BaseFactory {
     public VluchtBemanning maakVluchtBemanningVanRequest(HttpServletRequest request) {
         VluchtBemanning vluchtbemanning = new VluchtBemanning();
         
+        try {
+            vluchtbemanning.setId(Integer.parseInt(request.getParameter("id")));   
+        } catch(Exception e){}
+        
         vluchtbemanning.setTaak(request.getParameter("taak_id"));
         vluchtbemanning.setBemanningslid_id(Integer.parseInt(request.getParameter("bemannings_id")));
         vluchtbemanning.setVlucht_id(Integer.parseInt(request.getParameter("vlucht_id")));

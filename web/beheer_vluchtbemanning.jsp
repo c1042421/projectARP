@@ -26,7 +26,7 @@
                 <option value="<%= vlucht.getId() %>" <% if (vluchtID == vlucht.getId()) { %> selected <%}%>> <%= vlucht.getCode() %> </option>
                 <%}%>
                 </select>
-                <input type="text" name="vluchbemanning" value="hello" hidden/>
+                <input type="text" name="vluchbemanning" value="" hidden/>
             </form>
             <div class="grid-container grid-2-colums">
                 <form action="BeheerServlet">

@@ -138,7 +138,8 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("vluchtVoorBemanning", vlucht);
 
                     if (pasaan) {
-
+                        VluchtBemanning vBemanning = daVluchtBemanning.getVluchtBemanningFor(id, vluchtID);
+                        session.setAttribute("editVluchtBemanning", vBemanning);
                     }
 
                 } else if (verwijder) {
