@@ -18,7 +18,7 @@
         <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center padding-bottom">
            <h1>Beheer vluchtbemanning voor vlucht <hr></h1>
-            <form class="padding-bottom">
+           <form action="AdminServlet" class="padding-bottom">
                 <select name="vlucht_id" onchange="this.form.submit();">
                 <% ArrayList<Vlucht> vluchten = (ArrayList<Vlucht>) session.getAttribute("vluchten"); 
                 Integer vluchtID = (Integer) session.getAttribute("vluchtID");
@@ -30,8 +30,8 @@
             </form>
             <div class="grid-container grid-2-colums">
                 <form action="BeheerServlet">
-                    <input type="text" hidden name="beheerpagina" value="nieuwe_luchthaven"/>
-                    <input type="text" hidden name="objectType" value="luchthaven"/>
+                    <input type="text" hidden name="beheerpagina" value="nieuwe_vluchtbemanning"/>
+                    <input type="text" hidden name="objectType" value="vluchtbemanning"/>
                     <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Voeg bemanning toe</button>
                 </form>
                  <% ArrayList<VluchtBemanning> vluchtbemanningsLeden = (ArrayList<VluchtBemanning>) session.getAttribute("vluchtbemanningsLeden");%>

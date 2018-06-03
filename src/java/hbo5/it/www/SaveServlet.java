@@ -8,12 +8,15 @@ package hbo5.it.www;
 import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPersoon;
+import hbo5.it.www.dataacces.DAVluchtBemanning;
 import hbo5.it.www.factory.BemanningFactory;
 import hbo5.it.www.factory.LuchthavenFactory;
 import hbo5.it.www.factory.PersoonFactory;
+import hbo5.it.www.factory.VluchtBemanningFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -63,10 +66,12 @@ public class SaveServlet extends HttpServlet {
             boolean saveNieuweLuchthaven = request.getParameter("save_nieuwe_luchthaven") != null;
             boolean saveBemanningslid = request.getParameter("save_bemanningslid") != null;
             boolean saveNieuwBemanninslid = request.getParameter("save_nieuw_bemanningslid") != null;
+            boolean saveNieuwVluchtbemanning = request.getParameter("save_nieuw_vluchtbemanning") != null;
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver);
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
+            DAVluchtBemanning daVluchtbemanning = new DAVluchtBemanning(url, login, password, driver);
 
             if (saveLuchthaven || saveNieuweLuchthaven) {
                 Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);
@@ -94,6 +99,15 @@ public class SaveServlet extends HttpServlet {
 
                 ArrayList<Bemanningslid> bemanning = daBemanningslid.getAlleBemanningsLeden();
                 session.setAttribute("bemanning", bemanning);
+            } else if (saveNieuwVluchtbemanning) {
+                VluchtBemanning vluchtBemanning = new VluchtBemanningFactory().maakVluchtBemanningVanRequest(request);
+                
+                if (saveNieuwVluchtbemanning) {
+                    editedRows = daVluchtbemanning.voegNieuwBemanningsLidToe(vluchtBemanning);
+                }
+                
+                ArrayList<VluchtBemanning> vluchtbemanningsLeden = daVluchtbemanning.getVluchtbemanningForVluchtID(vluchtBemanning.getVlucht_id());
+                session.setAttribute("vluchtbemanningsLeden", vluchtbemanningsLeden);
             }
 
             if (editedRows > 0) {
