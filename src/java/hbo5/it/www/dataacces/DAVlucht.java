@@ -125,7 +125,25 @@ public class DAVlucht extends DABase {
 
             ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
             
-            vluchten.removeIf(v-> !v.getVertrektijd().toLocalDate().getDayOfWeek().equals(dag));
+            vluchten.removeIf(v-> v.getVertrektijd().toLocalDate().getDayOfWeek().getValue() != dag);
+
+            return vluchten;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+     public ArrayList<Vlucht> getVluchtenVoorMaand(int maand) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * from VLUCHT");) {
+
+            ResultSet resultset = statement.executeQuery();
+
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            
+            vluchten.removeIf(v-> v.getVertrektijd().toLocalDate().getMonth().getValue() != maand);
 
             return vluchten;
         } catch (Exception e) {

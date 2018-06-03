@@ -7,6 +7,7 @@ package hbo5.it.www.dataacces;
 
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.factory.PassagierFactory;
 import java.sql.Connection;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -119,5 +121,29 @@ public class DAPassagier extends DABase {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public int getAantalPassagiersForDag(int dagID) throws ClassNotFoundException {
+        DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+        ArrayList<Vlucht> vluchtenOpDag = daVlucht.getVluchtenVoorDag(dagID);
+        int aantalPassagiers = 0;
+        
+        for (Vlucht vlucht: vluchtenOpDag) {
+           aantalPassagiers += getPassagiersForVluchtID(vlucht.getId()).size();
+        }
+        
+        return aantalPassagiers;
+    }
+    
+    public int getAantalPassagiersForMaand(int maandID) throws ClassNotFoundException {
+        DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+        ArrayList<Vlucht> vluchtenOpDag = daVlucht.getVluchtenVoorMaand(maandID);
+        int aantalPassagiers = 0;
+        
+        for (Vlucht vlucht : vluchtenOpDag) {
+            aantalPassagiers += getPassagiersForVluchtID(vlucht.getId()).size();
+        }
+        
+        return aantalPassagiers;
     }
 }

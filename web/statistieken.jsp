@@ -73,7 +73,7 @@
                             <label>Kies de vlucht: </label>
                             <select name="vlucht_id" onchange="this.form.submit();">
                                 <% for (Vlucht vlucht : vluchten) {%>
-                                    <option value="<%=vlucht.getId()%>" <%if (vluchtID == vlucht.getId()) {%> selected <%}%> > <%= vlucht.getCode()%></option>
+                                <option value="<%=vlucht.getId()%>" <%if (vluchtID == vlucht.getId()) {%> selected <%}%> > <%= vlucht.getCode()%></option>
                                 <%}%>
                             </select>
                         </form>
@@ -86,55 +86,57 @@
                     </div>
                     <div id="dag" class="tabcontent" <% if (gekozenTab.equals("dag")) {%> style="display: block" <%}%>>
                         <%
-                        int dagID = (Integer) session.getAttribute("dag_id");
-                    %>
+                            int dagID = (Integer) session.getAttribute("dag_id");
+                            Integer aantalPassagiersPerDag = (Integer) session.getAttribute("aantalPassagiersPerDag");
+                        %>
                         <form>
-                             <input type="text" name="gekozenTab" value="dag" hidden />
-                             <label>Kies de dag: </label>
-                             <select name="dag_id" onchange="this.form.submit()">
-                                 <option value="1" <% if (dagID == 1) {%> selected <%}%> >Maandag</option>
-                                 <option value="2" <% if (dagID == 2) {%> selected <%}%> >Dinsdag</option>
-                                 <option value="3" <% if (dagID == 3) {%> selected <%}%> >Woensdag</option>
-                                 <option value="4" <% if (dagID == 4) {%> selected <%}%> >Donderdag</option>
-                                 <option value="5" <% if (dagID == 5) {%> selected <%}%> >Vrijdag</option>
-                                 <option value="6" <% if (dagID == 6) {%> selected <%}%> >Zaterdag</option>
-                                 <option value="7" <% if (dagID == 7) {%> selected <%}%> >Zondag</option>
-                             </select>
-                             <p class="text-center"> 
-                            <% if (aantalPassagiersPerVlucht == 0) { %>
-                            Er zijn nog geen passagiers op deze vlucht.
-                            <%} else {%>
-                            <%--<%= aantalPassagiersPerVlucht%>--%> passagiers.
-                            <%}%></p>
+                            <input type="text" name="gekozenTab" value="dag" hidden />
+                            <label>Kies de dag: </label>
+                            <select name="dag_id" onchange="this.form.submit()">
+                                <option value="1" <% if (dagID == 1) {%> selected <%}%> >Maandag</option>
+                                <option value="2" <% if (dagID == 2) {%> selected <%}%> >Dinsdag</option>
+                                <option value="3" <% if (dagID == 3) {%> selected <%}%> >Woensdag</option>
+                                <option value="4" <% if (dagID == 4) {%> selected <%}%> >Donderdag</option>
+                                <option value="5" <% if (dagID == 5) {%> selected <%}%> >Vrijdag</option>
+                                <option value="6" <% if (dagID == 6) {%> selected <%}%> >Zaterdag</option>
+                                <option value="7" <% if (dagID == 7) {%> selected <%}%> >Zondag</option>
+                            </select>
+                            <p class="text-center"> 
+                                <% if (aantalPassagiersPerDag == 0) { %>
+                                Er zijn nog geen passagiers op deze dag.
+                                <%} else {%>
+                                <%= aantalPassagiersPerDag%> passagiers.
+                                <%}%></p>
                         </form>   
                     </div>
                     <div id="maand" class="tabcontent" <% if (gekozenTab.equals("maand")) {%> style="display: block" <%}%>>
                         <form>
                             <%
-                        int maandID = (Integer) session.getAttribute("maand_id");
-                    %>
-                             <input type="text" name="gekozenTab" value="maand" hidden />
-                             <label>Kies de maand:</label>
-                             <select name="maand_id" onchange="this.form.submit()">
-                                 <option value="1" <% if (maandID == 1) {%> selected <%}%> >Januari</option>
-                                 <option value="2" <% if (maandID == 2) {%> selected <%}%>>Februari</option>
-                                 <option value="3" <% if (maandID == 3) {%> selected <%}%>>Maart</option>
-                                 <option value="4" <% if (maandID == 4) {%> selected <%}%>>April</option>
-                                 <option value="5" <% if (maandID == 5) {%> selected <%}%>>Mei</option>
-                                 <option value="6" <% if (maandID == 6) {%> selected <%}%>>Juni</option>
-                                 <option value="7" <% if (maandID == 7) {%> selected <%}%>>Juli</option>
-                                 <option value="8" <% if (maandID == 8) {%> selected <%}%>>Augustus</option>
-                                 <option value="9" <% if (maandID == 9) {%> selected <%}%>>September</option>
-                                 <option value="10" <% if (maandID ==10) {%> selected <%}%>>Oktober</option>
-                                 <option value="11" <% if (maandID == 11) {%> selected <%}%>>November</option>
-                                 <option value="12" <% if (maandID == 12) {%> selected <%}%>>December</option>
-                             </select>
-                             <p class="text-center">
-                              <% if (aantalPassagiersPerVlucht == 0) { %>
-                            Er zijn nog geen passagiers deze maand.
-                            <%} else {%>
-                            <%--<%= aantalPassagiersPerVlucht%>--%> passagiers.
-                            <%}%></p>
+                                int maandID = (Integer) session.getAttribute("maand_id");
+                                Integer aantalPassagiersPerMaand = (Integer) session.getAttribute("aantalPassagiersPerMaand");
+                            %>
+                            <input type="text" name="gekozenTab" value="maand" hidden />
+                            <label>Kies de maand:</label>
+                            <select name="maand_id" onchange="this.form.submit()">
+                                <option value="1" <% if (maandID == 1) {%> selected <%}%> >Januari</option>
+                                <option value="2" <% if (maandID == 2) {%> selected <%}%>>Februari</option>
+                                <option value="3" <% if (maandID == 3) {%> selected <%}%>>Maart</option>
+                                <option value="4" <% if (maandID == 4) {%> selected <%}%>>April</option>
+                                <option value="5" <% if (maandID == 5) {%> selected <%}%>>Mei</option>
+                                <option value="6" <% if (maandID == 6) {%> selected <%}%>>Juni</option>
+                                <option value="7" <% if (maandID == 7) {%> selected <%}%>>Juli</option>
+                                <option value="8" <% if (maandID == 8) {%> selected <%}%>>Augustus</option>
+                                <option value="9" <% if (maandID == 9) {%> selected <%}%>>September</option>
+                                <option value="10" <% if (maandID == 10) {%> selected <%}%>>Oktober</option>
+                                <option value="11" <% if (maandID == 11) {%> selected <%}%>>November</option>
+                                <option value="12" <% if (maandID == 12) {%> selected <%}%>>December</option>
+                            </select>
+                            <p class="text-center">
+                                <% if (aantalPassagiersPerMaand == 0) { %>
+                                Er zijn nog geen passagiers deze maand.
+                                <%} else {%>
+                                <%= aantalPassagiersPerMaand%> passagiers.
+                                <%}%></p>
                         </form>
                     </div>
                 </div>

@@ -56,6 +56,12 @@ public class StatistiekenServlet extends HttpServlet {
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             
             String gekozenTab = request.getParameter("gekozenTab");
+            String sessionTab = (String)session.getAttribute("gekozenTab");
+            
+            if (gekozenTab == null && sessionTab != null) {
+               gekozenTab = sessionTab;
+            }
+            
             gekozenTab = gekozenTab != null ? gekozenTab : "vlucht";
             
             session.setAttribute("gekozenTab", gekozenTab);
@@ -68,8 +74,13 @@ public class StatistiekenServlet extends HttpServlet {
                 dagID = Integer.parseInt(dagIDString);
                 boolean dagChanged = dagID != gekozenDag;
                 dagID = dagChanged ? dagID : gekozenDag;
+            } else if (gekozenDag != null) {
+                dagID = gekozenDag;
             }
             
+            int aantalPassagiersPerDag = daPassagier.getAantalPassagiersForDag(dagID);
+            
+            session.setAttribute("aantalPassagiersPerDag", aantalPassagiersPerDag);
             session.setAttribute("dag_id", dagID);
             
             String maandIDString = request.getParameter("maand_id");
@@ -77,10 +88,18 @@ public class StatistiekenServlet extends HttpServlet {
             int maandID = 1;
             if (maandIDString != null && gekozenMaand != null) {
                 maandID = Integer.parseInt(maandIDString);
-                boolean dagChanged = maandID != gekozenMaand;
-                maandID = dagChanged ? dagID : gekozenMaand;
+                boolean maandChanged = maandID != gekozenMaand;
+                if (!maandChanged) {
+                    maandID = gekozenMaand;
+                }
+                maandID = maandChanged ? maandID : gekozenMaand;
+            } else if (gekozenMaand != null) {
+                maandID = gekozenMaand;
             }
             
+            int aantalPassagiersPerMaand = daPassagier.getAantalPassagiersForMaand(maandID);
+            
+            session.setAttribute("aantalPassagiersPerMaand", aantalPassagiersPerMaand);
             session.setAttribute("maand_id", maandID);
             
             String luchthavenIDString = request.getParameter("luchthaven_id");
