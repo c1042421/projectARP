@@ -10,12 +10,15 @@ import hbo5.it.www.beans.Functie;
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAFunctie;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAVlucht;
+import hbo5.it.www.dataacces.DAVluchtBemanning;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -63,6 +66,7 @@ public class BeheerServlet extends HttpServlet {
             DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
+            DAVluchtBemanning daVluchtBemanning = new DAVluchtBemanning(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -103,7 +107,7 @@ public class BeheerServlet extends HttpServlet {
 
                     ArrayList<Luchtvaartmaatschappij> luchtvaartmaatschappijen = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
                     session.setAttribute("luchtvaartmaatschappijen", luchtvaartmaatschappijen);
-                    
+
                     if (pasaan) {
                         session.setAttribute("editbemanningslid", lid);
                     }
@@ -120,6 +124,32 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("bemanning", bemanning);
 
                     request.getRequestDispatcher("beheer_bemanning.jsp").forward(request, response);
+                }
+            } else if (objectType.equals("vluchtbemanning")) {
+
+                int vluchtID = (Integer) session.getAttribute("vluchtID");
+
+                if (pasaan || nieuw) {
+                    ArrayList<Bemanningslid> bemanningsLeden = daBemanningslid.getAlleBemanningsLeden();
+                    session.setAttribute("bemanningsLeden", bemanningsLeden);
+
+                    Vlucht vlucht = daVlucht.getVluchtForVluchtID(vluchtID);
+
+                    session.setAttribute("vluchtVoorBemanning", vlucht);
+
+                    if (pasaan) {
+                        VluchtBemanning vBemanning = daVluchtBemanning.getVluchtBemanningFor(id, vluchtID);
+                        session.setAttribute("editVluchtBemanning", vBemanning);
+                    }
+
+                } else if (verwijder) {
+
+                    daVluchtBemanning.verwijderVluchtbemanningsLidVoor(id);
+
+                    ArrayList<VluchtBemanning> vluchtbemanningsLeden = daVluchtBemanning.getVluchtbemanningForVluchtID(vluchtID);
+                    session.setAttribute("vluchtbemanningsLeden", vluchtbemanningsLeden);
+
+                    request.getRequestDispatcher("beheer_vluchtbemanning.jsp").forward(request, response);
                 }
             }
 

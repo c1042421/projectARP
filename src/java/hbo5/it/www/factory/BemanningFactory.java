@@ -35,30 +35,35 @@ public class BemanningFactory extends BaseFactory {
         bemanningslid.setLuchtvaartmaatschappij_id(resultset.getInt("luchtvaartmaatschappij_id"));
         bemanningslid.setPersoon_id(resultset.getInt("persoon_id"));
         bemanningslid.setFunctie_id(resultset.getInt("functie_id"));
-        
-        Functie functie = new FunctieFactory().maakObject(resultset);
-        Luchtvaartmaatschappij lvm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
-        Persoon persoon = new PersoonFactory().maakObject(resultset);
-        
-        bemanningslid.setFunctie(functie);
-        bemanningslid.setLuchtvaartmaatschappij(lvm);
-        bemanningslid.setPersoon(persoon);
-        
+
+        try {
+            Persoon persoon = new PersoonFactory().maakObject(resultset);
+            bemanningslid.setPersoon(persoon);
+
+            Functie functie = new FunctieFactory().maakObject(resultset);
+            bemanningslid.setFunctie(functie);
+
+            Luchtvaartmaatschappij lvm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
+            bemanningslid.setLuchtvaartmaatschappij(lvm);
+
+        } catch (Exception e) {
+        }
+
         return bemanningslid;
     }
 
     public Bemanningslid maakBemanningslidVanRequest(HttpServletRequest request) {
         Bemanningslid lid = new Bemanningslid();
-        
+
         String stringID = request.getParameter("id");
-        
-        if (stringID != null){
+
+        if (stringID != null) {
             lid.setId(Integer.parseInt(stringID));
         }
-        
+
         lid.setLuchtvaartmaatschappij_id(Integer.parseInt(request.getParameter("lvm_id")));
         lid.setFunctie_id(Integer.parseInt(request.getParameter("functie_id")));
-        
+
         return lid;
     }
 }
