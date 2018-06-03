@@ -19,7 +19,7 @@ class VliegtuigtypeFactory extends BaseFactory {
     public Vliegtuigtype maakObject(ResultSet resultset) throws SQLException {
         Vliegtuigtype type = new Vliegtuigtype();
         
-        int id = checkIfIdExistsAndReturn("VLIEGTUIGTYPE_ID", resultset);
+        int id = getIdForColumnName("VLIEGTUIGTYPE_ID", resultset);
         
         type.setId(id);
         type.setTypenaam(resultset.getString("typenaam"));

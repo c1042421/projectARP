@@ -5,7 +5,6 @@
  */
 package hbo5.it.www.factory;
 
-import hbo5.it.www.interfaces.IFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
  *
  * @author c1042421
  */
-public abstract class BaseFactory implements IFactory {
+public abstract class BaseFactory {
 
-    protected int checkIfIdExistsAndReturn(String columnname, ResultSet resultset) throws SQLException {
+    protected int getIdForColumnName(String columnname, ResultSet resultset) throws SQLException {
         int id;
         try {
             id = resultset.getInt(columnname);
@@ -26,11 +25,9 @@ public abstract class BaseFactory implements IFactory {
         return id;
     }
 
-    @Override
     public abstract <T> T maakObject(ResultSet resultset) throws SQLException;
 
     //Maakt een lijst van een resultset met het type dat wordt meegegeven
-    @Override
     public <T> ArrayList<T> maakLijst(ResultSet resultset) throws SQLException {
         ArrayList<T> lijst = new ArrayList<>();
 

@@ -27,7 +27,7 @@ public class LandFactory extends BaseFactory {
     public Land maakObject(ResultSet resultset) throws SQLException {
         Land land = new Land();
         
-        int id = checkIfIdExistsAndReturn("land_id", resultset);
+        int id = getIdForColumnName("land_id", resultset);
 
         land.setId(id);
         land.setLandnaam(resultset.getString("landnaam"));

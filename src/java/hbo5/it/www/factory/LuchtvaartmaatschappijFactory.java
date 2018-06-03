@@ -21,7 +21,7 @@ public class LuchtvaartmaatschappijFactory extends BaseFactory {
         
         Luchtvaartmaatschappij lm = new Luchtvaartmaatschappij();
 
-        int id = checkIfIdExistsAndReturn("LUCHTVAARTMAATSCHAPPIJ_ID", resultset);
+        int id = getIdForColumnName("LUCHTVAARTMAATSCHAPPIJ_ID", resultset);
 
         lm.setId(id);
         lm.setLuchtvaartnaam(resultset.getString("luchtvaartnaam"));

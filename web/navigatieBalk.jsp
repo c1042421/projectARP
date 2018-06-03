@@ -27,6 +27,16 @@
                     <i class="fas fa-book"></i>
                     <p>Beheer</p>
                 </a>
+                <form action="StatistiekenServlet">
+                    <button class="left-margin menu" type="submit">
+                        <i class="fas fa-chart-pie"></i>
+                        Statistieken
+                    </button>
+                </form>
+                <!--<a class="left-margin flex-container-center-center flex-row menu" href="statistieken.jsp">
+                    <i class="fas fa-chart-pie"></i>
+                    <p>Statistieken</p>
+                </a>-->
                 <%}%>
             </div> </div>
             <div class="flex-container-center-center flex-row">

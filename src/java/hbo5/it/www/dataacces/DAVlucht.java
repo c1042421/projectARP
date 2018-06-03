@@ -13,8 +13,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -95,5 +99,56 @@ public class DAVlucht extends DABase {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<Vlucht> getAlleVluchten() {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * From vlucht");) {
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return new VluchtFactory().maakLijst(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ArrayList<Vlucht> getVluchtenVoorDag(int dag) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * from VLUCHT");) {
+
+            ResultSet resultset = statement.executeQuery();
+
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            
+            vluchten.removeIf(v-> v.getVertrektijd().toLocalDate().getDayOfWeek().getValue() != dag);
+
+            return vluchten;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+     public ArrayList<Vlucht> getVluchtenVoorMaand(int maand) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * from VLUCHT");) {
+
+            ResultSet resultset = statement.executeQuery();
+
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            
+            vluchten.removeIf(v-> v.getVertrektijd().toLocalDate().getMonth().getValue() != maand);
+
+            return vluchten;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
