@@ -29,13 +29,19 @@ public class VliegtuigFactory extends BaseFactory {
     public Vliegtuig maakObject(ResultSet resultset) throws SQLException {
         Vliegtuig vliegtuig = new Vliegtuig();
 
-        Luchtvaartmaatschappij lm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
-        Vliegtuigtype type = new VliegtuigtypeFactory().maakObject(resultset);
+        try {
+            Luchtvaartmaatschappij lm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
+            Vliegtuigtype type = new VliegtuigtypeFactory().maakObject(resultset);
 
-        vliegtuig.setLuchtvaartmaatschappij(lm);
-        vliegtuig.setVliegtuigtype(type);
+            vliegtuig.setLuchtvaartmaatschappij(lm);
+            vliegtuig.setVliegtuigtype(type);
+        } catch (Exception e) {
 
-        vliegtuig.setId(resultset.getInt("id"));
+        }
+
+        int id = getIdForColumnName("vliegtuig_id", resultset);
+        vliegtuig.setId(id);
+
         vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
         vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
 

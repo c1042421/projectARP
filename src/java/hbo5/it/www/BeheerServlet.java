@@ -7,16 +7,22 @@ package hbo5.it.www;
 
 import hbo5.it.www.beans.Bemanningslid;
 import hbo5.it.www.beans.Functie;
+import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.beans.Stockage;
+import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAFunctie;
+import hbo5.it.www.dataacces.DAHangar;
 import hbo5.it.www.dataacces.DALand;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAStockage;
+import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.dataacces.DAVlucht;
 import hbo5.it.www.dataacces.DAVluchtBemanning;
 import java.io.IOException;
@@ -67,6 +73,9 @@ public class BeheerServlet extends HttpServlet {
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             DAVluchtBemanning daVluchtBemanning = new DAVluchtBemanning(url, login, password, driver);
+            DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
+            DAStockage daStockage = new DAStockage(url, login, password, driver);
+            DAHangar daHangar = new DAHangar(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -151,13 +160,33 @@ public class BeheerServlet extends HttpServlet {
 
                     request.getRequestDispatcher("beheer_vluchtbemanning.jsp").forward(request, response);
                 }
+            } else if (objectType.equals("stockage")) {
+
+                if (pasaan || nieuw) {
+                    ArrayList<Vliegtuig> vliegtuigen = daVliegtuig.getAlleVliegtuigen();
+                    session.setAttribute("vliegtuigen", vliegtuigen);
+                    ArrayList<Hangar> hangars = daHangar.getAlleHangars();
+                    session.setAttribute("hangars", hangars);
+
+                    if (pasaan) {
+                        Stockage stockage = daStockage.getStockageByID(id);
+                        session.setAttribute("editStockage", stockage);
+                    }
+                } else if (verwijder) {
+                    daStockage.verwijderStockageForID(id);
+
+                    ArrayList<Stockage> stockages = daStockage.getAlleStockages();
+                    session.setAttribute("stockages", stockages);
+                    request.getRequestDispatcher("beheer_stockage.jsp").forward(request, response);
+                }
+
+                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
+
             }
-
-            request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
