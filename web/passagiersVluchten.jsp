@@ -28,7 +28,6 @@
 
             <% ArrayList<Passagier> passagiers = (ArrayList<Passagier>) session.getAttribute("passagiers");
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                //DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
                 if (passagiers != null && passagiers.size() > 0) {
 
                     for (Passagier passagier : passagiers) {

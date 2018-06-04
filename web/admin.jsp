@@ -26,7 +26,7 @@
                         <button type="submit" class="adminCard crew" name="bemanning"> Bemanning </button>
                         <button type="submit" class="adminCard air-crew" name="vluchbemanning"> VluchtBemanning </button>
                         <div></div>
-                        <button type="submit" class="adminCard vliegtuig-in-hanger" name="vliegtuigInHangar"> Vliegtuigen in hangar </button>
+                        <button type="submit" class="adminCard vliegtuig-in-hanger" name="vliegtuigInHangar"> Stockage </button>
                     </div>
                 </form>
             </div>
