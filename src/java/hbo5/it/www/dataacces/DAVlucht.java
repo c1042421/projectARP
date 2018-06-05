@@ -168,4 +168,103 @@ public class DAVlucht extends DABase {
         }
         return false;
     }
+    
+    public ArrayList<Vlucht> getVluchtForVluchtCode(String code) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Vlucht WHERE code=?");) {
+
+            statement.setString(1, code);
+            ResultSet resultset = statement.executeQuery();
+
+           ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+           return vluchten; 
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+     
+     public ArrayList<Vlucht> getVluchtForVluchtDatum(Date date) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE vertrektijd=?");) {
+
+            statement.setDate(1, (java.sql.Date) date);
+            ResultSet resultset = statement.executeQuery();
+
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            return vluchten; 
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+     
+      public ArrayList<Vlucht> getVluchtForBestemming(String bestemming) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.vlucht inner join luchthaven on aankomstluchthaven_id = luchthaven.ID inner join Land on land_id = land.ID where land.landnaam=?");) {
+
+            statement.setString(1, bestemming);
+            ResultSet resultset = statement.executeQuery();
+
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            return vluchten;
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+      
+     public ArrayList<Vlucht> getVluchtForLuchtvaartmaatschappij(String maatschappij) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht inner join VLIEGTUIG on vliegtuig_id = vliegtuig.id inner join LUCHTVAARTMAATSCHAPPIJ on luchtvaartmaatschappij_id = luchtvaartmaatschappij.id WHERE luchtvaartnaam = ?");) {
+
+            statement.setString(1, maatschappij);
+            ResultSet resultset = statement.executeQuery();
+            
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            return vluchten;
+            
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+     
+    public ArrayList<Vlucht> getAankomendeVluchtenForLuchthavenID(int luchthavenID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * from vlucht inner join LUCHTHAVEN on VERTREKLUCHTHAVEN_ID = LUCHTHAVEN.ID inner join LUCHTHAVEN ON AANKOMSTLUCHTHAVEN_ID= LUCHTHAVEN.ID WHERE aankomstluchthaven_id=?");) {
+
+            statement.setInt(1, luchthavenID);
+            ResultSet resultset = statement.executeQuery();
+            
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            return vluchten;
+            
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    public ArrayList<Vlucht> getVertrekkendeVluchtenForLuchthaven(int luchthavenID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * from vlucht inner join LUCHTHAVEN on VERTREKLUCHTHAVEN_ID = LUCHTHAVEN.ID inner join LUCHTHAVEN ON AANKOMSTLUCHTHAVEN_ID= LUCHTHAVEN.ID WHERE vertrekluchthaven_id=?");) {
+
+            statement.setInt(1, luchthavenID);
+            ResultSet resultset = statement.executeQuery();
+            
+            ArrayList<Vlucht> vluchten = new VluchtFactory().maakLijst(resultset);
+            return vluchten;
+            
+
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }
