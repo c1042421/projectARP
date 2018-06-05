@@ -15,15 +15,15 @@ import java.sql.SQLException;
  */
 class VliegtuigtypeFactory extends BaseFactory {
 
-    static Vliegtuigtype maakVliegtuigtypeVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+    @Override
+    public Vliegtuigtype maakObject(ResultSet resultset) throws SQLException {
         Vliegtuigtype type = new Vliegtuigtype();
         
-        int id = checkIfIdExistsAndReturn("VLIEGTUIGTYPE_ID", resultset);
+        int id = getIdForColumnName("VLIEGTUIGTYPE_ID", resultset);
         
         type.setId(id);
         type.setTypenaam(resultset.getString("typenaam"));
         
         return type;
     }
-    
 }

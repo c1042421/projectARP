@@ -5,6 +5,8 @@
  */
 package hbo5.it.www.beans;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author c1042486
@@ -15,6 +17,15 @@ public class VluchtBemanning {
     private int bemanningslid_id;
     private int vlucht_id;
     private Vlucht vlucht;
+    private Bemanningslid bemanningslid;
+
+    public Bemanningslid getBemanningslid() {
+        return bemanningslid;
+    }
+
+    public void setBemanningslid(Bemanningslid bemanningslid) {
+        this.bemanningslid = bemanningslid;
+    }
 
     public Vlucht getVlucht() {
         return vlucht;

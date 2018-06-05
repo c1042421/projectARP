@@ -17,24 +17,35 @@ import java.sql.SQLException;
  */
 public class VliegtuigFactory extends BaseFactory {
 
-    public static Vliegtuig maakVliegtuigVanResultset(ResultSet resultset) throws SQLException {
-        if (resultset.next()){
-            Vliegtuig vliegtuig = new Vliegtuig();
-            
-            Luchtvaartmaatschappij lm = LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultsetZonderNext(resultset);
-            Vliegtuigtype type = VliegtuigtypeFactory.maakVliegtuigtypeVanResultsetZonderNext(resultset);
-            
-            vliegtuig.setLuchtvaartmaatschappij(lm);
-            vliegtuig.setVliegtuigtype(type);
-            
-            vliegtuig.setId(resultset.getInt("id"));
-            vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
-            vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
-                        
-            return vliegtuig;
+    public Vliegtuig maakVliegtuigVanResultset(ResultSet resultset) throws SQLException {
+        if (resultset.next()) {
+            return maakObject(resultset);
         }
-        
+
         return null;
     }
-    
+
+    @Override
+    public Vliegtuig maakObject(ResultSet resultset) throws SQLException {
+        Vliegtuig vliegtuig = new Vliegtuig();
+
+        try {
+            Luchtvaartmaatschappij lm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
+            Vliegtuigtype type = new VliegtuigtypeFactory().maakObject(resultset);
+
+            vliegtuig.setLuchtvaartmaatschappij(lm);
+            vliegtuig.setVliegtuigtype(type);
+        } catch (Exception e) {
+
+        }
+
+        int id = getIdForColumnName("vliegtuig_id", resultset);
+        vliegtuig.setId(id);
+
+        vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
+        vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
+
+        return vliegtuig;
+    }
+
 }

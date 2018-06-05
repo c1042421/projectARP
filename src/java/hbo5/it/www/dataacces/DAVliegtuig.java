@@ -36,7 +36,7 @@ public class DAVliegtuig extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return VliegtuigFactory.maakVliegtuigVanResultset(resultset);
+            return new VliegtuigFactory().maakVliegtuigVanResultset(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,5 +73,22 @@ public class DAVliegtuig extends DABase {
             vluchtbemanningMetVliegtuigInVlucht.add(vlubem);
         }
         return vluchtbemanningMetVliegtuigInVlucht;
+    }
+
+    public ArrayList<Vliegtuig> getAlleVliegtuigen() {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Vliegtuig vl "
+                        + "inner join VLIEGTUIGTYPE on vl.VLIEGTUIGTYPE_ID = VLIEGTUIGTYPE.ID "
+                        + "inner join LUCHTVAARTMAATSCHAPPIJ on vl.LUCHTVAARTMAATSCHAPPIJ_ID = LUCHTVAARTMAATSCHAPPIJ.ID");) {
+            
+            ResultSet resultset = statement.executeQuery();
+
+            return new VliegtuigFactory().maakLijst(resultset);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

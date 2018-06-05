@@ -5,7 +5,7 @@
  */
 package hbo5.it.www.beans;
 
-import java.util.Date;
+import java.sql.Date;
 /**
  *
  * @author c1042486
@@ -17,6 +17,24 @@ public class Stockage {
     private Date totdatum;
     private int vliegtuig_id;
     private int hangar_id;
+    private Vliegtuig vliegtuig;
+    private Hangar hangar;
+
+    public Vliegtuig getVliegtuig() {
+        return vliegtuig;
+    }
+
+    public void setVliegtuig(Vliegtuig vliegtuig) {
+        this.vliegtuig = vliegtuig;
+    }
+
+    public Hangar getHangar() {
+        return hangar;
+    }
+
+    public void setHangar(Hangar hangar) {
+        this.hangar = hangar;
+    }
 
     public int getId() {
         return id;

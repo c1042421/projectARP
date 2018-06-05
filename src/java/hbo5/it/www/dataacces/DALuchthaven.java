@@ -35,7 +35,7 @@ public class DALuchthaven extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
 
-            return LuchthavenFactory.maakLuchthavenVanResultset(resultset);
+            return new LuchthavenFactory().maakLuchthavenVanResultset(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class DALuchthaven extends DABase {
 
             ResultSet resultset = statement.executeQuery();
 
-            return LuchthavenFactory.maakLijstMetLuchthavensVanResultset(resultset);
+            return new LuchthavenFactory().maakLijst(resultset);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,6 +117,22 @@ public class DALuchthaven extends DABase {
                 PreparedStatement statement = connection.prepareStatement("Delete from LUCHTHAVEN where id=?");) {
 
             statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int voegNieuweLuchthavenToe(Luchthaven l) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("insert into luchthaven (id, luchthavennaam , stad, land_id) values (luchthaven_seq.nextval, ?, ?, ?)");) {
+
+            statement.setString(1, l.getLuchthavennaam());
+            statement.setString(2, l.getStad());
+            statement.setInt(3, l.getLand_id());
             
             return statement.executeUpdate();
         } catch (Exception e) {

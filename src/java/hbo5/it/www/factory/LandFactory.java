@@ -16,31 +16,22 @@ import java.util.ArrayList;
  */
 public class LandFactory extends BaseFactory {
 
-    public static Land maakLandVanResultset(ResultSet resultset) throws SQLException {
+    public Land maakLandVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
-            maakLandVanResultsetZonderNext(resultset);
+            maakObject(resultset);
         }
         return null;
     }
-    
-    public static Land maakLandVanResultsetZonderNext(ResultSet resultset) throws SQLException {
+
+    @Override
+    public Land maakObject(ResultSet resultset) throws SQLException {
         Land land = new Land();
         
-        int id = checkIfIdExistsAndReturn("land_id", resultset);
+        int id = getIdForColumnName("land_id", resultset);
 
         land.setId(id);
         land.setLandnaam(resultset.getString("landnaam"));
 
         return land;
-    }
-
-    public static ArrayList<Land> maakLijstLandenVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<Land> landen = new ArrayList<>();
-        
-        while(resultset.next()) {
-            Land l = maakLandVanResultsetZonderNext(resultset);
-            landen.add(l);
-        }
-        return landen;
     }
 }

@@ -18,16 +18,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class LuchthavenFactory extends BaseFactory {
 
-    public static Luchthaven maakLuchthavenVanResultset(ResultSet resultset) throws SQLException {
-        if (resultset.next()) {
-            return maakObjectVanResultset(resultset);
-        }
-        return null;
-    }
-
-    private static Luchthaven maakObjectVanResultset(ResultSet resultset) throws SQLException {
+    @Override
+    public Luchthaven maakObject(ResultSet resultset) throws SQLException {
         Luchthaven luchthaven = new Luchthaven();
-        Land land = LandFactory.maakLandVanResultsetZonderNext(resultset);
+        Land land = new LandFactory().maakObject(resultset);
 
         luchthaven.setLand(land);
         luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
@@ -37,29 +31,30 @@ public class LuchthavenFactory extends BaseFactory {
 
         return luchthaven;
     }
-
-    public static ArrayList<Luchthaven> maakLijstMetLuchthavensVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<Luchthaven> luchthavens = new ArrayList<>();
-
-        while (resultset.next()) {
-            Luchthaven l = maakObjectVanResultset(resultset);
-            luchthavens.add(l);
+    
+    public Luchthaven maakLuchthavenVanResultset(ResultSet resultset) throws SQLException {
+        if (resultset.next()) {
+            return maakObject(resultset);
         }
-
-        return luchthavens;
+        return null;
     }
 
-    public static Luchthaven maakLuchthavenVanRequest(HttpServletRequest request) {
+
+    public Luchthaven maakLuchthavenVanRequest(HttpServletRequest request) {
+        Luchthaven l = new Luchthaven();
+        
         String naam = request.getParameter("luchthavennaam");
-        int id = Integer.parseInt(request.getParameter("id"));
+        if (request.getParameter("id") != null) {
+           int id = Integer.parseInt(request.getParameter("id"));
+           l.setId(id);
+        }
+        
         int landId = Integer.parseInt(request.getParameter("land_id"));
         String stad = request.getParameter("stad");
-        Luchthaven l = new Luchthaven();
-        l.setId(id);
+   
         l.setLand_id(landId);
         l.setStad(stad);
         l.setLuchthavennaam(naam);
         return l;
     }
-
 }

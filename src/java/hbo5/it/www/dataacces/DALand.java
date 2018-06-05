@@ -33,7 +33,7 @@ public class DALand extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return LandFactory.maakLandVanResultset(resultset);
+            return new LandFactory().maakLandVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class DALand extends DABase {
              
             ResultSet resultset = statement.executeQuery();
             
-            return LandFactory.maakLijstLandenVanResultset(resultset);
+            return new LandFactory().maakLijst(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();

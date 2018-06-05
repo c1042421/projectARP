@@ -13,10 +13,11 @@ import java.sql.Statement;
  * @author c1042421
  */
 public class DABase {
-    protected final String url, login, password;
+    protected final String url, login, password, driver;
 
     public DABase(String url, String login, String password, String driver) throws ClassNotFoundException {
         Class.forName(driver);
+        this.driver = driver;
         this.url = url;
         this.login = login;
         this.password = password;
