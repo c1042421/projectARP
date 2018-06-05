@@ -12,21 +12,26 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Beheer vliegtuigen</title>
-        <link rel="stylesheet" type="text/css" href="style/style.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <jsp:include page="imports.jsp" />
     </head>
     <body>
         <jsp:include page="navigatieBalk.jsp" />
         
+        <div class="flex-container-top-center padding-bottom">
+        <% Vliegtuig teVerwijderenVliegtuig = (Vliegtuig) session.getAttribute("teVerwijderenVliegtuig");
+                if (teVerwijderenVliegtuig != null){
+            %>
+            <div class="error"><p class="text-center">Kan <%= teVerwijderenVliegtuig.getVliegtuigtype().getTypenaam() %> van <%= teVerwijderenVliegtuig.getLuchtvaartmaatschappij().getLuchtvaartnaam() %> niet verwijderen. <%= teVerwijderenVliegtuig.getVliegtuigtype().getTypenaam() %> heeft nog vluchten.</p></div>
+            <%}%>
+        
         <div class="flex-container-top-center">
             <h1>Beheer Vliegtuigen<hr></h1>
         <div class="grid-container grid-2-colums">
-            
             <form action="BeheerServlet">
                     <input type="text" hidden name="beheerpagina" value="nieuw_vliegtuig"/>
                     <input type="text" hidden name="objectType" value="vliegtuig"/>
                     <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuw vliegtuig</button>
-                </form>
+            </form>
             
             <% ArrayList<Vliegtuig> vliegtuigen = (ArrayList<Vliegtuig>) session.getAttribute("vliegtuigen");%>
             <% if (!vliegtuigen.isEmpty()) {
@@ -46,6 +51,7 @@
                     </div>
             <%}
                 }%>
+        </div>
         </div>
         </div>
                 

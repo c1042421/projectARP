@@ -114,14 +114,21 @@ public class BeheerServlet extends HttpServlet {
                 }
 
             } else if (objectType.equals("vliegtuig")) {
+                Vliegtuig vl = daVliegtuig.getVliegtuigForID(id);
+                session.setAttribute("teVerwijderenVliegtuig", null);
                 if (pasaan) {
-                    Vliegtuig vl = daVliegtuig.getVliegtuigForID(id);
+                    
                     ArrayList<Luchtvaartmaatschappij> lvm = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
 
                     session.setAttribute("editVliegtuig", vl);
                     session.setAttribute("luchtvaartmaatschappijen", lvm);
                     
                 } else if (verwijder) {
+                    
+                    if ( daVlucht.checkOfVluchtVliegtuigBevat(id)) {
+                        session.setAttribute("teVerwijderenVliegtuig", vl);
+                        request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
+                    }
                     
                     daVliegtuig.verwijderVliegtuigForID(id);
                     
