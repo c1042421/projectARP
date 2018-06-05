@@ -55,7 +55,7 @@
             </div>
             <div class="flex-container flex-row">
                  <form action="DetailServlet">
-                     <button type="submit" class="button" name="boeken">Boek deze vlucht</button>
+                     <button type="submit" class="button" name="boek">Boek deze vlucht</button>
                      <button type="submit" class="button" name="details">Details</button>
                      <input type="hidden" name="vluchtID" value=<%= vlucht.getId()%>>
                 </form>

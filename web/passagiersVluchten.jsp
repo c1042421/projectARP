@@ -22,7 +22,7 @@
     </head>
     <body>
         <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
-         <jsp:include page="navigatieBalk.jsp" />
+        <jsp:include page="navigatieBalk.jsp" />
         <div class="flex-container-top-center">
             <h2>Mijn vluchten <hr/></h2>
 
@@ -32,8 +32,8 @@
 
                     for (Passagier passagier : passagiers) {
                         Vlucht vlucht = passagier.getVlucht();
-                            LocalDate localdate = vlucht.getAankomsttijd().toLocalDate();%>
-            <div class="vlucht card flex-container" >
+                        LocalDate localdate = vlucht.getAankomsttijd().toLocalDate();%>
+            <div class="vlucht card flex-container">
                 <div>
                     <h3> Vlucht <%= vlucht.getCode()%> </h3>
                 </div>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="flex-container flex-row">
-                    <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
+                    <a href="details.jsp" class="button"><i class="fas fa-plane"> </i> Details </a>
                     <%  java.util.Date utilDate = new java.util.Date();
                         Date date = new Date(utilDate.getTime());
                         if (vlucht.getVertrektijd().after(date)) {%>
@@ -66,15 +66,17 @@
                         <button type="submit" name="annuleerVlucht"><i class="fas fa-times"> </i> Annuleren</button>
                     </form>
                     <%}%>
-                    <%}%>
                 </div>
+                
+                </div>
+                <%}%>
+
+                <%} else if (persoon == null) {%>
+                <p class="text-center"> U bent niet ingelogd. <br> Log in om uw vluchten te kunnen bekijken.</p>
+                <a class="button" href="login.jsp"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+                <%} else {%>
+                <p>U heeft geen vluchten geboekt.</p>
+                <%}%>
             </div>
-            <%} else if (persoon == null) {%>
-            <p class="text-center"> U bent niet ingelogd. <br> Log in om uw vluchten te kunnen bekijken.</p>
-            <a class="button" href="login.jsp"><i class="fas fa-sign-in-alt"> </i> Log in</a>
-            <%} else {%>
-            <p>U heeft geen vluchten geboekt.</p>
-            <%}%>
-        </div>
     </body>
 </html>

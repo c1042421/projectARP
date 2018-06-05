@@ -14,8 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="imports.jsp" />
     </head>
     <body>
+        <jsp:include page="navigatieBalk.jsp" />
         <% Vlucht vlucht = (Vlucht) session.getAttribute("vlucht");
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localdate = vlucht.getAankomsttijd().toLocalDate();%>

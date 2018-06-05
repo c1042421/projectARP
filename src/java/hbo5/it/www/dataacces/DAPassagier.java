@@ -8,6 +8,7 @@ package hbo5.it.www.dataacces;
 import hbo5.it.www.beans.Passagier;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Vlucht;
+import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.factory.PassagierFactory;
 import java.sql.Connection;
 import java.util.Date;
@@ -145,5 +146,24 @@ public class DAPassagier extends DABase {
         }
         
         return aantalPassagiers;
+    }
+    
+    public int voegVluchtToeAanPassagier(Passagier passagier) {
+       try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("insert into Passagier (id, ingeschreven, ingecheckt, klasse_id, plaats, VLUCHT_ID,persoon_id) values (passagier_seq.nextval, ?, ?, ?, ?, ?, ?)");) {
+
+            statement.setBoolean(1, passagier.getIngeschreven());
+            statement.setBoolean(2, passagier.getIngecheckt());
+            statement.setInt(3, passagier.getKlasse_id());
+            statement.setString(4, passagier.getPlaats());
+            statement.setInt(5, passagier.getVlucht_id());
+            statement.setInt(6, passagier.getPersoon_id());
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

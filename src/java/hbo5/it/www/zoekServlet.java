@@ -72,9 +72,11 @@ public class zoekServlet extends HttpServlet {
             } else if ("Specifiek zoeken".equals(zoekfunctie)) {
                 String code = request.getParameter("txtVluchtnummer");
                 String datum = request.getParameter("txtVluchtdatum");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date vluchtdatum = sdf.parse(datum);
-                java.sql.Date sqlData = new java.sql.Date(vluchtdatum.getTime());
+                java.util.Date vluchtdatum = null;
+                if (datum != "") {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    vluchtdatum = sdf.parse(datum);
+                }
 
                 String bestemming = request.getParameter("txtBestemming");
                 String luchtvaartmaatschappij = request.getParameter("txtLuchthaven");
@@ -82,7 +84,7 @@ public class zoekServlet extends HttpServlet {
                 if (code != null) {
                     ArrayList<Vlucht> vluchten = daVlucht.getVluchtForVluchtCode(code);;
                     session.setAttribute("vluchten", vluchten);
-                } else if (datum != null) {
+                } else if (datum != "") {
                     ArrayList<Vlucht> vluchten = daVlucht.getVluchtForVluchtDatum(vluchtdatum);
                     session.setAttribute("vluchten", vluchten);
                 } else if (bestemming != null) {
