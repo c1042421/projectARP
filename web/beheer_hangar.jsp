@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Beheer vliegtuigen</title>
+        <title>Beheer hangaren</title>
         <jsp:include page="imports.jsp" />
     </head>
     <body>
@@ -21,7 +21,7 @@
             <h1>Beheer Hangaren<hr></h1>
         <div class="grid-container grid-2-colums">
             <form action="BeheerServlet">
-                    <input type="text" hidden name="beheerpagina" value="nieuw_hangar"/>
+                    <input type="text" hidden name="beheerpagina" value="nieuwe_hangar"/>
                     <input type="text" hidden name="objectType" value="hangar"/>
                     <button name="nieuw" class="card card-hover" type="submit"><i class="fas fa-plus"> </i> Nieuwe hangar</button>
             </form>

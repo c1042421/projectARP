@@ -16,9 +16,6 @@
     </head>
     <body>
         <jsp:include page="navigatieBalk.jsp"/>
-        <%
-            ArrayList<Hangar> hangars = (ArrayList<Hangar>) session.getAttribute("hangars");
-        %>
 
         <div class="flex-container-top-center">
             <h1>Nieuwe hangar<hr/></h1>
@@ -26,18 +23,13 @@
             <div class="card">
                 <form action="SaveServlet">
                     <input type="text" name="id" hidden value="0"/></p>
-                    <p><label> Hangar: </label>
-                        <select name="hangar_id">
-                            <% for (Hangar hangar : hangars) {%>
-                            <option value="<%=hangar.getId()%>"><%= hangar.getHangarnaam()%></option>
-                            <%}%>
-                        </select></p>
+                    <p><label> Hangarnaam: </label></p>
+                    <input type="text" name="hangarnaam" />
                     <input type="text" name="beheerpagina" hidden value="beheer_hangar"/>
                     
                     <div class="flex-container-center-center"> 
                         <button class="button" type="submit" name="save_nieuwe_hangar"><i class="fas fa-save"> </i> Opslaan</button> 
                     </div>
-
                 </form>
             </div>
         </div>

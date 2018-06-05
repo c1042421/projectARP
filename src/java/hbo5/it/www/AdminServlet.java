@@ -123,7 +123,7 @@ public class AdminServlet extends HttpServlet {
                 session.setAttribute("vliegtuigen", vliegtuigen);
                 request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
                 
-            }else if (toonHangaren) {
+            } else if (toonHangaren) {
                 ArrayList<Hangar> hangaren = daHangar.getAlleHangars();
                 session.setAttribute("hangar", hangaren);
                 

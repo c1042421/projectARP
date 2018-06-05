@@ -141,21 +141,17 @@ public class SaveServlet extends HttpServlet {
                 Hangar hangar = new HangarFactory().maakHangarVanRequest(request);
                 
                 if (saveHangar) {
-                    editedRows = DAHangar.update(hangar);
+                    editedRows = daHangar.update(hangar);
                 } else {
-                    editedRows = DAHangar.voegHangarToe(hangar);
+                    editedRows = daHangar.voegHangarToe(hangar);
                 }
                 
                 ArrayList<Hangar> hangaren = daHangar.getAlleHangars();
-                session.setAttribute("hangar", hangar);
+                session.setAttribute("hangar", hangaren);
+                
             }
+            
 
-            
-            
-            
-            
-            
-            
             if (editedRows > 0) {
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
                 

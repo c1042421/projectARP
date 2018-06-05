@@ -230,7 +230,7 @@ public class BeheerServlet extends HttpServlet {
                     daHangar.verwijderHangarForID(id);
 
                     ArrayList<Hangar> hangars = daHangar.getAlleHangars();
-                    session.setAttribute("hangars", hangars);
+                    session.setAttribute("hangar", hangars);
                     request.getRequestDispatcher("beheer_hangar.jsp").forward(request, response);
                 }
 
