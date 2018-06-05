@@ -213,6 +213,28 @@ public class BeheerServlet extends HttpServlet {
 
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
 
+                
+            } else if (objectType.equals("hangar")) {
+                Hangar hangar = daHangar.getHangerByID(id);
+                if (pasaan || nieuw) {
+                    ArrayList<Hangar> hangars = daHangar.getAlleHangars();
+                    session.setAttribute("hangars", hangars);
+
+                    if (pasaan) {
+                        session.setAttribute("editHangar", hangar);
+                    }
+                } else if (verwijder) {
+                    if (daStockage.stockageHeeftHangar(id)) {
+                        session.setAttribute("teVerwijderenHangar", hangar);
+                    }
+                    daHangar.verwijderHangarForID(id);
+
+                    ArrayList<Hangar> hangars = daHangar.getAlleHangars();
+                    session.setAttribute("hangars", hangars);
+                    request.getRequestDispatcher("beheer_hangar.jsp").forward(request, response);
+                }
+
+                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

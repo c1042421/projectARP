@@ -116,4 +116,20 @@ public class DAStockage extends DABase {
             e.printStackTrace();
         }
     }
+
+    public boolean stockageHeeftHangar(int id) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * from stockage where hangar_id=?");) {
+
+            statement.setInt(1, id);
+            ResultSet resultset = statement.executeQuery();
+
+            return resultset.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

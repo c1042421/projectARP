@@ -6,16 +6,19 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Bemanningslid;
+import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Stockage;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
+import hbo5.it.www.dataacces.DAHangar;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAStockage;
 import hbo5.it.www.dataacces.DAVluchtBemanning;
 import hbo5.it.www.factory.BemanningFactory;
+import hbo5.it.www.factory.HangarFactory;
 import hbo5.it.www.factory.LuchthavenFactory;
 import hbo5.it.www.factory.PersoonFactory;
 import hbo5.it.www.factory.StockageFactory;
@@ -73,6 +76,8 @@ public class SaveServlet extends HttpServlet {
             boolean saveVluchtbemanning = request.getParameter("save_vluchtbemanning") != null;
             boolean saveStockage = request.getParameter("save_stockage") != null;
             boolean saveNieuweStockage = request.getParameter("save_nieuwe_stockage") != null;
+            boolean saveNieuweHangar = request.getParameter("save_nieuwe_hangar") != null;
+            boolean saveHangar = request.getParameter("save_hangar") != null;
             
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
@@ -80,6 +85,7 @@ public class SaveServlet extends HttpServlet {
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
             DAVluchtBemanning daVluchtbemanning = new DAVluchtBemanning(url, login, password, driver);
             DAStockage daStockage = new DAStockage(url, login, password, driver);
+            DAHangar daHangar = new DAHangar(url, login, password, driver);
 
             if (saveLuchthaven || saveNieuweLuchthaven) {
                 Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);
@@ -130,10 +136,29 @@ public class SaveServlet extends HttpServlet {
                 
                 ArrayList<Stockage> stockages = daStockage.getAlleStockages();
                 session.setAttribute("stockages", stockages);
+                
+            } else if (saveHangar || saveNieuweHangar) {
+                Hangar hangar = new HangarFactory().maakHangarVanRequest(request);
+                
+                if (saveHangar) {
+                    editedRows = DAHangar.update(hangar);
+                } else {
+                    editedRows = DAHangar.voegHangarToe(hangar);
+                }
+                
+                ArrayList<Hangar> hangaren = daHangar.getAlleHangars();
+                session.setAttribute("hangar", hangar);
             }
 
+            
+            
+            
+            
+            
+            
             if (editedRows > 0) {
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
+                
             }
 
         } catch (Exception e) {

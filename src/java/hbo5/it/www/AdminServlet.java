@@ -6,6 +6,7 @@
 package hbo5.it.www;
 
 import hbo5.it.www.beans.Bemanningslid;
+import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.Stockage;
@@ -13,6 +14,7 @@ import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAFunctie;
+import hbo5.it.www.dataacces.DAHangar;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAVliegtuig;
@@ -74,12 +76,14 @@ public class AdminServlet extends HttpServlet {
             DAVluchtBemanning daVluchtBemanning = new DAVluchtBemanning(url, login, password, driver);
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
             DAStockage daStockage = new DAStockage(url, login, password, driver);
+            DAHangar daHangar = new DAHangar(url, login, password, driver);
 
             boolean toonLuchthavens = request.getParameter("luchthavens") != null;
             boolean toonBemanning = request.getParameter("bemanning") != null;
             boolean toonVluchtBemanning = request.getParameter("vluchbemanning") != null;
             boolean toonVliegtuigenInHangar = request.getParameter("vliegtuigInHangar") != null;
             boolean toonVliegtuigen = request.getParameter("vliegtuig") != null;
+            boolean toonHangaren = request.getParameter("hangar") != null;
 
             if (toonBemanning) {
 
@@ -118,6 +122,12 @@ public class AdminServlet extends HttpServlet {
                 ArrayList<Vliegtuig> vliegtuigen = daVliegtuig.getAlleVliegtuigen();
                 session.setAttribute("vliegtuigen", vliegtuigen);
                 request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
+                
+            }else if (toonHangaren) {
+                ArrayList<Hangar> hangaren = daHangar.getAlleHangars();
+                session.setAttribute("hangar", hangaren);
+                
+                request.getRequestDispatcher("beheer_hangar.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
