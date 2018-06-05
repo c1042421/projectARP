@@ -80,7 +80,7 @@ public class DAPassagier extends DABase {
     public ArrayList<Passagier> getPassagiersForVluchtID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER WHERE vlucht_id =?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.PASSAGIER JOIN PERSOON ON PASSAGIER.PERSOON_ID=PERSOON.ID WHERE vlucht_id = ? ORDER BY FAMILIENAAM");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();

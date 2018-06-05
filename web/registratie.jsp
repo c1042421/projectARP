@@ -34,7 +34,7 @@
                 
                 <p>
                     <label>Geboortedatum:</label> <br>
-                    <input required type="date" name="Geboortedatum"/>
+                    <input type="date" required pattern="[0-9]{4}/[0-9]{2}/[0-9]{2}" name="Geboortedatum" placeholder="1970/05/27"/>
                 </p>
                 </div>
                 

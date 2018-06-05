@@ -24,6 +24,8 @@
     <body>       
           <jsp:include page="navigatieBalk.jsp" />
           
+          <% Persoon persoon = (Persoon) session.getAttribute("loggedInPersoon"); %>
+          
             <div class="flex-container-top-center">
                 <h2>Mijn Reisschema <hr/></h2>
             
@@ -55,21 +57,25 @@
                                 <%= vlucht.getAankomstLuchthaven().getLuchthavennaam() %><br/>
                                 op: <%= vlucht.getAankomsttijd().toLocalDate().format(dateFormatter) %><br/>
                                 </p>
-                               
-
                             </div>
+                                
                         </div>
                         <div class="flex-container flex-row">
-                            <a href="#" class="button"><i class="fas fa-plane"> </i> Details </a>
+                            <a href="#" class="button"><i class="fas fa-plane"></i>Details</a>
                             <form action="ManageServlet">
-                                <button name="toonPassagiers" type="submit"><i class="fas fa-users"> </i> Passagiers</button>
+                                <input type="text" name="vluchtID" hidden value="<%=vlucht.getId()%>"/>
+                                <button class="button" name="toonPassagiers" type="submit"><i class="fas fa-users"></i>Passagiers</button>
                             </form>
                         </div>
                     </div>
-                    <%}
-                } else {%>
-                    <p>Geen reisschema beschikbaar.</p>
-                <%}%>
+                    <%}%>
+                    
+                    <%}else if (persoon == null) {%>
+                        <p class="text-center"> U bent niet ingelogd. <br> Log in om uw reisschema te kunnen bekijken.</p>
+                        <a class="button" href="login.jsp"><i class="fas fa-sign-in-alt"> </i> Log in</a>
+                    <%} else {%>
+                        <p>U heeft geen toekomstig reisschema.</p>
+                    <%}%>
             </div>   
     </body>
 </html>
