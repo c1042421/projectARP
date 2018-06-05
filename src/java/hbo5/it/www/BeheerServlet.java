@@ -236,6 +236,7 @@ public class BeheerServlet extends HttpServlet {
 
                 request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
             }
+            request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }

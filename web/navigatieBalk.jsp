@@ -18,7 +18,7 @@
                 </a>
                 <%if (persoon != null && persoon.getSoort() == 'B') { %>
                 <a class="left-margin flex-container-center-center flex-row menu" href="bemanningsVluchten.jsp">
-                    <i class="fas fa-plane"> </i>
+                    <i class="fas fa-suitcase"></i>
                     <p>Mijn Reisschema</p>
                 </a>
                 <%}%>
@@ -41,7 +41,7 @@
             </div> </div>
             <div class="flex-container-center-center flex-row">
              <% if (persoon != null) { %>
-                <p> Welkom <%= persoon.getVoornaam() %></p>
+                <p> Welkom, <%= persoon.getVoornaam() %></p>
                 <form action="InlogServlet">
                     <button type="submit" name="loguit" class="button"><i class="fas fa-sign-out-alt"> </i> Log uit</button>
                 </form>
