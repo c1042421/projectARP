@@ -10,18 +10,21 @@ import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Persoon;
 import hbo5.it.www.beans.Stockage;
+import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
 import hbo5.it.www.dataacces.DAHangar;
 import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DAPersoon;
 import hbo5.it.www.dataacces.DAStockage;
+import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.dataacces.DAVluchtBemanning;
 import hbo5.it.www.factory.BemanningFactory;
 import hbo5.it.www.factory.HangarFactory;
 import hbo5.it.www.factory.LuchthavenFactory;
 import hbo5.it.www.factory.PersoonFactory;
 import hbo5.it.www.factory.StockageFactory;
+import hbo5.it.www.factory.VliegtuigFactory;
 import hbo5.it.www.factory.VluchtBemanningFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,6 +81,8 @@ public class SaveServlet extends HttpServlet {
             boolean saveNieuweStockage = request.getParameter("save_nieuwe_stockage") != null;
             boolean saveNieuweHangar = request.getParameter("save_nieuwe_hangar") != null;
             boolean saveHangar = request.getParameter("save_hangar") != null;
+            boolean saveVliegtuig = request.getParameter("save_vliegtuig") != null;
+            boolean saveNieuwVliegtuig = request.getParameter("save_nieuw_vliegtuig") != null;
             
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
@@ -86,6 +91,7 @@ public class SaveServlet extends HttpServlet {
             DAVluchtBemanning daVluchtbemanning = new DAVluchtBemanning(url, login, password, driver);
             DAStockage daStockage = new DAStockage(url, login, password, driver);
             DAHangar daHangar = new DAHangar(url, login, password, driver);
+            DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
 
             if (saveLuchthaven || saveNieuweLuchthaven) {
                 Luchthaven l = new LuchthavenFactory().maakLuchthavenVanRequest(request);
@@ -149,6 +155,17 @@ public class SaveServlet extends HttpServlet {
                 ArrayList<Hangar> hangaren = daHangar.getAlleHangars();
                 session.setAttribute("hangar", hangaren);
                 
+            } else if (saveVliegtuig || saveNieuwVliegtuig) {
+                Vliegtuig vliegtuig = new VliegtuigFactory().maakVliegtuigVanRequest(request);
+                
+                if (saveVliegtuig) {
+                    editedRows = daVliegtuig.update(vliegtuig);
+                } else {
+                    editedRows = daVliegtuig.voegVliegtuigToe(vliegtuig);
+                }
+                
+                ArrayList<Vliegtuig> vliegtuigen = daVliegtuig.getAlleVliegtuigen();
+                session.setAttribute("vliegtuigen", vliegtuigen);
             }
             
 

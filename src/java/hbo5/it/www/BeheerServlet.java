@@ -18,6 +18,7 @@ import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.beans.Stockage;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vliegtuigtype;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
@@ -28,6 +29,7 @@ import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAStockage;
 import hbo5.it.www.dataacces.DAVliegtuig;
+import hbo5.it.www.dataacces.DAVliegtuigType;
 import hbo5.it.www.dataacces.DAVlucht;
 import hbo5.it.www.dataacces.DAVluchtBemanning;
 import java.io.IOException;
@@ -82,6 +84,7 @@ public class BeheerServlet extends HttpServlet {
             DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
             DAStockage daStockage = new DAStockage(url, login, password, driver);
             DAHangar daHangar = new DAHangar(url, login, password, driver);
+            DAVliegtuigType daVliegtuigType = new DAVliegtuigType(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -116,12 +119,14 @@ public class BeheerServlet extends HttpServlet {
             } else if (objectType.equals("vliegtuig")) {
                 Vliegtuig vl = daVliegtuig.getVliegtuigForID(id);
                 session.setAttribute("teVerwijderenVliegtuig", null);
+                
+                ArrayList<Luchtvaartmaatschappij> lvm = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+                ArrayList<Vliegtuigtype> vliegtuigTypes = daVliegtuigType.getAlleVliegtuigTypes();
+                session.setAttribute("luchtvaartmaatschappijen", lvm);
+                session.setAttribute("vliegtuigTypes", vliegtuigTypes);
+                
                 if (pasaan) {
-                    
-                    ArrayList<Luchtvaartmaatschappij> lvm = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
-
                     session.setAttribute("editVliegtuig", vl);
-                    session.setAttribute("luchtvaartmaatschappijen", lvm);
                     
                 } else if (verwijder) {
                     

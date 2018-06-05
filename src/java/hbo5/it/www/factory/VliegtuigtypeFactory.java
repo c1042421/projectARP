@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author jelmarvanaert
  */
-class VliegtuigtypeFactory extends BaseFactory {
+public class VliegtuigtypeFactory extends BaseFactory {
 
     @Override
     public Vliegtuigtype maakObject(ResultSet resultset) throws SQLException {
