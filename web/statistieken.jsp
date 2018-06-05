@@ -98,7 +98,7 @@
                             <label>Kies de dag: </label>
                             <select name="dag_id" onchange="this.form.submit()">
                                 <% for (DayOfWeek d: DayOfWeek.values()) {%>
-                                <option value="1" <% if (dagID == d.getValue()) {%> selected <%}%> > <%= d.getDisplayName(TextStyle.FULL, Locale.getDefault()) %> </option>
+                                <option value="<%=d.getValue() %>" <% if (dagID == d.getValue()) {%> selected <%}%> > <%= d.getDisplayName(TextStyle.FULL, Locale.getDefault()) %> </option>
                                 <%}%>
                             </select>
                             <p class="text-center"> 
@@ -119,7 +119,7 @@
                             <label>Kies de maand:</label>
                             <select name="maand_id" onchange="this.form.submit()">
                                 <% for (Month m : Month.values()) {%>
-                                    <option value="1" <% if (maandID == m.getValue()) {%> selected <%}%> ><%= m.getDisplayName(TextStyle.FULL , Locale.getDefault()) %></option>
+                                    <option value="<%= m.getValue() %>" <% if (maandID == m.getValue()) {%> selected <%}%> ><%= m.getDisplayName(TextStyle.FULL , Locale.getDefault()) %></option>
                                 <%}%>
                                 
                             </select>
