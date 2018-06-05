@@ -35,11 +35,11 @@
                 <option>Binnenkomende vluchten</option>
                 <option>Vertrekkende vluchten</option>
             </select>
-            <p><input name="AlgemeenZoeken" type="submit" value="Zoek vlucht(en)"/></p>
+            <p><input name="zoekfunctie" type="submit" value="Algemeen zoeken"/></p>
         </form>
         
         
-        <form action="zoekServlet">
+        <form action="zoekServlet" method="Get">
             
             
             <h2 class="boxZoek">Specifiek zoeken</h2>
@@ -55,7 +55,7 @@
             <p class="boxZoek">Mijn luchtvaartmaatschappij:<input type="text" id="luchtvaartmaatschappij" name="txtLuchtvaartmaatschappij"/>
             </p>
             
-            <p><input name="SpeciefiekZoeken" type="submit" value="Zoek vlucht(en)"/><p>
+            <p><input name="zoekfunctie" type="submit" value="Specifiek zoeken"><p>
         </form>
     </body>
 </html>

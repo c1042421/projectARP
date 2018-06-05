@@ -33,7 +33,7 @@ public class DAVlucht extends DABase {
     public Vlucht getVluchtForVluchtID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Vlucht inner join LUCHTHAVEN on VERTREKLUCHTHAVEN_ID = LUCHTHAVEN.ID inner join LUCHTHAVEN ON AANKOMSTLUCHTHAVEN_ID= LUCHTHAVEN.ID inner join VLIEGTUIG ON VLIEGTUIG_ID = VLIEGTUIG.ID WHERE id=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Vlucht inner join LUCHTHAVEN on VERTREKLUCHTHAVEN_ID = LUCHTHAVEN.ID inner join LUCHTHAVEN ON AANKOMSTLUCHTHAVEN_ID= LUCHTHAVEN.ID inner join VLIEGTUIG ON VLIEGTUIG_ID = VLIEGTUIG.ID WHERE vlucht.id=?");) {
 
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
@@ -154,7 +154,7 @@ public class DAVlucht extends DABase {
      public ArrayList<Vlucht> getVluchtForVluchtCode(String code) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE code=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.Vlucht WHERE code like %?%");) {
 
             statement.setString(1, code);
             ResultSet resultset = statement.executeQuery();
@@ -170,7 +170,7 @@ public class DAVlucht extends DABase {
      public ArrayList<Vlucht> getVluchtForVluchtDatum(Date date) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE vertrekdatum=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE vertrektijd LIKE %?%");) {
 
             statement.setDate(1, (java.sql.Date) date);
             ResultSet resultset = statement.executeQuery();
@@ -186,7 +186,7 @@ public class DAVlucht extends DABase {
       public ArrayList<Vlucht> getVluchtForBestemming(String bestemming) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE land=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.vlucht inner join luchthaven on aankomstluchthaven_id = luchthaven.ID inner join Land on land_id = land.ID where landnaam like %?% ;");) {
 
             statement.setString(1, bestemming);
             ResultSet resultset = statement.executeQuery();
@@ -202,7 +202,7 @@ public class DAVlucht extends DABase {
      public ArrayList<Vlucht> getVluchtForLuchtvaartmaatschappij(String maatschappij) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht WHERE luchtvaartmaatschappij=?");) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM C1042421.VLucht inner join VLIEGTUIG on vliegtuig_id = vliegtuig.id inner join LUCHTVAARTMAATSCHAPPIJ on luchtvaartmaatschappij_id = luchtvaartmaatschappij.id WHERE luchtvaartnaam like %?%");) {
 
             statement.setString(1, maatschappij);
             ResultSet resultset = statement.executeQuery();

@@ -56,22 +56,20 @@ public class zoekServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             DAVlucht daVlucht = new DAVlucht(url, login, password, driver);
-
-            String AlgemeenZoeken = request.getParameter("AlgemeenZoeken");
-            if (AlgemeenZoeken != null) {
+            String zoekfunctie = request.getParameter("zoekfunctie");
+            if ("Algemeen zoeken".equals(zoekfunctie)) {
                 int luchthavenID = Integer.parseInt(request.getParameter("luchthavenID"));
                 String type = request.getParameter("soortVlucht");
 
-                if (type == "Binnenkomende vluchten") {
+                if ("Binnenkomende vluchten".equals(type)) {
                     ArrayList<Vlucht> vluchten = daVlucht.getAankomendeVluchtenForLuchthavenID(luchthavenID);
                     session.setAttribute("vluchten", vluchten);
                 } else {
                     ArrayList<Vlucht> vluchten = daVlucht.getVertrekkendeVluchtenForLuchthaven(luchthavenID);
                     session.setAttribute("vluchten", vluchten);
                 }
-            } 
-            else {
 
+            } else if ("Specifiek zoeken".equals(zoekfunctie)) {
                 String code = request.getParameter("txtVluchtnummer");
                 String datum = request.getParameter("txtVluchtdatum");
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
