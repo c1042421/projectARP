@@ -6,8 +6,11 @@
 package hbo5.it.www.factory;
 
 import hbo5.it.www.beans.Hangar;
+import hbo5.it.www.beans.Stockage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -24,6 +27,18 @@ public class HangarFactory extends BaseFactory{
         hangar.setId(id);
         hangar.setHangarnaam(resultset.getString("hangarnaam"));
         
+        return hangar;
+    }
+
+    public Hangar maakHangarVanRequest(HttpServletRequest request) {
+        Hangar hangar = new Hangar();
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String hangarNaam = request.getParameter("hangarnaam");
+
+        hangar.setId(id);
+        hangar.setHangarnaam(hangarNaam);
+
         return hangar;
     }
     

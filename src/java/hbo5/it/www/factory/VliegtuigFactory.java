@@ -10,6 +10,8 @@ import hbo5.it.www.beans.Vliegtuig;
 import hbo5.it.www.beans.Vliegtuigtype;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -45,6 +47,17 @@ public class VliegtuigFactory extends BaseFactory {
         vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
         vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
 
+        return vliegtuig;
+    }
+
+    public Vliegtuig maakVliegtuigVanRequest(HttpServletRequest request) {
+        Vliegtuig vliegtuig = new Vliegtuig();
+        int typeID = Integer.parseInt(request.getParameter("typeID"));
+        int luchtvaartmaatschappijID = Integer.parseInt(request.getParameter("maatschappijID"));
+        
+        vliegtuig.setVliegtuigtype_id(typeID);
+        vliegtuig.setLuchtvaartmaatschappij_id(luchtvaartmaatschappijID);
+        
         return vliegtuig;
     }
 

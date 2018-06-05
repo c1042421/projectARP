@@ -8,17 +8,15 @@ package hbo5.it.www.factory;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 /**
  *
  * @author c1042421
  */
 public class LuchtvaartmaatschappijFactory extends BaseFactory {
    
+    
     @Override
-    public Luchtvaartmaatschappij maakObject(ResultSet resultset) throws SQLException {
-        
+    public Luchtvaartmaatschappij maakObject(ResultSet resultset) throws SQLException{
         Luchtvaartmaatschappij lm = new Luchtvaartmaatschappij();
 
         int id = getIdForColumnName("LUCHTVAARTMAATSCHAPPIJ_ID", resultset);

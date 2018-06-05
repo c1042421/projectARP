@@ -11,8 +11,14 @@ import hbo5.it.www.beans.Hangar;
 import hbo5.it.www.beans.Land;
 import hbo5.it.www.beans.Luchthaven;
 import hbo5.it.www.beans.Luchtvaartmaatschappij;
+import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.dataacces.DALand;
+import hbo5.it.www.dataacces.DALuchthaven;
+import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
+import hbo5.it.www.dataacces.DAVliegtuig;
 import hbo5.it.www.beans.Stockage;
 import hbo5.it.www.beans.Vliegtuig;
+import hbo5.it.www.beans.Vliegtuigtype;
 import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.beans.VluchtBemanning;
 import hbo5.it.www.dataacces.DABemanningslid;
@@ -23,6 +29,7 @@ import hbo5.it.www.dataacces.DALuchthaven;
 import hbo5.it.www.dataacces.DALuchtvaartmaatschappij;
 import hbo5.it.www.dataacces.DAStockage;
 import hbo5.it.www.dataacces.DAVliegtuig;
+import hbo5.it.www.dataacces.DAVliegtuigType;
 import hbo5.it.www.dataacces.DAVlucht;
 import hbo5.it.www.dataacces.DAVluchtBemanning;
 import java.io.IOException;
@@ -68,6 +75,7 @@ public class BeheerServlet extends HttpServlet {
 
             DALuchthaven daLuchthaven = new DALuchthaven(url, login, password, driver);
             DALand daLand = new DALand(url, login, password, driver);
+
             DAFunctie daFunctie = new DAFunctie(url, login, password, driver);
             DALuchtvaartmaatschappij daLuchtvaartmaatschappij = new DALuchtvaartmaatschappij(url, login, password, driver);
             DABemanningslid daBemanningslid = new DABemanningslid(url, login, password, driver);
@@ -76,6 +84,7 @@ public class BeheerServlet extends HttpServlet {
             DAVliegtuig daVliegtuig = new DAVliegtuig(url, login, password, driver);
             DAStockage daStockage = new DAStockage(url, login, password, driver);
             DAHangar daHangar = new DAHangar(url, login, password, driver);
+            DAVliegtuigType daVliegtuigType = new DAVliegtuigType(url, login, password, driver);
 
             String beheerpagina = request.getParameter("beheerpagina");
             String objectType = request.getParameter("objectType");
@@ -105,6 +114,33 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("luchthavens", luchthavens);
 
                     request.getRequestDispatcher("beheer_luchthavens.jsp").forward(request, response);
+                }
+
+            } else if (objectType.equals("vliegtuig")) {
+                Vliegtuig vl = daVliegtuig.getVliegtuigForID(id);
+                session.setAttribute("teVerwijderenVliegtuig", null);
+                
+                ArrayList<Luchtvaartmaatschappij> lvm = daLuchtvaartmaatschappij.getAlleLuchtvaartmaatschappijen();
+                ArrayList<Vliegtuigtype> vliegtuigTypes = daVliegtuigType.getAlleVliegtuigTypes();
+                session.setAttribute("luchtvaartmaatschappijen", lvm);
+                session.setAttribute("vliegtuigTypes", vliegtuigTypes);
+                
+                if (pasaan) {
+                    session.setAttribute("editVliegtuig", vl);
+                    
+                } else if (verwijder) {
+                    
+                    if ( daVlucht.checkOfVluchtVliegtuigBevat(id)) {
+                        session.setAttribute("teVerwijderenVliegtuig", vl);
+                        request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
+                    }
+                    
+                    daVliegtuig.verwijderVliegtuigForID(id);
+                    
+                    ArrayList<Vliegtuig> vliegtuigen = daVliegtuig.getAlleVliegtuigen();
+                    session.setAttribute("vliegtuigen", vliegtuigen);
+                    
+                    request.getRequestDispatcher("beheer_vliegtuigen.jsp").forward(request, response);
                 }
             } else if (objectType.equals("bemanningslid")) {
 
@@ -179,6 +215,31 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("stockages", stockages);
                     request.getRequestDispatcher("beheer_stockage.jsp").forward(request, response);
                 }
+
+                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
+
+                
+            } else if (objectType.equals("hangar")) {
+                Hangar hangar = daHangar.getHangerByID(id);
+                if (pasaan || nieuw) {
+                    ArrayList<Hangar> hangars = daHangar.getAlleHangars();
+                    session.setAttribute("hangars", hangars);
+
+                    if (pasaan) {
+                        session.setAttribute("editHangar", hangar);
+                    }
+                } else if (verwijder) {
+                    if (daStockage.stockageHeeftHangar(id)) {
+                        session.setAttribute("teVerwijderenHangar", hangar);
+                    }
+                    daHangar.verwijderHangarForID(id);
+
+                    ArrayList<Hangar> hangars = daHangar.getAlleHangars();
+                    session.setAttribute("hangar", hangars);
+                    request.getRequestDispatcher("beheer_hangar.jsp").forward(request, response);
+                }
+
+                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
             }
             request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
         } catch (Exception e) {

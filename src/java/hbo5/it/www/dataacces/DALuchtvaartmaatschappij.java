@@ -23,6 +23,7 @@ public class DALuchtvaartmaatschappij extends DABase {
         super(url, login, password, driver);
     }  
     
+
     public Luchtvaartmaatschappij getLuchtvaartmaatschappijForID(int id) {
         try (
                 Connection connection = DriverManager.getConnection(url, login, password);

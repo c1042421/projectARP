@@ -18,12 +18,40 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class LuchthavenFactory extends BaseFactory {
 
+    public Luchthaven maakObject(ResultSet resultset, String idColumn) throws SQLException {
+         Luchthaven luchthaven = new Luchthaven();
+        
+        try {
+            
+            Land land = new LandFactory().maakObject(resultset);
+            luchthaven.setLand(land);
+            
+        } catch(Exception e) {
+            
+        }
+        
+        int id = getIdForColumnName(idColumn, resultset);
+        
+        luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
+        luchthaven.setStad(resultset.getString("stad"));
+        luchthaven.setId(id);
+        luchthaven.setLand_id(resultset.getInt("land_id"));
+
+        return luchthaven;
+    }
+    
     @Override
     public Luchthaven maakObject(ResultSet resultset) throws SQLException {
         Luchthaven luchthaven = new Luchthaven();
-        Land land = new LandFactory().maakObject(resultset);
+        
+        try {
+            Land land = new LandFactory().maakObject(resultset);
 
-        luchthaven.setLand(land);
+            luchthaven.setLand(land);
+        } catch(Exception e) {
+            
+        }
+        
         luchthaven.setLuchthavennaam(resultset.getString("luchthavennaam"));
         luchthaven.setStad(resultset.getString("stad"));
         luchthaven.setId(resultset.getInt("id"));

@@ -89,6 +89,53 @@ public class DAVliegtuig extends DABase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return null;        
+    }
+    
+    public int verwijderVliegtuigForID(int id) {
+         try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Delete from VLIEGTUIG where id=?");) {
+
+            statement.setInt(1, id);
+            
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int update(Vliegtuig vliegtuig) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Update VLIEGTUIG SET LUCHTVAARTMAATSCHAPPIJ_ID=?, VLIEGTUIGTYPE_ID=? where id=?");) {
+
+            statement.setInt(2, vliegtuig.getVliegtuigtype_id());
+            statement.setInt(1, vliegtuig.getLuchtvaartmaatschappij_id());
+            statement.setInt(3, vliegtuig.getId());
+
+            return statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int voegVliegtuigToe(Vliegtuig vliegtuig) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("Insert into vliegtuig values (vliegtuig_seq.nextval, ?, ?)");) {
+
+            statement.setInt(1, vliegtuig.getVliegtuigtype_id());
+            statement.setInt(2, vliegtuig.getLuchtvaartmaatschappij_id());
+
+            return statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

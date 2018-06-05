@@ -151,4 +151,21 @@ public class DAVlucht extends DABase {
         }
         return null;
     }
+
+    public boolean checkOfVluchtVliegtuigBevat(int vliegtuigID) {
+        try (
+                Connection connection = DriverManager.getConnection(url, login, password);
+                PreparedStatement statement = connection.prepareStatement("select * From vlucht where vliegtuig_id = ?");) {
+
+            statement.setInt(1, vliegtuigID);
+
+            ResultSet resultset = statement.executeQuery();
+            
+            return resultset.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
