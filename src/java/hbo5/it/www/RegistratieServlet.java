@@ -52,12 +52,13 @@ public class RegistratieServlet extends HttpServlet {
             String password = getInitParameter("password");
             String driver = getInitParameter("driver");
 
-            Persoon p = PersoonFactory.maakPersoonVanRequest(request);
+            Persoon p = new PersoonFactory().maakPersoonVanRequest(request);
 
             
             DAPersoon daPersoon = new DAPersoon(url, login, password, driver); 
             
             if(p != null) {
+                p.setSoort('P');
                 boolean registratieGelukt = daPersoon.voegGebruikerToe(p);
                 if (registratieGelukt) {
                     request.getRequestDispatcher("index.jsp").forward(request, response);

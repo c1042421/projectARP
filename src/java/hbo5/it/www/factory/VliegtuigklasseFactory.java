@@ -15,17 +15,22 @@ import java.sql.SQLException;
  */
 public class VliegtuigklasseFactory extends BaseFactory {
 
-    public static Vliegtuigklasse maakVluchtVanResultset(ResultSet resultset) throws SQLException {
+    public Vliegtuigklasse maakVluchtVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
-            Vliegtuigklasse klasse = new Vliegtuigklasse();
-            
-            klasse.setId(resultset.getInt("id"));
-            klasse.setKlassenaam(resultset.getString("klassenaam"));
-            
-            return klasse;
+            return maakObject(resultset);
         }
-        
+
         return null;
     }
-    
+
+    @Override
+    public Vliegtuigklasse maakObject(ResultSet resultset) throws SQLException {
+        Vliegtuigklasse klasse = new Vliegtuigklasse();
+
+        klasse.setId(resultset.getInt("id"));
+        klasse.setKlassenaam(resultset.getString("klassenaam"));
+
+        return klasse;
+    }
+
 }

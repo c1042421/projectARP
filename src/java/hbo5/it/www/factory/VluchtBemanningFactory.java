@@ -1,27 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hbo5.it.www.factory;
+
+import hbo5.it.www.beans.Bemanningslid;
+import hbo5.it.www.beans.Vlucht;
 import hbo5.it.www.beans.VluchtBemanning;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author c1042410
  */
-public class VluchtBemanningFactory {
-    public static VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException{
+public class VluchtBemanningFactory extends BaseFactory {
+
+    public VluchtBemanning maakVluchtbemanningVanResultset(ResultSet resultset) throws SQLException {
         if (resultset.next()) {
             return maakObject(resultset);
         }
         return null;
     }
-    
-    public static VluchtBemanning maakObject(ResultSet resultset) throws SQLException {
+
+    @Override
+    public VluchtBemanning maakObject(ResultSet resultset) throws SQLException {
         VluchtBemanning vluchtbemanning = new VluchtBemanning();
 
         vluchtbemanning.setId(resultset.getInt("ID"));
@@ -29,16 +30,29 @@ public class VluchtBemanningFactory {
         vluchtbemanning.setBemanningslid_id(resultset.getInt("BEMANNINGSLID_ID"));
         vluchtbemanning.setVlucht_id(resultset.getInt("VLUCHT_ID"));
 
+        try {
+            Bemanningslid bemanningslid = new BemanningFactory().maakObject(resultset);
+            vluchtbemanning.setBemanningslid(bemanningslid);
+           
+            Vlucht vlucht = new VluchtFactory().maakObject(resultset);
+            vluchtbemanning.setVlucht(vlucht);
+        } catch (Exception e) {
+        }
+
         return vluchtbemanning;
     }
 
-    public static ArrayList<VluchtBemanning> maakVluchtbemanningsLijstVanResultset(ResultSet resultset) throws SQLException {
-        ArrayList<VluchtBemanning> lijst = new ArrayList<>();
+    public VluchtBemanning maakVluchtBemanningVanRequest(HttpServletRequest request) {
+        VluchtBemanning vluchtbemanning = new VluchtBemanning();
         
-        while(resultset.next()) {
-            lijst.add(maakObject(resultset));
-        }
+        try {
+            vluchtbemanning.setId(Integer.parseInt(request.getParameter("id")));   
+        } catch(Exception e){}
         
-        return lijst;
+        vluchtbemanning.setTaak(request.getParameter("taak_id"));
+        vluchtbemanning.setBemanningslid_id(Integer.parseInt(request.getParameter("bemannings_id")));
+        vluchtbemanning.setVlucht_id(Integer.parseInt(request.getParameter("vlucht_id")));
+        
+        return vluchtbemanning;
     }
 }

@@ -18,37 +18,35 @@ import java.util.ArrayList;
  */
 public class VliegtuigFactory extends BaseFactory {
 
-    public static Vliegtuig maakVliegtuigVanResultset(ResultSet resultset) throws SQLException {
-        if (resultset.next()){
+    public Vliegtuig maakVliegtuigVanResultset(ResultSet resultset) throws SQLException {
+        if (resultset.next()) {
             return maakObject(resultset);
         }
-        
+
         return null;
     }
-    
-    private static Vliegtuig maakObject(ResultSet resultset) throws SQLException{
-            Vliegtuig vliegtuig = new Vliegtuig();
-            
-            Luchtvaartmaatschappij lm = LuchtvaartmaatschappijFactory.maakLuchtvaartmaatschappijVanResultsetZonderNext(resultset);
-            Vliegtuigtype type = VliegtuigtypeFactory.maakVliegtuigtypeVanResultsetZonderNext(resultset);
-            
+
+    @Override
+    public Vliegtuig maakObject(ResultSet resultset) throws SQLException {
+        Vliegtuig vliegtuig = new Vliegtuig();
+
+        try {
+            Luchtvaartmaatschappij lm = new LuchtvaartmaatschappijFactory().maakObject(resultset);
+            Vliegtuigtype type = new VliegtuigtypeFactory().maakObject(resultset);
+
             vliegtuig.setLuchtvaartmaatschappij(lm);
             vliegtuig.setVliegtuigtype(type);
-            
-            vliegtuig.setId(resultset.getInt("id"));
-            vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
-            vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
-                        
-            return vliegtuig;
+        } catch (Exception e) {
+
         }
 
-    public static ArrayList<Vliegtuig> maakLijstVanVliegtuigen(ResultSet resultset) throws SQLException {
-        ArrayList<Vliegtuig> lijstVliegtuigen = new ArrayList<>();
-        
-        while (resultset.next()){
-            lijstVliegtuigen.add(maakObject(resultset));
-        }
-        return lijstVliegtuigen;
+        int id = getIdForColumnName("vliegtuig_id", resultset);
+        vliegtuig.setId(id);
+
+        vliegtuig.setLuchtvaartmaatschappij_id(resultset.getInt("LUCHTVAARTMAATSCHAPPIJ_ID"));
+        vliegtuig.setVliegtuigtype_id(resultset.getInt("VLIEGTUIGTYPE_ID"));
+
+        return vliegtuig;
     }
-    
+
 }

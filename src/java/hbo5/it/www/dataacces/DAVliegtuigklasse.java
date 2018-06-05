@@ -31,7 +31,7 @@ public class DAVliegtuigklasse extends DABase {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             
-            return VliegtuigklasseFactory.maakVluchtVanResultset(resultset);
+            return new VliegtuigklasseFactory().maakVluchtVanResultset(resultset);
             
         } catch (Exception e) {
             e.printStackTrace();
