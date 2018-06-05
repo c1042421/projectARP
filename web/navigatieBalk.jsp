@@ -12,6 +12,12 @@
                     <i class="fas fa-home"> </i>
                     <p>Home</p>
                 </a>
+                <form action="StartServlet">
+                   <button class="left-margin menu" type="submit">
+                        <i class="fas fa-search"></i>
+                        Zoek Vluchten
+                    </button>
+               </form>
                <a class="left-margin flex-container-center-center flex-row menu" href="passagiersVluchten.jsp">
                     <i class="fas fa-plane"> </i>
                     <p>Mijn Vluchten</p>

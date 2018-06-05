@@ -4,6 +4,8 @@
     Author     : c1042486
 --%>
 
+<%@page import="hbo5.it.www.beans.Luchthaven"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,23 +18,35 @@
     <body>
          <jsp:include page="navigatieBalk.jsp" />
        
-        <form class="containerZoek" action="ZoekServlet">
+        <form class="containerZoek" action="zoekServlet" method="Get">
              <h2 class="boxZoek">Algemeen zoeken</h2>
+             <% ArrayList<Luchthaven> luchthavens = (ArrayList<Luchthaven>) session.getAttribute("luchthavens");%>
+                
+             
+             <p>Selecteer een luchthaven:</p>
+             <select id="selectLuchthaven" name="luchthavenID">
+                 <% if (!luchthavens.isEmpty()) {
+                        for (Luchthaven luchthaven : luchthavens) {%>
+                 <option value="<%=luchthaven.getId()%>"><%=luchthaven.getLuchthavennaam()%></option>
+                <%}}%>
+             </select>
             <p class="boxZoek">Ik zoek:</p>
-            <%String[] keuzeArray = {"Binnenkomende vluchten", "Vertrekkende vluchten"};
-            for (int i=0;  i<keuzeArray.length; i++) {%>
-            <p class="boxZoek"><input type="radio" name="keuze" value="<%=keuzeArray[i]%>" id="<%=i%>"/>
-                <label class="boxZoek" for="<%=i%>"><%=keuzeArray[i]%></label></p>
-            <%}%>
+            <select id="soortVlucht" name="soortVlucht">
+                <option>Binnenkomende vluchten</option>
+                <option>Vertrekkende vluchten</option>
+            </select>
+            <p><input name="zoekfunctie" type="submit" value="Algemeen zoeken"/></p>
+        </form>
+        
+        
+        <form action="zoekServlet" method="Get">
             
-            <p class="boxZoek">Mijn luchthaven: <input type="text" id="luchthaven" name="txtLuchthaven"/>
-            </p>
             
             <h2 class="boxZoek">Specifiek zoeken</h2>
             <p class="boxZoek">Mijn vluchtnummer:<input type="text" id="vluchtnummer" name="txtVluchtnummer"/>
             </p>
             
-            <p class="boxZoek">Mijn vluchtdatum:<input type="text" id="vluchtdatum" name="txtVluchtdatum"/>
+            <p class="boxZoek">Mijn vluchtdatum:<input type="date" id="vluchtdatum" name="txtVluchtdatum"/>
             </p>
             
             <p class="boxZoek">Mijn bestemming:<input type="text" id="bestemming" name="txtBestemming"/>
@@ -41,7 +55,7 @@
             <p class="boxZoek">Mijn luchtvaartmaatschappij:<input type="text" id="luchtvaartmaatschappij" name="txtLuchtvaartmaatschappij"/>
             </p>
             
-            <p><input type="submit" value="Zoek vlucht(en)"/><p>
+            <p><input name="zoekfunctie" type="submit" value="Specifiek zoeken"><p>
         </form>
     </body>
 </html>
