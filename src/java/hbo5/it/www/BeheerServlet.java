@@ -179,10 +179,8 @@ public class BeheerServlet extends HttpServlet {
                     session.setAttribute("stockages", stockages);
                     request.getRequestDispatcher("beheer_stockage.jsp").forward(request, response);
                 }
-
-                request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
-
             }
+            request.getRequestDispatcher(beheerpagina + ".jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
